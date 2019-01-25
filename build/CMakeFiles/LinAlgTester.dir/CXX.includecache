@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/andrewaposhian/developer/math5610/src/lib/maceps.hpp
+
+/Users/andrewaposhian/developer/math5610/src/lib/test_main.cpp
+iostream
+-
+maceps.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/maceps.hpp
+
