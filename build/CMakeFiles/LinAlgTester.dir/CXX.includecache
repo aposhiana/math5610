@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/andrewaposhian/developer/math5610/src/lib/maceps.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
 
 /Users/andrewaposhian/developer/math5610/src/lib/test_main.cpp
 iostream
 -
-maceps.hpp
-/Users/andrewaposhian/developer/math5610/src/lib/maceps.hpp
+MachineEpsilon.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
 

@@ -57,38 +57,38 @@ include CMakeFiles/linalg.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/linalg.dir/flags.make
 
-CMakeFiles/linalg.dir/lib/maceps.cpp.o: CMakeFiles/linalg.dir/flags.make
-CMakeFiles/linalg.dir/lib/maceps.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/maceps.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/andrewaposhian/developer/math5610/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/linalg.dir/lib/maceps.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/linalg.dir/lib/maceps.cpp.o -c /Users/andrewaposhian/developer/math5610/src/lib/maceps.cpp
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o: CMakeFiles/linalg.dir/flags.make
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/andrewaposhian/developer/math5610/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o -c /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.cpp
 
-CMakeFiles/linalg.dir/lib/maceps.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/linalg.dir/lib/maceps.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/andrewaposhian/developer/math5610/src/lib/maceps.cpp > CMakeFiles/linalg.dir/lib/maceps.cpp.i
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.cpp > CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.i
 
-CMakeFiles/linalg.dir/lib/maceps.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/linalg.dir/lib/maceps.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/andrewaposhian/developer/math5610/src/lib/maceps.cpp -o CMakeFiles/linalg.dir/lib/maceps.cpp.s
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.cpp -o CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.s
 
-CMakeFiles/linalg.dir/lib/maceps.cpp.o.requires:
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.requires:
 
-.PHONY : CMakeFiles/linalg.dir/lib/maceps.cpp.o.requires
+.PHONY : CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.requires
 
-CMakeFiles/linalg.dir/lib/maceps.cpp.o.provides: CMakeFiles/linalg.dir/lib/maceps.cpp.o.requires
-	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/maceps.cpp.o.provides.build
-.PHONY : CMakeFiles/linalg.dir/lib/maceps.cpp.o.provides
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.provides: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.requires
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.provides.build
+.PHONY : CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.provides
 
-CMakeFiles/linalg.dir/lib/maceps.cpp.o.provides.build: CMakeFiles/linalg.dir/lib/maceps.cpp.o
+CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.provides.build: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o
 
 
 # Object files for target linalg
 linalg_OBJECTS = \
-"CMakeFiles/linalg.dir/lib/maceps.cpp.o"
+"CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o"
 
 # External object files for target linalg
 linalg_EXTERNAL_OBJECTS =
 
-liblinalg.a: CMakeFiles/linalg.dir/lib/maceps.cpp.o
+liblinalg.a: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o
 liblinalg.a: CMakeFiles/linalg.dir/build.make
 liblinalg.a: CMakeFiles/linalg.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/andrewaposhian/developer/math5610/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library liblinalg.a"
@@ -100,7 +100,7 @@ CMakeFiles/linalg.dir/build: liblinalg.a
 
 .PHONY : CMakeFiles/linalg.dir/build
 
-CMakeFiles/linalg.dir/requires: CMakeFiles/linalg.dir/lib/maceps.cpp.o.requires
+CMakeFiles/linalg.dir/requires: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.requires
 
 .PHONY : CMakeFiles/linalg.dir/requires
 

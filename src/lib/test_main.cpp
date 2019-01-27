@@ -1,8 +1,11 @@
 #include <iostream>
-#include "maceps.hpp"
+#include "MachineEpsilon.hpp"
 
 int main() {
-    std::cout << "Hello world" << std::endl;
-    fakeFunc(12);
+    std::cout << "BEGINNING TESTS..." << std::endl;
+
+    std::cout << "Single Machine Epsilon: " << getMachineEpsilon() << std::endl;
+    std::cout << "Double Machine Epsilon: " << getDoubleMachineEpsilon() << std::endl;
+
     return 0;
 }

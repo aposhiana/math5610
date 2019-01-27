@@ -1,9 +1,14 @@
-MATH 5610 Computational Linear Algebra
+## MATH 5610:  Computational Linear Algebra
 
-Software Manual
+#### How to use this library
 
-Homework
 
-* Homework 1
-* Homework 2
-* Homework 3
+#### Software manual
+The software manual is the technical documentation for this project. It includes detailed descriptions of all routines with examples. [See the software manual](./software_manual/).
+
+#### Homework
+Here are links to all of my homeworks.
+
+* [Homework 1](./homework/homework01)
+* [Homework 2](./homework/homework02)
+* [Homework 3](./homework/homework03)

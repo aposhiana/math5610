@@ -136,32 +136,32 @@ linalg/fast:
 	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/build
 .PHONY : linalg/fast
 
-lib/maceps.o: lib/maceps.cpp.o
+lib/MachineEpsilon.o: lib/MachineEpsilon.cpp.o
 
-.PHONY : lib/maceps.o
+.PHONY : lib/MachineEpsilon.o
 
 # target to build an object file
-lib/maceps.cpp.o:
-	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/maceps.cpp.o
-.PHONY : lib/maceps.cpp.o
+lib/MachineEpsilon.cpp.o:
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o
+.PHONY : lib/MachineEpsilon.cpp.o
 
-lib/maceps.i: lib/maceps.cpp.i
+lib/MachineEpsilon.i: lib/MachineEpsilon.cpp.i
 
-.PHONY : lib/maceps.i
+.PHONY : lib/MachineEpsilon.i
 
 # target to preprocess a source file
-lib/maceps.cpp.i:
-	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/maceps.cpp.i
-.PHONY : lib/maceps.cpp.i
+lib/MachineEpsilon.cpp.i:
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.i
+.PHONY : lib/MachineEpsilon.cpp.i
 
-lib/maceps.s: lib/maceps.cpp.s
+lib/MachineEpsilon.s: lib/MachineEpsilon.cpp.s
 
-.PHONY : lib/maceps.s
+.PHONY : lib/MachineEpsilon.s
 
 # target to generate assembly for a file
-lib/maceps.cpp.s:
-	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/maceps.cpp.s
-.PHONY : lib/maceps.cpp.s
+lib/MachineEpsilon.cpp.s:
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.s
+.PHONY : lib/MachineEpsilon.cpp.s
 
 lib/test_main.o: lib/test_main.cpp.o
 
@@ -200,9 +200,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... LinAlgTester"
 	@echo "... linalg"
-	@echo "... lib/maceps.o"
-	@echo "... lib/maceps.i"
-	@echo "... lib/maceps.s"
+	@echo "... lib/MachineEpsilon.o"
+	@echo "... lib/MachineEpsilon.i"
+	@echo "... lib/MachineEpsilon.s"
 	@echo "... lib/test_main.o"
 	@echo "... lib/test_main.i"
 	@echo "... lib/test_main.s"

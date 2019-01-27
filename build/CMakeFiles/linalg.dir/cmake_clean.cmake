@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/linalg.dir/lib/maceps.cpp.o"
+  "CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o"
   "liblinalg.pdb"
   "liblinalg.a"
 )

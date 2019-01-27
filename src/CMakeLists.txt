@@ -6,12 +6,15 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 add_library(linalg STATIC
-    lib/maceps.hpp
-    lib/maceps.cpp
+    lib/MachineEpsilon.hpp
+    lib/MachineEpsilon.cpp
 )
 
+# TODO: move the tests to test directory not lib
 add_executable(LinAlgTester
     lib/test_main.cpp
 )
+
+set_target_properties(linalg PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(LinAlgTester linalg)
