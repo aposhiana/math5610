@@ -4,11 +4,7 @@
 
 
 #### Software manual
-The software manual is the technical documentation for this project. It includes detailed descriptions of all routines with examples. [See the software manual](./software_manual/).
+The software manual is the technical documentation for this project. It includes detailed descriptions of all routines with examples. [See the software manual](./software_manual/README).
 
 #### Homework
-Here are links to all of my homeworks.
-
-* [Homework 1](./homework/homework01)
-* [Homework 2](./homework/homework02)
-* [Homework 3](./homework/homework03)
+My homeworks are included in this repository as markdown files. The homeowork tasks contain short descriptions and links to the relevent files produced and software manual entries. [See homwork](./homework/README).

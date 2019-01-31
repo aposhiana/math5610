@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/Users/andrewaposhian/developer/math5610/src/lib/Array.hpp
+
+/Users/andrewaposhian/developer/math5610/src/lib/DenseArray.hpp
+Array.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/Array.hpp
+DenseArray.ipp
+/Users/andrewaposhian/developer/math5610/src/lib/DenseArray.ipp
+
+/Users/andrewaposhian/developer/math5610/src/lib/DenseArray.ipp
+
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
 
 /Users/andrewaposhian/developer/math5610/src/lib/test_main.cpp
@@ -13,4 +23,6 @@ iostream
 -
 MachineEpsilon.hpp
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
+DenseArray.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/DenseArray.hpp
 

@@ -1,5 +1,5 @@
-#ifndef MACEPS_HPP
-#define MACEPS_HPP
+#ifndef _MACHINE_EPSILON_HPP_
+#define _MACHINE_EPSILON_HPP_
 
 float getMachineEpsilon();
 
