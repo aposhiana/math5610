@@ -2,7 +2,7 @@
 
 #### How to use this library
 
-If you have a gcc compatible compiler, simply run `./build_run.sh` to build and excecute the tests for this project.
+If you have a gcc compatible compiler, run `./build_run.sh` to build and execute the tests for this project.
 
 #### Software manual
 The software manual is the technical documentation for this project. It includes detailed descriptions of all routines with examples. [See the software manual](./software_manual/README).
