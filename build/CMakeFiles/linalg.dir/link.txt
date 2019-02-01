@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc liblinalg.a  CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ar qc liblinalg.a  CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o
 /Library/Developer/CommandLineTools/usr/bin/ranlib liblinalg.a

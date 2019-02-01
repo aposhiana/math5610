@@ -136,6 +136,33 @@ linalg/fast:
 	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/build
 .PHONY : linalg/fast
 
+lib/ArrayUtils.o: lib/ArrayUtils.cpp.o
+
+.PHONY : lib/ArrayUtils.o
+
+# target to build an object file
+lib/ArrayUtils.cpp.o:
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o
+.PHONY : lib/ArrayUtils.cpp.o
+
+lib/ArrayUtils.i: lib/ArrayUtils.cpp.i
+
+.PHONY : lib/ArrayUtils.i
+
+# target to preprocess a source file
+lib/ArrayUtils.cpp.i:
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.i
+.PHONY : lib/ArrayUtils.cpp.i
+
+lib/ArrayUtils.s: lib/ArrayUtils.cpp.s
+
+.PHONY : lib/ArrayUtils.s
+
+# target to generate assembly for a file
+lib/ArrayUtils.cpp.s:
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.s
+.PHONY : lib/ArrayUtils.cpp.s
+
 lib/MachineEpsilon.o: lib/MachineEpsilon.cpp.o
 
 .PHONY : lib/MachineEpsilon.o
@@ -200,6 +227,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... LinAlgTester"
 	@echo "... linalg"
+	@echo "... lib/ArrayUtils.o"
+	@echo "... lib/ArrayUtils.i"
+	@echo "... lib/ArrayUtils.s"
 	@echo "... lib/MachineEpsilon.o"
 	@echo "... lib/MachineEpsilon.i"
 	@echo "... lib/MachineEpsilon.s"

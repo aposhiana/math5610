@@ -8,6 +8,7 @@ public:
     virtual T& operator()(const unsigned int i, const unsigned int j)=0;
     virtual void makeZeros()=0;
     virtual void makeIdentity()=0;
+    virtual void print()=0;
 };
 
 #endif

@@ -13,13 +13,13 @@ public:
     ~DenseArray();
     DenseArray(const unsigned int rowDim, const unsigned int colDim) : 
         m_rowDim(rowDim), m_colDim(colDim) {};
-    DenseArray(const T** array, const unsigned int rowDim, const unsigned int colDim) : 
+    DenseArray(T** array, const unsigned int rowDim, const unsigned int colDim) : 
         m_array(array), m_rowDim(rowDim), m_colDim(colDim) {};
 
     // Shortcut constructors for square arrays
     DenseArray(const unsigned int axesDim)
         { return DenseArray(axesDim, axesDim); }
-    DenseArray(const T** array, const unsigned int axesDim)
+    DenseArray(T** array, const unsigned int axesDim)
         { return DenseArray(array, axesDim, axesDim); }
 
     T* operator()(const unsigned int i) override 
@@ -30,6 +30,7 @@ public:
     // Shortcuts to initialize m_array
     void makeZeros() override;
     void makeIdentity() override;
+    void print() override;
 };
 
 #include "DenseArray.ipp"

@@ -22,7 +22,13 @@
     Hello world
     Hello world
     ```
-8.
+8. Douglas N. Arnold, former president of SIAM, describes several disasters that have occurred due to numerical computing mistakes. The descriptions can be found [here](http://www-users.math.umn.edu/~arnold//disasters/). Here are summaries of the disasters:
+
+    **1) Patriot Missile failure.** During the Gulf War, a Patriot Missile failed to intercept an Iraqi missile, resulting in 28 soldiers being killed, around 100 others being injured, and the destruction of a US Army barracks. The failure was due to accumulating error in the system's clock which occurred because of a multiplication every second by 1/10 done to compute time in seconds. The error accumulated because the value 1/10 has a non-terminal binary expansion, but it was only stored using 24 bits of precision. The truncation introduced error in the result every time the multiplication was made.
+
+    **2) Explosion of Ariane 5 rocket.** In 1996, the Ariane 5 rocket exploded after lift off. The failure was due to a software error where a 64-bit floating point number was converted to a 16-bit integer. The number was larger than the 16-bit integer could hold causing the conversion to fail. The development of the rocket had taken 10 years and costed \$7 billion in development and \$500 million for the rocket and its cargo.
+
+    **3) Sinking of the Sleipner A offshore platform.** The sinking ot the Sleipner A platform was due to the failure of a concrete structure known as a tricell. The tricells form part of the cell structure which supports the platform and raises it above the sea-floor. The tricell was not designed sufficiently strong, causing a cell wall to break and let in excessive water. The reason for the insufficient design was an incorrect finite element analysis computation done to analyze the stresses on the tricell. The computation was done using a popular finite element analysis program.
 9.
 10. NumPy LAPACK Eigen Armadillo
 

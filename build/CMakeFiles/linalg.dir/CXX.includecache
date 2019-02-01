@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.cpp
+cstdlib
+-
+ArrayUtils.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.hpp
+
+/Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.hpp
+
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.cpp
 MachineEpsilon.hpp
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp

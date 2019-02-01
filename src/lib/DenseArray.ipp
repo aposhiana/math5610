@@ -1,3 +1,6 @@
+#include <iostream>
+#include <exception>
+
 template <typename T>
 void DenseArray<T>::makeZeros() {
     T** a = new T*[m_rowDim];
@@ -29,5 +32,15 @@ DenseArray<T>::~DenseArray() {
             delete[] m_array[i];
         }
         delete[] m_array;
+    }
+}
+
+template <typename T>
+void DenseArray<T>::print() {
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        for (unsigned int j = 0; j < m_colDim; j++) {
+            std::cout << m_array[i][j] << ' ';
+        }
+        std::cout << std::endl;
     }
 }

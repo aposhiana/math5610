@@ -6,6 +6,11 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -g ${CMAKE_CXX_FLAGS}")
 add_library(linalg STATIC
     lib/MachineEpsilon.hpp
     lib/MachineEpsilon.cpp
+    lib/Array.hpp
+    lib/ArrayUtils.cpp
+    lib/ArrayUtils.hpp
+    lib/DenseArray.hpp
+    lib/DenseArray.ipp
 )
 
 # TODO: move the tests to test directory not lib

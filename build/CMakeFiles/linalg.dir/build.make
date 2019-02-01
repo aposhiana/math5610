@@ -81,17 +81,43 @@ CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.provides: CMakeFiles/linalg.dir/l
 CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.provides.build: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o
 
 
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o: CMakeFiles/linalg.dir/flags.make
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/andrewaposhian/developer/math5610/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o -c /Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.cpp
+
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.cpp > CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.i
+
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.cpp -o CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.s
+
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.requires:
+
+.PHONY : CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.requires
+
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.provides: CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.requires
+	$(MAKE) -f CMakeFiles/linalg.dir/build.make CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.provides.build
+.PHONY : CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.provides
+
+CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.provides.build: CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o
+
+
 # Object files for target linalg
 linalg_OBJECTS = \
-"CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o"
+"CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o" \
+"CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o"
 
 # External object files for target linalg
 linalg_EXTERNAL_OBJECTS =
 
 liblinalg.a: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o
+liblinalg.a: CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o
 liblinalg.a: CMakeFiles/linalg.dir/build.make
 liblinalg.a: CMakeFiles/linalg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/andrewaposhian/developer/math5610/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library liblinalg.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/andrewaposhian/developer/math5610/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library liblinalg.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/linalg.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/linalg.dir/link.txt --verbose=$(VERBOSE)
 
@@ -101,6 +127,7 @@ CMakeFiles/linalg.dir/build: liblinalg.a
 .PHONY : CMakeFiles/linalg.dir/build
 
 CMakeFiles/linalg.dir/requires: CMakeFiles/linalg.dir/lib/MachineEpsilon.cpp.o.requires
+CMakeFiles/linalg.dir/requires: CMakeFiles/linalg.dir/lib/ArrayUtils.cpp.o.requires
 
 .PHONY : CMakeFiles/linalg.dir/requires
 
