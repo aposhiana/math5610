@@ -8,4 +8,4 @@ If you have a gcc compatible compiler, run `./build_run.sh` to build and execute
 The software manual is the technical documentation for this project. It includes detailed descriptions of all routines with examples. [See the software manual](software_manual/README.md).
 
 #### Homework
-My homeworks are included in this repository as markdown files. The homeowork tasks contain short descriptions and links to the relevent files produced and software manual entries. [See homwork](homework/README.md).
+My homeworks are included in this repository as markdown files. The homeowork tasks contain short descriptions and links to the relevent files produced and software manual entries. [See homework](homework/README.md).
