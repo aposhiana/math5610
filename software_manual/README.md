@@ -5,9 +5,9 @@ by Andrew Aposhian
 
 * **Basic computional math routines**
     * MachineEpsilon.hpp
-        * [getMachineEpsilon](./getMachineEpsilon)
-        * [getDoubleMachineEpsilon](./getDoubleMachineEpsilon)
+        * [getMachineEpsilon](./getMachineEpsilon.md)
+        * [getDoubleMachineEpsilon](./getDoubleMachineEpsilon.md)
 * **Basic linear algebra routines**
     * ArrayUtils.hpp
-        * [makeRandomArray](./makeRandomArray)
+        * [makeRandomArray](./makeRandomArray.md)
 * **Solution of Linear Systems**

@@ -1,10 +1,10 @@
 ### First task set
-1. I wrote two routines, `getMachineEpsilon` and `getDoubleMachineEpsilon`, both of which are defined in `MachineEpsilon.hpp`. They return the machine epsilon for single and double precision floating point data types respectively. See the software manual entries for [getMachineEpsilon](../software_manual/getMachineEpsilon) and [getDoubleMachineEpsilon](../software_manual/getDoubleMachineEpsilon)
+1. I wrote two routines, `getMachineEpsilon` and `getDoubleMachineEpsilon`, both of which are defined in `MachineEpsilon.hpp`. They return the machine epsilon for single and double precision floating point data types respectively. See the software manual entries for [getMachineEpsilon](../software_manual/getMachineEpsilon.md) and [getDoubleMachineEpsilon](../software_manual/getDoubleMachineEpsilon.md)
 2. I created my GitHub repository for this class. [See the repository's root directory](https://github.com/aposhiana/math5610).
 3. I enabled GitHub Pages for my math5610 repository. [See the math5610 Pages site](https://aposhiana.github.io/math5610/).
-4. I copied the software manual template file into my software_manual directory. [See the template file](../software_manual/softwareManualTemplate).
-5. I created tables of contents for my homeworks and my software manual. [See the homework table of contents](). [See the software manual table of contents](../software_manual/README).
-6. I used CMake and clang++ to compile my routines into a static library archive file. [See the build directory]().
+4. I copied the software manual template file into my software_manual directory. [See the template file](../software_manual/softwareManualTemplate.md).
+5. I created tables of contents for my homeworks and my software manual. [See the homework table of contents](). [See the software manual table of contents](../software_manual/README.md).
+6. I used CMake and clang++ to compile my routines into a static library archive file. [See the build directory](../build/).
 7. I wrote a Hello World program to test OpenMP with C++ on my Mac. [See the source code for my program](../src/toy_programs/multicore_hello.cpp). To use OpenMP with C++ on macOS, I used the clang++ compiler. Here is an example command for compiling with OpenMP functionality using clang++:
     ```
     clang++ -Xpreprocessor -fopenmp my_program.cpp -o MyProgram -lomp
@@ -29,7 +29,7 @@
     2. **Explosion of Ariane 5 rocket.** In 1996, the Ariane 5 rocket exploded after lift off. The failure was due to a software error where a 64-bit floating point number was converted to a 16-bit integer. The number was larger than the 16-bit integer could hold causing the conversion to fail. The development of the rocket had taken 10 years and costed \$7 billion in development and \$500 million for the rocket and its cargo.
 
     3. **Sinking of the Sleipner A offshore platform.** The sinking ot the Sleipner A platform was due to the failure of a concrete structure known as a tricell. The tricells form part of the cell structure which supports the platform and raises it above the sea-floor. The tricell was not designed sufficiently strong, causing a cell wall to break and let in excessive water. The reason for the insufficient design was an incorrect finite element analysis computation done to analyze the stresses on the tricell. The computation was done using a popular finite element analysis program.
-9. I wrote a utility function called `makeRandomArray` that takes row and column dimensions as parameters and returns an array with its elements set to random values between 0 and 1. [See the software manual entry](../software_manual/makeRandomArray).
+9. I wrote a utility function called `makeRandomArray` that takes row and column dimensions as parameters and returns an array with its elements set to random values between 0 and 1. [See the software manual entry](../software_manual/makeRandomArray.md).
 10. 
     Some important problems that I think we will cover in this class include solving linear systems of equations, solving for eigenvalues, and (more fundamentally) matrix multiplication. The following three websites give some information about these tasks as they are implemented in various libraries:
     
