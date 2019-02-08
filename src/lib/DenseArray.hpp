@@ -8,21 +8,29 @@ class DenseArray : public Array<T> {
 public:
     unsigned int m_rowDim;
     unsigned int m_colDim;
+    bool isSymmetricForm() { return m_isSymmetricForm; }
+    void setSymmetric();
 
     // Constructors
     DenseArray(const unsigned int rowDim, const unsigned int colDim) : 
         m_rowDim(rowDim), m_colDim(colDim) {};
-    DenseArray(T** array, const unsigned int rowDim, const unsigned int colDim) : 
-        m_array(array), m_rowDim(rowDim), m_colDim(colDim) {};
-    // Shortcut constructors for square arrays
+    DenseArray(T** array, const unsigned int rowDim,
+                const unsigned int colDim, const bool symmetric=false) :
+        m_array(array), m_rowDim(rowDim),
+        m_colDim(colDim), m_isSymmetricForm(symmetric)
+        { if (symmetric) { setSymmetric(); }}
+
+    // Constructors for square arrays
     DenseArray(const unsigned int axesDim)
         { return DenseArray(axesDim, axesDim); }
-    DenseArray(T** array, const unsigned int axesDim)
-        { return DenseArray(array, axesDim, axesDim); }
+    DenseArray(T** array, const unsigned int axesDim, const bool symmetric=false)
+        { return DenseArray(array, axesDim, axesDim, symmetric); }
 
     // Overloaded () operator for element acceses by indices
-    T& operator()(const unsigned int i, const unsigned int j) override 
-        { return m_array[i][j]; }
+    T& operator()(unsigned int i, unsigned int j) override;
+    
+    // Element setter
+    void set(unsigned int i, unsigned int j, T value) override;
 
     // Overloaded assignment and move assignment
     DenseArray<T>& operator=(const DenseArray<T>& rhs);
@@ -38,8 +46,10 @@ public:
     void makeIdentity() override;
     void print() override;
 private:
-    // Internal representation of array
-    T** m_array = nullptr;
+    T** m_array = nullptr; // Internal representation of array
+    bool m_isSymmetricForm = false;
+    void deleteArrayMember();
+    void convertToSymmetricIndices(unsigned int& i, unsigned int& j);
 
     // Helper method for assignment and copy constructor
     void makeCopyOfOther(const DenseArray<T>& obj);
