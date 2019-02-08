@@ -6,5 +6,7 @@ CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer
 CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/DenseArray.hpp
 CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/DenseArray.ipp
 CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
+CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/Vector.hpp
+CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/Vector.ipp
 CMakeFiles/LinAlgTester.dir/lib/test_main.cpp.o: /Users/andrewaposhian/developer/math5610/src/lib/test_main.cpp
 

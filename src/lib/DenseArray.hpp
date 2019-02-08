@@ -8,7 +8,11 @@ class DenseArray : public Array<T> {
 public:
     unsigned int m_rowDim;
     unsigned int m_colDim;
+
+    // m_isSymmetricForm getter
     bool isSymmetricForm() { return m_isSymmetricForm; }
+
+    // Change internal array to symetric form
     void setSymmetric();
 
     // Constructors
@@ -43,15 +47,18 @@ public:
 
     // Shortcuts to initialize m_array
     void makeZeros() override;
-    void makeIdentity() override;
+    void makeIdentity();
+
+    // Prints the array
     void print() override;
+
 private:
     T** m_array = nullptr; // Internal representation of array
     bool m_isSymmetricForm = false;
+
+    // Helper methods
     void deleteArrayMember();
     void convertToSymmetricIndices(unsigned int& i, unsigned int& j);
-
-    // Helper method for assignment and copy constructor
     void makeCopyOfOther(const DenseArray<T>& obj);
 };
 

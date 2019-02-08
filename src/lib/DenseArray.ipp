@@ -2,6 +2,8 @@
 #include <exception>
 #include <algorithm>
 
+// Change internal array to symetric form and throw error if
+// the existing array is not symmetric
 template <typename T>
 void DenseArray<T>::setSymmetric() {
     // Assert that the matrix is allegedly square
@@ -115,9 +117,14 @@ DenseArray<T>::~DenseArray() {
 // Prints the array
 template <typename T>
 void DenseArray<T>::print() {
+    if (m_array == nullptr) {
+        std::cout << "internal array not set" << std::endl;
+        return;
+    }
     // TODO: Format nicer
     for (unsigned int i = 0; i < m_rowDim; i++) {
         for (unsigned int j = 0; j < m_colDim; j++) {
+            // Use () operator to handle symmetric matrices
             std::cout << (*this)(i, j) << ' ';
         }
         std::cout << std::endl;

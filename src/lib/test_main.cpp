@@ -3,6 +3,7 @@
 
 #include "MachineEpsilon.hpp"
 #include "DenseArray.hpp"
+#include "Vector.hpp"
 #include "ArrayUtils.hpp"
 
 int main() {
@@ -46,6 +47,14 @@ int main() {
     double** cRawArray = makeRandomArray(cRows, cCols);
     DenseArray<double>* c = new DenseArray<double>(cRawArray, cRows, cCols);
     c->print();
+
+    unsigned int vecCols = 8;
+    Vector<double>* vec = new Vector<double>(vecCols);
+    vec->makeZeros();
+    std::cout << "vector: " << std::endl;
+    vec->print();
+    std::cout << "vector rows: " << std::endl;
+    std::cout << vec->m_rowDim << std::endl;
 
     return 0;
 }

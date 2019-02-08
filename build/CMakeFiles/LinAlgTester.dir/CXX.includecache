@@ -26,6 +26,18 @@ algorithm
 
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
 
+/Users/andrewaposhian/developer/math5610/src/lib/Vector.hpp
+Array.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/Array.hpp
+Vector.ipp
+/Users/andrewaposhian/developer/math5610/src/lib/Vector.ipp
+
+/Users/andrewaposhian/developer/math5610/src/lib/Vector.ipp
+iostream
+-
+exception
+-
+
 /Users/andrewaposhian/developer/math5610/src/lib/test_main.cpp
 iostream
 -
@@ -35,6 +47,8 @@ MachineEpsilon.hpp
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
 DenseArray.hpp
 /Users/andrewaposhian/developer/math5610/src/lib/DenseArray.hpp
+Vector.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/Vector.hpp
 ArrayUtils.hpp
 /Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.hpp
 
