@@ -21,6 +21,8 @@ iostream
 -
 exception
 -
+algorithm
+-
 
 /Users/andrewaposhian/developer/math5610/src/lib/MachineEpsilon.hpp
 
