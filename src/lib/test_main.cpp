@@ -47,6 +47,7 @@ int main() {
     std::cout << vec2->colDim() << std::endl;
 
     Array<double>* sum = add(vec, vec2);
+    sum = multiply(5, sum);
     std::cout << "sum: " << std::endl;
     sum->print();
     return 0;

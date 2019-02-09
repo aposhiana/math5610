@@ -92,18 +92,6 @@ void DenseArray<T>::initializeEmptyArray() {
     }
 }
 
-// // Sets m_array to all zeros
-// template <typename T>
-// void DenseArray<T>::makeZeros() {
-//     setAll(0);
-// }
-
-// // Sets m_array to all ones
-// template <typename T>
-// void DenseArray<T>::makeOnes() {
-//     setAll(1);
-// }
-
 // Sets m_array to the identity
 template <typename T>
 void DenseArray<T>::makeIdentity() {

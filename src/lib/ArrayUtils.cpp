@@ -52,7 +52,7 @@ Array<double>* add(Array<double>* a, Array<double>* b) {
 
 
 // TODO return SparseArray if sparse flag is true (default to false)
-Array<double>* multipy(double scalar, Array<double>* a) {
+Array<double>* multiply(double scalar, Array<double>* a) {
     Array<double>* newArray;
     if (a->colDim() == 1) {
         newArray = new Vector<double>(a->rowDim());
