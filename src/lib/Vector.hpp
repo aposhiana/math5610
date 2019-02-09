@@ -43,7 +43,7 @@ private:
     const unsigned int m_colDim = 1;
 
     void makeCopyOfOther(const Vector<T>& obj);
-    void initializeEmptyArray();
+    void initializeEmptyArray() override;
 };
 
 #include "Vector.ipp"

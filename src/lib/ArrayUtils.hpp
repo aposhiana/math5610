@@ -3,9 +3,6 @@
 
 #include "Array.hpp"
 
-double** makeRandomArray(const unsigned int rowDim, const unsigned int colDim,
-                const double minVal=0.0, const double maxVal=1.0);
-
 Array<double>* add(Array<double>* a, Array<double>* b);
 Array<double>* multiply(double scalar, Array<double>* a);
 Array<double>* multiply(Array<double>* a, Array<double>* b);
