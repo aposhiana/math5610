@@ -8,5 +8,6 @@ double** makeRandomArray(const unsigned int rowDim, const unsigned int colDim,
 
 Array<double>* add(Array<double>* a, Array<double>* b);
 Array<double>* multiply(double scalar, Array<double>* a);
+Array<double>* multiply(Array<double>* a, Array<double>* b);
 
 #endif

@@ -41,13 +41,14 @@ int main() {
     std::cout << static_cast<double>(vec->rowDim()) << std::endl;
 
     Array<double>* vec2 = new Vector<double>(vecRows);
-    vec2->makeOnes();
+    vec2->setAll(11);
 
     std::cout << "colDim: " << std::endl;
     std::cout << vec2->colDim() << std::endl;
 
     Array<double>* sum = add(vec, vec2);
     sum = multiply(5, sum);
+    sum = multiply(vec2, sum);
     std::cout << "sum: " << std::endl;
     sum->print();
     return 0;
