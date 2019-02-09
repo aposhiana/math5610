@@ -1,4 +1,3 @@
-#include <iostream>
 #include <exception>
 #include <algorithm>
 
@@ -34,6 +33,7 @@ void DenseArray<T>::setSymmetric() {
 
 // Takes references of row index i and col index j
 // and adjusts them to be correct for symmetric form
+// This should only be used by set and operator()!
 template <typename T>
 void DenseArray<T>::convertToSymmetricIndices(unsigned int& i, unsigned int& j) {
     unsigned int newRowIndex;
@@ -69,19 +69,27 @@ T& DenseArray<T>::operator()(unsigned int i, unsigned int j) {
     return m_array[i][j];
 }
 
+// Allocates memory for m_array
+template <typename T>
+void DenseArray<T>::initializeEmptyArray() {
+    if (m_array != nullptr) {
+        return;
+    }
+    m_array = new T*[m_rowDim];
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        m_array[i] = new T[m_colDim];
+    }
+}
+
 // Sets m_array to all zeros
 template <typename T>
 void DenseArray<T>::makeZeros() {
-    T** a = new T*[m_rowDim];
+    initializeEmptyArray();
     for (unsigned int i = 0; i < m_rowDim; i++) {
-        a[i] = new T[m_colDim];
         for (unsigned int j = 0; j < m_colDim; j++) {
-            a[i][j] = 0;
+            set(i, j, 0);
         }
     }
-    deleteArrayMember();
-    m_isSymmetricForm = false;
-    m_array = a;
 }
 
 // Sets m_array to the identity
@@ -93,7 +101,7 @@ void DenseArray<T>::makeIdentity() {
     }
     makeZeros();
     for (unsigned int i = 0; i < m_rowDim; i++) {
-        m_array[i][i] = 1;
+        set(i, i, 1);
     }
 }
 
@@ -106,6 +114,7 @@ void DenseArray<T>::deleteArrayMember() {
         }
         delete[] m_array;
     }
+    m_array = nullptr;
 }
 
 // Destructor
@@ -118,7 +127,7 @@ DenseArray<T>::~DenseArray() {
 template <typename T>
 void DenseArray<T>::print() {
     if (m_array == nullptr) {
-        std::cout << "internal array not set" << std::endl;
+        std::cout << "Internal array not set" << std::endl;
         return;
     }
     // TODO: Format nicer

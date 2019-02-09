@@ -6,21 +6,22 @@
 template <typename T>
 class Vector : public Array<T> {
 public:
-    const unsigned int m_rowDim = 0;
-    unsigned int m_colDim;
+    unsigned int colDim() override { return m_colDim; }
+    unsigned int rowDim() override { return m_rowDim; }
 
     // Constructors
-    Vector(T* array, const unsigned int colDim) :
-        m_array(array), m_colDim(colDim) {}
-    Vector(const unsigned int colDim) : m_colDim(colDim) {}
+    Vector(const unsigned int rowDim) :
+        m_rowDim(rowDim) { initializeEmptyArray(); }
+    Vector(T* array, const unsigned int rowDim) :
+        m_array(array), m_rowDim(rowDim) {}
 
     // Overloaded () operators for element acceses by indices
     T& operator()(unsigned int i, unsigned int j) override;
-    T& operator()(unsigned int j) { return m_array[j]; }
+    T& operator()(unsigned int i) { return m_array[i]; }
 
     // Element setters
     void set(unsigned int i, unsigned int j, T value) override;
-    void set(unsigned int j, T value) { m_array[j] = value; }
+    void set(unsigned int i, T value) { m_array[i] = value; }
 
     // Overloaded assignment and move assignment
     Vector<T>& operator=(const Vector<T>& rhs);
@@ -39,7 +40,11 @@ public:
 private:
     // Internal representation of vector
     T* m_array = nullptr;
+    unsigned int m_rowDim;
+    const unsigned int m_colDim = 1;
+
     void makeCopyOfOther(const Vector<T>& obj);
+    void initializeEmptyArray();
 };
 
 #include "Vector.ipp"

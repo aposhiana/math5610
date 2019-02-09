@@ -7,8 +7,12 @@
 #IncludeRegexTransform: 
 
 /Users/andrewaposhian/developer/math5610/src/lib/Array.hpp
+iostream
+-
 
 /Users/andrewaposhian/developer/math5610/src/lib/ArrayUtils.hpp
+Array.hpp
+/Users/andrewaposhian/developer/math5610/src/lib/Array.hpp
 
 /Users/andrewaposhian/developer/math5610/src/lib/DenseArray.hpp
 Array.hpp
@@ -17,8 +21,6 @@ DenseArray.ipp
 /Users/andrewaposhian/developer/math5610/src/lib/DenseArray.ipp
 
 /Users/andrewaposhian/developer/math5610/src/lib/DenseArray.ipp
-iostream
--
 exception
 -
 algorithm
@@ -33,8 +35,6 @@ Vector.ipp
 /Users/andrewaposhian/developer/math5610/src/lib/Vector.ipp
 
 /Users/andrewaposhian/developer/math5610/src/lib/Vector.ipp
-iostream
--
 exception
 -
 

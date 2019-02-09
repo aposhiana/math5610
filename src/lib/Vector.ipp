@@ -1,24 +1,33 @@
-#include <iostream>
 #include <exception>
+
+// Allocates memory for m_array
+template <typename T>
+void Vector<T>::initializeEmptyArray() {
+    if (m_array != nullptr) {
+        return;
+    }
+    m_array = new T[m_rowDim];
+}
+
 
 // Overriden method for getting element in m_array
 template <typename T>
 T& Vector<T>::operator()(unsigned int i, unsigned int j) {
-    if (i != 0) {
-        std::cout << "Row index for Vector set must be 0 or omitted" << std::endl;
+    if (j != 0) {
+        std::cout << "Column index for Vector must be 0 or omitted" << std::endl;
         throw std::exception();
     }
-    return m_array[j];
+    return m_array[i];
 }
 
 // Overriden method for setting element in m_array
 template <typename T>
 void Vector<T>::set(unsigned int i, unsigned int j, T value) {
-    if (i != 0) {
-        std::cout << "Row index for Vector set must be 0 or omitted" << std::endl;
+    if (j != 0) {
+        std::cout << "Column index for Vector must be 0 or omitted" << std::endl;
         throw std::exception();
     }
-    m_array[j] = value;
+    m_array[i] = value;
 }
 
 // Destructor
@@ -30,12 +39,11 @@ Vector<T>::~Vector() {
 // Helper function that makes the instance match the passed object
 template <typename T>
 void Vector<T>::makeCopyOfOther(const Vector<T>& obj) {
-    // m_rowDim = obj.m_rowDim;
-    m_colDim = obj.m_colDim;
-    m_array = new T[m_colDim];
+    m_rowDim = obj.m_rowDim;
+    m_array = new T[m_rowDim];
     // Copy all elements of obj to m_array
-    for (unsigned int j = 0; j < m_rowDim; j++) {
-        m_array[j] = obj.m_array[j];
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        m_array[i] = obj.m_array[i];
     }
 }
 
@@ -49,12 +57,10 @@ Vector<T>::Vector(const Vector<T>& obj) {
 template <typename T>
 Vector<T>::Vector(Vector<T>&& obj) {
     m_array = obj.m_array;
-    // m_rowDim = obj.m_rowDim;
-    m_colDim = obj.m_colDim;
+    m_rowDim = obj.m_rowDim;
 
     obj.m_array = nullptr;
-    // obj.m_rowDim = 0;
-    obj.m_colDim = 0;
+    obj.m_rowDim = 0;
 }
 
 // Copy assignment
@@ -74,8 +80,7 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& rhs) {
     // Check for self-assignment
     if (&rhs != this) {
         std::swap(m_array, rhs.m_array);
-        // std::swap(m_rowDim, rhs.m_rowDim);
-        std::swap(m_colDim, rhs.m_colDim);
+        std::swap(m_rowDim, rhs.m_rowDim);
     }
     return *this;
 }
@@ -83,11 +88,9 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& rhs) {
 // Sets m_array to all zeros
 template <typename T>
 void Vector<T>::makeZeros() {
-    if (m_array == nullptr) {
-        m_array = new T[m_colDim];
-    }
-    for (unsigned int j = 0; j < m_colDim; j++) {
-        m_array[j] = 0;
+    initializeEmptyArray();
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        set(i, 0);
     }
 }
 
@@ -98,7 +101,7 @@ void Vector<T>::print() {
         std::cout << "internal array not set" << std::endl;
         return;
     }
-    for (unsigned int j = 0; j < m_colDim; j++) {
-        std::cout << m_array[j] << std::endl;
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        std::cout << (*this)(i) << std::endl;
     }
 }

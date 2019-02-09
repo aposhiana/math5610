@@ -6,8 +6,8 @@
 template<typename T>
 class DenseArray : public Array<T> {
 public:
-    unsigned int m_rowDim;
-    unsigned int m_colDim;
+    unsigned int colDim() override { return m_colDim; }
+    unsigned int rowDim() override { return m_rowDim; }
 
     // m_isSymmetricForm getter
     bool isSymmetricForm() { return m_isSymmetricForm; }
@@ -17,7 +17,7 @@ public:
 
     // Constructors
     DenseArray(const unsigned int rowDim, const unsigned int colDim) : 
-        m_rowDim(rowDim), m_colDim(colDim) {};
+        m_rowDim(rowDim), m_colDim(colDim) { initializeEmptyArray(); }
     DenseArray(T** array, const unsigned int rowDim,
                 const unsigned int colDim, const bool symmetric=false) :
         m_array(array), m_rowDim(rowDim),
@@ -54,10 +54,13 @@ public:
 
 private:
     T** m_array = nullptr; // Internal representation of array
+    unsigned int m_rowDim;
+    unsigned int m_colDim;
     bool m_isSymmetricForm = false;
 
     // Helper methods
     void deleteArrayMember();
+    void initializeEmptyArray();
     void convertToSymmetricIndices(unsigned int& i, unsigned int& j);
     void makeCopyOfOther(const DenseArray<T>& obj);
 };
