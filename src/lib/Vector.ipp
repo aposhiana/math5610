@@ -30,6 +30,15 @@ void Vector<T>::set(unsigned int i, unsigned int j, T value) {
     m_array[i] = value;
 }
 
+// Sets m_array to all zeros
+template <typename T>
+void Vector<T>::setAll(T value) {
+    initializeEmptyArray();
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        set(i, value);
+    }
+}
+
 // Destructor
 template <typename T>
 Vector<T>::~Vector() {
@@ -83,15 +92,6 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& rhs) {
         std::swap(m_rowDim, rhs.m_rowDim);
     }
     return *this;
-}
-
-// Sets m_array to all zeros
-template <typename T>
-void Vector<T>::makeZeros() {
-    initializeEmptyArray();
-    for (unsigned int i = 0; i < m_rowDim; i++) {
-        set(i, 0);
-    }
 }
 
 // Prints the array

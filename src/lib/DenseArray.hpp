@@ -35,6 +35,7 @@ public:
     
     // Element setter
     void set(unsigned int i, unsigned int j, T value) override;
+    void setAll(T value) override;
 
     // Overloaded assignment and move assignment
     DenseArray<T>& operator=(const DenseArray<T>& rhs);
@@ -46,7 +47,6 @@ public:
     DenseArray(DenseArray<T>&& obj);
 
     // Shortcuts to initialize m_array
-    void makeZeros() override;
     void makeIdentity();
 
     // Prints the array

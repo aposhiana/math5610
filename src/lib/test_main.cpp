@@ -33,7 +33,7 @@ int main() {
 
     unsigned int vecRows = 8;
     Array<double>* vec = new Vector<double>(vecRows);
-    vec->makeZeros();
+    vec->makeOnes();
 
     std::cout << "vector: " << std::endl;
     vec->print();
@@ -41,7 +41,7 @@ int main() {
     std::cout << static_cast<double>(vec->rowDim()) << std::endl;
 
     Array<double>* vec2 = new Vector<double>(vecRows);
-    vec2->makeZeros();
+    vec2->makeOnes();
 
     std::cout << "colDim: " << std::endl;
     std::cout << vec2->colDim() << std::endl;

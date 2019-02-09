@@ -60,6 +60,17 @@ void DenseArray<T>::set(unsigned int i, unsigned int j, T value) {
     m_array[i][j] = value;
 }
 
+// Sets all elements of m_array to the value
+template <typename T>
+void DenseArray<T>::setAll(T value) {
+    initializeEmptyArray();
+    for (unsigned int i = 0; i < m_rowDim; i++) {
+        for (unsigned int j = 0; j < m_colDim; j++) {
+            set(i, j, value);
+        }
+    }
+}
+
 // Overloaded () for element access
 template <typename T>
 T& DenseArray<T>::operator()(unsigned int i, unsigned int j) {
@@ -81,16 +92,17 @@ void DenseArray<T>::initializeEmptyArray() {
     }
 }
 
-// Sets m_array to all zeros
-template <typename T>
-void DenseArray<T>::makeZeros() {
-    initializeEmptyArray();
-    for (unsigned int i = 0; i < m_rowDim; i++) {
-        for (unsigned int j = 0; j < m_colDim; j++) {
-            set(i, j, 0);
-        }
-    }
-}
+// // Sets m_array to all zeros
+// template <typename T>
+// void DenseArray<T>::makeZeros() {
+//     setAll(0);
+// }
+
+// // Sets m_array to all ones
+// template <typename T>
+// void DenseArray<T>::makeOnes() {
+//     setAll(1);
+// }
 
 // Sets m_array to the identity
 template <typename T>
@@ -99,7 +111,7 @@ void DenseArray<T>::makeIdentity() {
         std::cout << "Calling makeIdentity on non-square array" << std::endl;
         throw std::exception();
     }
-    makeZeros();
+    this->makeZeros();
     for (unsigned int i = 0; i < m_rowDim; i++) {
         set(i, i, 1);
     }

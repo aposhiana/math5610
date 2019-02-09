@@ -68,18 +68,3 @@ Array<double>* multipy(double scalar, Array<double>* a) {
     }
     return newArray;
 }
-
-// TODO return SparseArray if sparse flag is true (default to false)
-// Array<double>* multipy(Array<double>* a, Array<double>* b) {
-//     if (a->colDim() != b->colDim() || a->rowDim() != b->rowDim()) {
-//         std::cout << "Cannot perform element-wise multipy for Arrays of different dimensionality" << std::endl;
-//         throw std::exception();
-//     }
-//     newArray* = b;
-//     for (unsigned int i = 0; i < a->rowDim(); i++) {
-//         for (unsigned int j = 0; j < a->colDim(); j++) {
-//             newArray->set(i, j, (*a)(i, j) * scalar);
-//         }
-//     }
-//     return newArray;
-// }

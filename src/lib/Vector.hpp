@@ -22,6 +22,7 @@ public:
     // Element setters
     void set(unsigned int i, unsigned int j, T value) override;
     void set(unsigned int i, T value) { m_array[i] = value; }
+    void setAll(T value) override;
 
     // Overloaded assignment and move assignment
     Vector<T>& operator=(const Vector<T>& rhs);
@@ -32,11 +33,9 @@ public:
     Vector(const Vector<T>& obj);
     Vector(Vector<T>&& obj);
 
-    // Shortcuts to initialize m_array
-    void makeZeros() override;
-
     // Prints the array
     void print() override;
+
 private:
     // Internal representation of vector
     T* m_array = nullptr;
