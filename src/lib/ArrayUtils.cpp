@@ -4,14 +4,19 @@
 #include "Vector.hpp"
 #include "DenseArray.hpp"
 
+// Asserts Arrays have the same dimensionality
+void assertSameDim(Array<double>& a, Array<double>& b) {
+    if (a.colDim() != b.colDim() || a.rowDim() != b.rowDim()) {
+        std::cout << "Arrays of different dimensionality" << std::endl;
+        throw std::exception();
+    }
+}
+
 // Add two arrays of same dimension element-wise and return a Vector<double>*
 // if colDim is 1 otherwise return a DenseArray
 // TODO return SparseArray if sparse flag is true (default to false)
 Array<double>* add(Array<double>* a, Array<double>* b) {
-    if (a->colDim() != b->colDim() || a->rowDim() != b->rowDim()) {
-        std::cout << "Cannot add Arrays of different dimensionality" << std::endl;
-        throw std::exception();
-    }
+    assertSameDim(*a, *b);
     Array<double>* newArray;
     if (a->colDim() == 1) {
         newArray = new Vector<double>(a->rowDim());
@@ -49,10 +54,7 @@ Array<double>* multiply(double scalar, Array<double>* a) {
 
 // TODO return SparseArray if sparse flag is true (default to false)
 Array<double>* multiply(Array<double>* a, Array<double>* b) {
-    if (a->colDim() != b->colDim() || a->rowDim() != b->rowDim()) {
-        std::cout << "Cannot multiply Arrays of different dimensionality" << std::endl;
-        throw std::exception();
-    }
+    assertSameDim(*a, *b);
     Array<double>* newArray;
     if (a->colDim() == 1) {
         newArray = new Vector<double>(a->rowDim());

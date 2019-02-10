@@ -13,6 +13,8 @@ add_library(linalg STATIC
     lib/DenseArray.ipp
     lib/Vector.hpp
     lib/Vector.ipp
+    lib/VectorNorms.hpp
+    lib/VectorNorms.cpp
 )
 
 # TODO: move the tests to test directory not lib

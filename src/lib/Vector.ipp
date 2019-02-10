@@ -9,7 +9,6 @@ void Vector<T>::initializeEmptyArray() {
     m_array = new T[m_rowDim];
 }
 
-
 // Overriden method for getting element in m_array
 template <typename T>
 T Vector<T>::operator()(unsigned int i, unsigned int j) {

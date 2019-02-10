@@ -6,8 +6,8 @@
 template <typename T>
 class Vector : public Array<T> {
 public:
-    unsigned int colDim() override { return m_colDim; }
-    unsigned int rowDim() override { return m_rowDim; }
+    unsigned int colDim() const override { return m_colDim; }
+    unsigned int rowDim() const override { return m_rowDim; }
 
     // Constructors
     Vector(const unsigned int rowDim) :

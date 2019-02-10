@@ -7,8 +7,8 @@ template<typename T>
 class DenseArray : public Array<T> {
 public:
     // Getters
-    unsigned int colDim() override { return m_colDim; }
-    unsigned int rowDim() override { return m_rowDim; }
+    unsigned int colDim() const override { return m_colDim; }
+    unsigned int rowDim() const override { return m_rowDim; }
     bool isSymmetricForm() { return m_isSymmetricForm; }
     bool isUpperTriangularForm() { return m_isUpperTriangularForm; }
     bool isLowerTriangularForm() { return m_isLowerTriangularForm; }
