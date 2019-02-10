@@ -6,6 +6,7 @@
 #include "Vector.hpp"
 #include "ArrayUtils.hpp"
 #include "VectorNorms.hpp"
+#include "MatrixNorms.hpp"
 
 int main() {
     // TODO: Set up real tests
@@ -99,6 +100,17 @@ int main() {
 
     std::cout << "infNormAbsoluteError: " << std::endl;
     std::cout << infNormAbsoluteError(*y, *yHat) << std::endl;
+
+
+    DenseArray<double>* normishArray = new DenseArray<double>(4, 3);
+    normishArray->makeRandom();
+    std::cout << "Matrix to be normed: " << std::endl;
+    normishArray->print();
+    std::cout << "Matrix 1-norm: " << std::endl;
+    std::cout << matrix1Norm(*normishArray) << std::endl;
+    std::cout << "Matrix infinity-norm: " << std::endl;
+    std::cout << matrixInfNorm(*normishArray) << std::endl;
+
 
     return 0;
 }

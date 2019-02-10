@@ -15,6 +15,8 @@ add_library(linalg STATIC
     lib/Vector.ipp
     lib/VectorNorms.hpp
     lib/VectorNorms.cpp
+    lib/MatrixNorms.hpp
+    lib/MatrixNorms.cpp
 )
 
 # TODO: move the tests to test directory not lib
