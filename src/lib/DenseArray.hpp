@@ -32,7 +32,7 @@ public:
     // void setUpperTriangular();
 
     // Overloaded () operator for element acceses by indices
-    T& operator()(unsigned int i, unsigned int j) override;
+    T operator()(unsigned int i, unsigned int j) override;
     
     // Element setter
     void set(unsigned int i, unsigned int j, T value) override;
@@ -97,6 +97,7 @@ private:
     void convertToLowerTriangularIndices(unsigned int& i, unsigned int& j);
     void makeCopyOfOther(const DenseArray<T>& obj);
     void makeRandomInternalTriangular(const double min=0.0, const double max=1.0);
+    void assertSquare();
 };
 
 #include "DenseArray.ipp"

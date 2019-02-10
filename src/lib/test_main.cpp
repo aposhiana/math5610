@@ -25,11 +25,11 @@ int main() {
     std::cout << "identity: " << std::endl;
     b.print();
 
-    unsigned int cRows = 5;
-    unsigned int cCols = 10;
-    double** cRawArray = makeRandomArray(cRows, cCols);
-    DenseArray<double>* c = new DenseArray<double>(cRawArray, cRows, cCols);
-    c->print();
+    // unsigned int cRows = 5;
+    // unsigned int cCols = 10;
+    // double** cRawArray = makeRandomArray(cRows, cCols);
+    // DenseArray<double>* c = new DenseArray<double>(cRawArray, cRows, cCols);
+    // c->print();
 
     unsigned int vecRows = 8;
     Array<double>* vec = new Vector<double>(vecRows);
@@ -51,5 +51,20 @@ int main() {
     sum = multiply(vec2, sum);
     std::cout << "sum: " << std::endl;
     sum->print();
+
+    std::cout << "symmetric: " << std::endl;
+    DenseArray<double>* sym = new DenseArray<double>(5, 5);
+    sym->makeRandomSymmetric();
+    sym->print();
+
+    std::cout << "upper triangular: " << std::endl;
+    DenseArray<double>* ut = new DenseArray<double>(3, 3);
+    ut->makeRandomUpperTriangular();
+    ut->print();
+
+    std::cout << "lower triangular: " << std::endl;
+    DenseArray<double>* lt = new DenseArray<double>(4, 4);
+    lt->makeRandomLowerTriangular();
+    lt->print();
     return 0;
 }

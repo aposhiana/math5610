@@ -11,7 +11,7 @@ double relativeError(const double x, const double y) {
     return absoluteError(x, y) / x;
 }
 
-double oneNorm(Vector<double>* v) {
+double oneNorm(const Vector<double>* v) {
     double norm = 0;
     for (unsigned int i = 0; i < v->rowDim(); i++) {
         norm += abs(v(i));
@@ -19,7 +19,7 @@ double oneNorm(Vector<double>* v) {
     return norm;
 }
 
-double twoNorm(Vector<double>* v) {
+double twoNorm(const Vector<double>* v) {
     double sum = 0;
     for (unsigned int i = 0; i < v->rowDim(); i++) {
         sum += v(i) * v(i);
@@ -27,7 +27,7 @@ double twoNorm(Vector<double>* v) {
     return sqrt(sum);
 }
 
-double infNorm(Vector<double>* v) {
+double infNorm(const Vector<double>* v) {
     // -1 will always be less than the abs of any element
     double max = -1;
     for (unsigned int i = 0; i < v->rowDim(); i++) {

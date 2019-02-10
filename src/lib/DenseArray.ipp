@@ -22,11 +22,7 @@ void DenseArray<T>::setFull() {
 // the existing array is not symmetric
 template <typename T>
 void DenseArray<T>::setSymmetric() {
-    // Assert that the matrix is allegedly square
-    if (m_rowDim != m_colDim) {
-        std::cout << "Symmetric set to true but m_rowDim is not equal to m_colDim" << std::endl;
-        throw std::exception();
-    }
+    assertSquare();
     // Change to symmetric form
     T** newArray = new T*[m_rowDim];
     for (unsigned int i = 0; i < m_rowDim; i++) {
@@ -135,13 +131,13 @@ void DenseArray<T>::setAll(T value) {
 
 // Overloaded () for element access
 template <typename T>
-T& DenseArray<T>::operator()(unsigned int i, unsigned int j) {
-    if (m_isSymmetricForm) {
+T DenseArray<T>::operator()(unsigned int i, unsigned int j) {
+    if (isSymmetricForm()) {
         convertToSymmetricIndices(i, j);
     }
     else if (isUpperTriangularForm()) {
         if (i > j) {
-            return 0.0;
+            return T();
         }
         else {
             convertToUpperTriangularIndices(i, j);
@@ -149,7 +145,7 @@ T& DenseArray<T>::operator()(unsigned int i, unsigned int j) {
     }
     else if (isLowerTriangularForm()) {
         if (j > i) {
-            return 0.0;
+            return T();
         }
         else {
             convertToLowerTriangularIndices(i, j);
@@ -182,12 +178,12 @@ void DenseArray<T>::makeRandomInternalTriangular(const double min, const double 
         std::cout << "min is not less than max" << std::endl;
         throw std::exception();
     }
+    assertSquare();
     for (unsigned int i = 0; i < m_rowDim; i++) {
         for (unsigned int j = 0; j < m_colDim - i; j++) {
-                double randFactor = rand() / static_cast<double>(RAND_MAX);
-                double randValue = (randFactor * (max - min)) + min;
-                m_array[i][j] = randValue;
-            }
+            double randFactor = rand() / static_cast<double>(RAND_MAX);
+            double randValue = (randFactor * (max - min)) + min;
+            m_array[i][j] = randValue;
         }
     }
 }
@@ -199,6 +195,7 @@ void DenseArray<T>::makeRandomSymmetric(const double min, const double max) {
         std::cout << "min is not less than max" << std::endl;
         throw std::exception();
     }
+    assertSquare();
     // It is important that the form be changed before array initialization
     // so that the correct form of array be allocated
     setIsSymmetricForm();
@@ -213,6 +210,7 @@ void DenseArray<T>::makeRandomUpperTriangular(const double min, const double max
         std::cout << "min is not less than max" << std::endl;
         throw std::exception();
     }
+    assertSquare();
     // It is important that the form be changed before array initialization
     // so that the correct form of array be allocated
     setIsUpperTriangularForm();
@@ -227,6 +225,7 @@ void DenseArray<T>::makeRandomLowerTriangular(const double min, const double max
         std::cout << "min is not less than max" << std::endl;
         throw std::exception();
     }
+    assertSquare();
     // It is important that the form be changed before array initialization
     // so that the correct form of array be allocated
     setIsLowerTriangularForm();
@@ -237,13 +236,19 @@ void DenseArray<T>::makeRandomLowerTriangular(const double min, const double max
 // Sets m_array to the identity
 template <typename T>
 void DenseArray<T>::makeIdentity() {
-    if (m_rowDim != m_colDim) {
-        std::cout << "Calling makeIdentity on non-square array" << std::endl;
-        throw std::exception();
-    }
+    assertSquare();
     this->makeZeros();
     for (unsigned int i = 0; i < m_rowDim; i++) {
         set(i, i, 1);
+    }
+}
+
+// Asserts rowDim equals colDim
+template <typename T>
+void DenseArray<T>::assertSquare() {
+    if (m_rowDim != m_colDim) {
+        std::cout << "m_rowDim is not equal to m_colDim" << std::endl;
+        throw std::exception();
     }
 }
 

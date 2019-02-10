@@ -8,7 +8,7 @@ class Array {
 public:
     virtual unsigned int colDim()=0;
     virtual unsigned int rowDim()=0;
-    virtual T& operator()(unsigned int i, unsigned int j)=0;
+    virtual T operator()(unsigned int i, unsigned int j)=0;
     virtual void set(unsigned int i, unsigned int j, T value)=0;
     virtual void setAll(T value)=0;
     void makeRandom(const double min=0.0, const double max=1.0);
@@ -28,10 +28,9 @@ void Array<T>::makeRandom(const double min, const double max) {
     initializeEmptyArray();
     for (unsigned int i = 0; i < rowDim(); i++) {
         for (unsigned int j = 0; j < colDim(); j++) {
-                double randFactor = rand() / static_cast<double>(RAND_MAX);
-                double randValue = (randFactor * (max - min)) + min;
-                set(i, j, randValue);
-            }
+            double randFactor = rand() / static_cast<double>(RAND_MAX);
+            double randValue = (randFactor * (max - min)) + min;
+            set(i, j, randValue);
         }
     }
 }

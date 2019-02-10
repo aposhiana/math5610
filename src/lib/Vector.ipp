@@ -12,7 +12,7 @@ void Vector<T>::initializeEmptyArray() {
 
 // Overriden method for getting element in m_array
 template <typename T>
-T& Vector<T>::operator()(unsigned int i, unsigned int j) {
+T Vector<T>::operator()(unsigned int i, unsigned int j) {
     if (j != 0) {
         std::cout << "Column index for Vector must be 0 or omitted" << std::endl;
         throw std::exception();

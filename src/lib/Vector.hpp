@@ -16,8 +16,8 @@ public:
         m_array(array), m_rowDim(rowDim) {}
 
     // Overloaded () operators for element acceses by indices
-    T& operator()(unsigned int i, unsigned int j) override;
-    T& operator()(unsigned int i) { return m_array[i]; }
+    T operator()(unsigned int i, unsigned int j) override;
+    T operator()(unsigned int i) { return m_array[i]; }
 
     // Element setters
     void set(unsigned int i, unsigned int j, T value) override;

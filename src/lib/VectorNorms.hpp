@@ -3,8 +3,8 @@
 
 double absoluteError(const double x, const double y);
 double relativeError(const double x, const double y);
-double oneNorm(Vector<double>* v);
-double twoNorm(Vector<double>* v);
-double infNorm(Vector<double>* v);
+double oneNorm(const Vector<double>* v);
+double twoNorm(const Vector<double>* v);
+double infNorm(const Vector<double>* v);
 
 #endif
