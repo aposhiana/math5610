@@ -70,3 +70,32 @@ Array<double>* multiply(Array<double>* a, Array<double>* b) {
     }
     return newArray;
 }
+
+// Returns the result of matrix multiplication of a on b
+// TODO: Add sparse flag?
+Array<double>* matmul(Array<double>* a, Array<double>* b) {
+    if (a->colDim() != b->rowDim()) {
+        std::cout << "Cannot multiply a of colDim " << a->colDim();
+        std::cout << " with b of rowDim " << b->rowDim() << std::endl;
+        throw std::exception();
+    }
+    const unsigned int M = a->rowDim();
+    const unsigned int N = a->colDim();
+    const unsigned int P = b->colDim();
+    double** cRaw = new double*[M];
+    for (unsigned int i = 0; i < M; i++) {
+        cRaw[i] = new double[P];
+    }
+
+    // Set every element (i, j) in c
+    for (unsigned int i = 0; i < M; i++) {
+        for (unsigned int k = 0; k < N; k++) {
+            // Row-only iteration in innermost loop for speed
+            for (unsigned int j = 0; j < P; j++) {
+                cRaw[i][j] += (*a)(i, k) * (*b)(k, j);
+            }
+        }
+    }
+    Array<double>* c = new DenseArray<double>(cRaw, M, P);
+    return c;
+}

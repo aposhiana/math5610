@@ -102,7 +102,7 @@ int main() {
     std::cout << infNormAbsoluteError(*y, *yHat) << std::endl;
 
 
-    DenseArray<double>* normishArray = new DenseArray<double>(4, 3);
+    DenseArray<double>* normishArray = new DenseArray<double>(3, 2);
     normishArray->makeRandom();
     std::cout << "Matrix to be normed: " << std::endl;
     normishArray->print();
@@ -111,6 +111,13 @@ int main() {
     std::cout << "Matrix infinity-norm: " << std::endl;
     std::cout << matrixInfNorm(*normishArray) << std::endl;
 
+    DenseArray<double>* ar2 = new DenseArray<double>(2, 4);
+    std::cout << "ar2:  " << std::endl;
+    ar2->makeRandom();
+    ar2->print();
+    std::cout << "product:  " << std::endl;
+    Array<double>* product = matmul(normishArray, ar2);
+    product->print();
 
     return 0;
 }
