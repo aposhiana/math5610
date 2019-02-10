@@ -68,19 +68,6 @@ int main() {
     lt->makeRandomLowerTriangular();
     lt->print();
 
-
-// double l1Norm(const Vector<double>& v);
-// double l2Norm(const Vector<double>& v);
-// double infNorm(const Vector<double>& v);
-// double vectorError(const Vector<double>& x,
-//                 const Vector<double>& y,
-//                 std::function<double(const double, const double)> scalarError,
-//                 std::function<double(const Vector<double>&)> norm);
-// double l2NormAbsoluteError(const Vector<double>& x, const Vector<double>& y);
-// double l1NormAbsoluteError(const Vector<double>& x, const Vector<double>& y);
-// double infNormAbsoluteError(const Vector<double>& x, const Vector<double>& y);
-
-
     std::cout << "absoluteError: " << std::endl;
     std::cout << absoluteError(2.3, 2.5) << std::endl;
 
@@ -94,8 +81,8 @@ int main() {
 
     std::cout << "random vec yHat: " << std::endl;
     Vector<double>* yHat = new Vector<double>(2);
-    y->makeRandom();
-    y->print();
+    yHat->makeRandom();
+    yHat->print();
 
     std::cout << "y l1Norm: " << std::endl;
     std::cout << l1Norm(*y) << std::endl;
