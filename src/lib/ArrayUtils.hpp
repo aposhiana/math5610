@@ -3,6 +3,8 @@
 
 #include "Array.hpp"
 
+double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
+                const double min=0.0, const double max=1.0);
 void assertSameDim(Array<double>& x, Array<double>& y);
 Array<double>* add(Array<double>* a, Array<double>* b);
 Array<double>* multiply(double scalar, Array<double>* a);

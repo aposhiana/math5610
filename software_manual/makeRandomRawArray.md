@@ -1,4 +1,4 @@
-**Routine Name:** makeRandomArray
+**Routine Name:** makeRandomRawArray
 
 **Author:** Andrew Aposhian
 
@@ -19,22 +19,22 @@ To use this function, include the correct header file at the top of your file as
 
 **Output:** A `double**`, or a pointer to a pointer to a double. This is a pointer to a dynamically allocated 2D array of doubles.
 
-**Usage/Example:** This example shows creating an array using makeRandomArray, then using it to generate a `DenseArray<double>` object, then using the DenseArray print function to examine the random array generated:
+**Usage/Example:** The example below shows creating an array using makeRandomRawArray, using it to generate a `DenseArray<double>` object, then using the DenseArray print function to examine the random array generated. Note that in order to use `DenseArray<double>`, you must also have `#include "DenseArray.hpp"` at the top of your file.
 ```
 const unsigned int ROWS = 5;
 const unsigned int COLS = 10;
-double** rawArray = makeRandomArray(ROWS, COLS);
+double** rawArray = makeRandomRawArray(ROWS, COLS);
 DenseArray<double>* myArray = new DenseArray<double>(rawArray, ROWS, COLS);
 myArray->print();
 ```
 
 Output from lines above:
 ```
-0.285376 0.311628 0.535702 0.539658 0.0357081 0.145803 0.51696 0.542986 0.959374 0.198643 
-0.593339 0.24125 0.696061 0.698755 0.968462 0.945681 0.0530085 0.913187 0.937257 0.486612 
-0.49613 0.450134 0.40278 0.524897 0.950626 0.178426 0.805538 0.674145 0.350498 0.812597 
-0.322044 0.586428 0.0979698 0.577705 0.495407 0.303969 0.80632 0.822696 0.0437873 0.933255 
-0.220479 0.593832 0.537695 0.0383735 0.943417 0.00325946 0.781673 0.584945 0.170185 0.305615 
+0.491514 0.875217 0.76747 0.860537 0.0535521 0.0505672 0.883368 0.767539 0.0289518 0.59302 
+0.880328 0.678863 0.653947 0.883797 0.977863 0.951639 0.197883 0.825768 0.67595 0.686882 
+0.430091 0.537408 0.220187 0.677213 0.92073 0.707707 0.426741 0.23151 0.993312 0.592504 
+0.208672 0.151912 0.178928 0.244375 0.214975 0.0783916 0.527895 0.325154 0.861801 0.284715 
+0.210722 0.600075 0.461867 0.605888 0.161792 0.24499 0.553436 0.602697 0.535197 0.0591219 
 ```
 
 **Implementation/Code:**

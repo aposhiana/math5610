@@ -3,6 +3,26 @@
 #include "ArrayUtils.hpp"
 #include "Vector.hpp"
 #include "DenseArray.hpp"
+#include "Utils.hpp"
+
+
+double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
+                const double min, const double max) {
+    // Assert min <= max
+    assertProperMinMax(min, max);
+    // Allocate rows
+    double** a = new double*[rowDim];
+    for (unsigned int i = 0; i < rowDim; i++) {
+        // Allocate column
+        a[i] = new double[colDim];
+        for (unsigned int j = 0; j < colDim; j++) {
+            // Set element
+            a[i][j] = getRandDouble(min, max);
+        }
+    }
+    return a;
+}
+
 
 // Asserts Arrays have the same dimensionality
 void assertSameDim(Array<double>& a, Array<double>& b) {

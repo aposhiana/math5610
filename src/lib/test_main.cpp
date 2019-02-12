@@ -27,12 +27,6 @@ int main() {
     std::cout << "identity: " << std::endl;
     b.print();
 
-    // unsigned int cRows = 5;
-    // unsigned int cCols = 10;
-    // double** cRawArray = makeRandomArray(cRows, cCols);
-    // DenseArray<double>* c = new DenseArray<double>(cRawArray, cRows, cCols);
-    // c->print();
-
     unsigned int vecRows = 8;
     Array<double>* vec = new Vector<double>(vecRows);
     vec->makeOnes();
@@ -119,20 +113,27 @@ int main() {
     Array<double>* product = matmul(normishArray, ar2);
     product->print();
 
-    std::cout << "Random DD Matrix:  " << std::endl;
-    DenseArray<double>* ddA = new DenseArray<double>(5, 5);
-    ddA->makeRandomDD(-5, 5);
-    ddA->print();
+    // std::cout << "Random DD Matrix:  " << std::endl;
+    // DenseArray<double>* ddA = new DenseArray<double>(5, 5);
+    // ddA->makeRandomDD(-5, 5);
+    // ddA->print();
 
-    std::cout << "Another random DD Matrix:  " << std::endl;
-    DenseArray<double>* ddA2 = new DenseArray<double>(5, 5);
-    ddA2->makeRandomDD(-5, -2);
-    ddA2->print();
+    // std::cout << "Another random DD Matrix:  " << std::endl;
+    // DenseArray<double>* ddA2 = new DenseArray<double>(5, 5);
+    // ddA2->makeRandomDD(-5, -2);
+    // ddA2->print();
 
-    std::cout << "Yet another random DD Matrix:  " << std::endl;
-    DenseArray<double>* ddA3 = new DenseArray<double>(5, 5);
-    ddA3->makeRandomDD(3, 11);
-    ddA3->print();
+    // std::cout << "Yet another random DD Matrix:  " << std::endl;
+    // DenseArray<double>* ddA3 = new DenseArray<double>(5, 5);
+    // ddA3->makeRandomDD(3, 11);
+    // ddA3->print();
+
+    std::cout << "Test random raw array:  " << std::endl;
+    const unsigned int ROWS = 5;
+    const unsigned int COLS = 10;
+    double** rawArray = makeRandomRawArray(ROWS, COLS);
+    DenseArray<double>* myArray = new DenseArray<double>(rawArray, ROWS, COLS);
+    myArray->print();
 
     return 0;
 }
