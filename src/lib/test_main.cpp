@@ -113,20 +113,20 @@ int main() {
     Array<double>* product = matmul(normishArray, ar2);
     product->print();
 
-    // std::cout << "Random DD Matrix:  " << std::endl;
-    // DenseArray<double>* ddA = new DenseArray<double>(5, 5);
-    // ddA->makeRandomDD(-5, 5);
-    // ddA->print();
+    std::cout << "Random DD Matrix:  " << std::endl;
+    DenseArray<double>* ddA = new DenseArray<double>(5, 5);
+    ddA->makeRandomDD(-5, 5);
+    ddA->print();
 
-    // std::cout << "Another random DD Matrix:  " << std::endl;
-    // DenseArray<double>* ddA2 = new DenseArray<double>(5, 5);
-    // ddA2->makeRandomDD(-5, -2);
-    // ddA2->print();
+    std::cout << "Another random DD Matrix:  " << std::endl;
+    DenseArray<double>* ddA2 = new DenseArray<double>(5, 5);
+    ddA2->makeRandomDD(-10, -2);
+    ddA2->print();
 
-    // std::cout << "Yet another random DD Matrix:  " << std::endl;
-    // DenseArray<double>* ddA3 = new DenseArray<double>(5, 5);
-    // ddA3->makeRandomDD(3, 11);
-    // ddA3->print();
+    std::cout << "Yet another random DD Matrix:  " << std::endl;
+    DenseArray<double>* ddA3 = new DenseArray<double>(5, 5);
+    ddA3->makeRandomDD(1, 11);
+    ddA3->print();
 
     std::cout << "Test random raw array:  " << std::endl;
     const unsigned int ROWS = 5;

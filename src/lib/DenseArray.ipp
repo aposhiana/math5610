@@ -1,11 +1,13 @@
 #include <exception>
 #include <algorithm>
+#include <random>
+#include <vector>
 
 #include "Utils.hpp"
 
 // Changes internal array to full form
 template <typename T>
-void DenseArray<T>::setFull() {
+void DenseArray<T>::makeFullForm() {
     T** newArray = new T*[m_rowDim];
     for (unsigned int i = 0; i < m_rowDim; i++) {
         newArray[i] = new T[m_colDim];
@@ -15,15 +17,13 @@ void DenseArray<T>::setFull() {
     }
     deleteArrayMember();
     m_array = newArray;
-    m_isSymmetricForm = false;
-    m_isUpperTriangularForm = false;
-    m_isLowerTriangularForm = false;
+    setIsFullForm();
 }
 
 // Changes internal array to symetric form and throws error if
 // the existing array is not symmetric
 template <typename T>
-void DenseArray<T>::setSymmetric() {
+void DenseArray<T>::makeSymmetricForm() {
     assertSquare();
     // Change to symmetric form
     T** newArray = new T*[m_rowDim];
@@ -101,7 +101,7 @@ void DenseArray<T>::set(unsigned int i, unsigned int j, T value) {
     }
     else if (isUpperTriangularForm()) {
         if (i > j) {
-            setFull();
+            makeFullForm();
         }
         else {
             convertToUpperTriangularIndices(i, j);
@@ -109,7 +109,7 @@ void DenseArray<T>::set(unsigned int i, unsigned int j, T value) {
     }
     else if (isLowerTriangularForm()) {
         if (j > i) {
-            setFull();
+            makeFullForm();
         }
         else {
             convertToLowerTriangularIndices(i, j);
@@ -175,101 +175,130 @@ void DenseArray<T>::initializeEmptyArray() {
 
 template <typename T>
 void DenseArray<T>::makeRandomDD(const double min, const double max) {
-    // assertSquare();
-    // assertProperMinMax(min, max);
-    // const double ABS_OF_MIN = abs(min);
-    // const double ABS_OF_MAX = abs(max);
-    // const double MAX_ABS = (ABS_OF_MIN > ABS_OF_MAX) ? ABS_OF_MIN : ABS_OF_MAX;
-    // const double MIN_ABS;
-    // if (min <= 0 && max >= 0) {
-    //     MIN_ABS = 0;
-    // }
-    // else {
-    //     MIN_ABS = (ABS_OF_MIN > ABS_OF_MAX) ? ABS_OF_MAX : ABS_OF_MIN;
-    // }
-    // if (MIN_ABS * (colDim() - 1) > MAX_ABS) {
-    //     std::cout << "Invalid value range to make diagonally dominant array with n = ";
-    //     std::cout << colDim() << " columns: ";
-    //     std::cout << "min absolute value * (n - 1) > max absolute value" << std::endl;
-    //     throw std::exception();
-    // }
-    // initializeEmptyArray();
+    assertSquare();
+    assertProperMinMax(min, max);
+    const double ABS_OF_MIN = abs(min);
+    const double ABS_OF_MAX = abs(max);
+    const double MAX_ABS = (ABS_OF_MIN > ABS_OF_MAX) ? ABS_OF_MIN : ABS_OF_MAX;
+    double minAbs;
+    if (min <= 0 && max >= 0) {
+        minAbs = 0;
+    }
+    else {
+        minAbs = (ABS_OF_MIN > ABS_OF_MAX) ? ABS_OF_MAX : ABS_OF_MIN;
+    }
+    const double MIN_ABS = minAbs;
 
-    // const double OFF_DIAG_COUNT = colDim() - 1;
+    // Assert value range is valid
+    if (MIN_ABS * (colDim() - 1) >= MAX_ABS) {
+        std::cout << "Invalid value range to make diagonally dominant array with n = ";
+        std::cout << colDim() << " columns: " << std::endl;
+        std::cout << "(min absolute val=" << MIN_ABS << ")";
+        std::cout << " * (n - 1) >= (max absolute val=" << MAX_ABS << ")" << std::endl;
+        throw std::exception();
+    }
 
-    // // For each row
-    // for (unsigned int i = 0; i < rowDim(); i++) {
-    //     double* rowVals = new double[OFF_DIAG_COUNT];
-    //     double rowSum = 0;
+    initializeEmptyArray();
 
-    //     for (unsigned int j = 0; j < OFF_DIAG_COUNT; j++) {
-    //         // Get a random value
-    //         double randValue;
-    //         do {
-    //             randValue = getRandDouble(min, max); /// WAS HERERIHOEIRHOEHIROIREOREO
-    //             // Continue to loop to look for a random value
-    //             // if randValue has the maximum absolute value.
-    //         } while (abs(randValue) == MAX_ABS);
+    const double OFF_DIAG_COUNT = colDim() - 1;
 
-    //         // Set element to the random value
-    //         set(i, j, randValue);
+    // For each row
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        // Get off-diagonal values for row
+        std::vector<double> rowVals(OFF_DIAG_COUNT);
+        double absRowSum = 0;
+        for (unsigned int j = 0; j < OFF_DIAG_COUNT; j++) {
+            // Find new bounds for random value
+            // TODO: Fix this up so that it is more consistent when MIN_ABS != 0
+            double maxValueAbs = MAX_ABS - absRowSum - ((OFF_DIAG_COUNT - j) * MIN_ABS);
+            double minBound;
+            if (min >= 0 || maxValueAbs > ABS_OF_MIN) {
+                minBound = min;
+            }
+            else {
+                minBound = -maxValueAbs;
+            }
+            double maxBound;
+            if (max <= 0 || maxValueAbs > ABS_OF_MAX) {
+                maxBound = max;
+            }
+            else {
+                maxBound = maxValueAbs;
+            }
+            // Get a random value
+            double randValue;
+            do {
+                randValue = getRandDouble(minBound, maxBound);
+                // Continue to loop to look for a different random value
+                // if the new absolute row sum equals MAX_ABS.
+                // This guarantees strict diagonal dominance.
+                // >= instead of == just for extra safety with 
+                // floating point arithmetic.
+            } while (abs(randValue) + absRowSum >= MAX_ABS);
 
-    //         // Update rowMaxAbs to be new maximum or initialize
-    //         // if on the first element of the row.
-    //         double valAbs = abs(randValue);
-    //         if (j == 0 || valAbs > rowMaxAbs) {
-    //             rowMaxAbs = valAbs;
-    //         }
-    //     }
+            // Save the random value in rowVals
+            rowVals[j] = randValue;
 
-    //     // Set element of row on diagonal
-    //     if (colDim() >= i) {
-    //         // Get a random value between min and max with an
-    //         // absolute value greater than rowMaxAbs
+            // Update the absolute row sum
+            absRowSum += abs(randValue);
+        }
+        // Randomly permute rowVals
+        std::random_shuffle(rowVals.begin(), rowVals.end());
 
-    //         // NOTE: ABS_OF_MIN > rowMaxAbs and not ABS_OF_MAX > rowMaxAbs
-    //         // implies the random value must be negative.
-    //         // ABS_OF_MAX > rowMaxAbs and not ABS_OF_MIN > rowMaxAbs
-    //         // implies the random value must be positive.
-    //         // If ABS_OF_MIN > rowMaxAbs and ABS_OF_MAX > rowMaxAbs, then
-    //         // the random value can be positive or negative, so we randomly
-    //         // select whether it will be positive or negative.
-    //         bool positive;
-    //         if (ABS_OF_MIN > rowMaxAbs && ABS_OF_MAX > rowMaxAbs) {
-    //             // Randomly select whether value will be positive or negative
-    //             double signSelector = getRandDouble(-1.0, 1.0);
-    //             positive = (signSelector > 0) ? true : false;
-    //         }
-    //         else if (ABS_OF_MIN > rowMaxAbs) {
-    //             positive = false;
-    //         }
-    //         else if (ABS_OF_MAX > rowMaxAbs) {
-    //             positive = true;
-    //         }
-    //         else {
-    //             std::cout << "min and max are equal" << std::endl;
-    //             throw std::exception();
-    //         }
+        // Set array values in off-diagonal of row
+        for (unsigned int j = 0; j < colDim(); j++) {
+            if (j == i) {
+                // Skip the diagonal
+                continue;
+            }
+            set(i, j, rowVals.back());
+            rowVals.pop_back();
+        }
 
-    //         // Get the random value
-    //         double randMaxAbs;
-    //         do {
-    //             if (positive) {
-    //                 randMaxAbs = getRandDouble(rowMaxAbs, ABS_OF_MAX);
-    //             }
-    //             else {
-    //                 randMaxAbs = getRandDouble(-rowMaxAbs, -ABS_OF_MIN);
-    //             }
-    //             // Continue to loop to look for a random value
-    //             // if randMaxAbs value has an absolute value equal
-    //             // to rowMaxAbs. This guarantees strict diagonal dominance.
-    //             // The probablity of this looping is low.
-    //         } while (abs(randMaxAbs) == rowMaxAbs);
-
-    //         // Set the value on the diagonal
-    //         set(i, i, randMaxAbs);
-    //     }
-    // }
+        // Get sign of diagonal value:
+        // ABS_OF_MIN > absRowSum and not ABS_OF_MAX > absRowSum
+        // implies the random value must be negative.
+        // ABS_OF_MAX > absRowSum and not ABS_OF_MIN > absRowSum
+        // implies the random value must be positive.
+        // If ABS_OF_MIN > absRowSum and ABS_OF_MAX > absRowSum, then
+        // the random value can be positive or negative, so we randomly
+        // select whether it will be positive or negative.
+        bool positive;
+        if (ABS_OF_MIN > absRowSum && ABS_OF_MAX > absRowSum) {
+            // Randomly select whether value will be positive or negative
+            double signSelector = getRandDouble(-1.0, 1.0);
+            positive = (signSelector > 0) ? true : false;
+        }
+        else if (ABS_OF_MIN > absRowSum) {
+            positive = false;
+        }
+        else if (ABS_OF_MAX > absRowSum) {
+            positive = true;
+        }
+        else {
+            std::cout << "min and max are equal" << std::endl;
+            throw std::exception();
+        }
+        // Find a random value between min and max with an absolute
+        // value greater than absRowSum.
+        double randMaxAbs;
+        do {
+            if (positive) {
+                randMaxAbs = getRandDouble(absRowSum, ABS_OF_MAX);
+            }
+            else {
+                randMaxAbs = getRandDouble(-absRowSum, -ABS_OF_MIN);
+            }
+            // Continue to loop to look for a random value
+            // if randMaxAbs value has an absolute value equal
+            // to absRowSum. This guarantees strict diagonal dominance.
+            // The probablity of this looping is low.
+            // <= instead of == just for extra safety with 
+            // floating point arithmetic.
+        } while (abs(randMaxAbs) <= absRowSum);
+        // Set array value on diagonal to the random value
+        set(i, i, randMaxAbs);
+    }
 }
 
 // Sets internal triangular array to contain random values between min and max

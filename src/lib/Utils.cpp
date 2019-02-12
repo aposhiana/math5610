@@ -11,7 +11,7 @@ double getRandDouble(const double min, const double max) {
     return (randFactor * (max - min)) + min;
 }
 
-// Asserts min <= max
+// Asserts min < max
 void assertProperMinMax(const double min, const double max) {
     if (min >= max) {
         std::cout << "min is not less than max" << std::endl;

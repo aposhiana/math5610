@@ -26,8 +26,8 @@ public:
         { return DenseArray(array, axesDim, axesDim); }
 
     // Methods to change internal array form
-    void setFull();
-    void setSymmetric();
+    void makeFullForm();
+    void makeSymmetricForm();
     // void setLowerTriangular();
     // void setUpperTriangular();
 
@@ -74,6 +74,11 @@ private:
     }
 
     // Internal-array-form flag setters
+    void setIsFullForm() {
+        m_isSymmetricForm = false;
+        m_isUpperTriangularForm = false;
+        m_isLowerTriangularForm = false;
+    }
     void setIsSymmetricForm() {
         m_isSymmetricForm = true;
         m_isUpperTriangularForm = false;

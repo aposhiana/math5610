@@ -6,9 +6,10 @@
 #include "Utils.hpp"
 
 
+// Get a raw 2D array with random values
 double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
                 const double min, const double max) {
-    // Assert min <= max
+    // Assert min < max
     assertProperMinMax(min, max);
     // Allocate rows
     double** a = new double*[rowDim];
