@@ -2,6 +2,9 @@
 #define _ARRAY_HPP_
 
 #include <iostream>
+#include <cmath>
+
+#include "Utils.hpp"
 
 template<typename T>
 class Array {
@@ -28,8 +31,7 @@ void Array<T>::makeRandom(const double min, const double max) {
     initializeEmptyArray();
     for (unsigned int i = 0; i < rowDim(); i++) {
         for (unsigned int j = 0; j < colDim(); j++) {
-            double randFactor = rand() / static_cast<double>(RAND_MAX);
-            double randValue = (randFactor * (max - min)) + min;
+            double randValue = getRandDouble(min, max);
             set(i, j, randValue);
         }
     }

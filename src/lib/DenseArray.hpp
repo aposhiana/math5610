@@ -48,6 +48,7 @@ public:
     DenseArray(DenseArray<T>&& obj);
 
     // Shortcuts to initialize m_array values
+    void makeRandomDD(const double min=0.0, const double max=1.0);
     void makeRandomSymmetric(const double min=0.0, const double max=1.0);
     void makeRandomUpperTriangular(const double min=0.0, const double max=1.0);
     void makeRandomLowerTriangular(const double min=0.0, const double max=1.0);

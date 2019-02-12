@@ -1,6 +1,8 @@
 #include <exception>
 #include <algorithm>
 
+#include "Utils.hpp"
+
 // Changes internal array to full form
 template <typename T>
 void DenseArray<T>::setFull() {
@@ -171,6 +173,101 @@ void DenseArray<T>::initializeEmptyArray() {
     }
 }
 
+template <typename T>
+void DenseArray<T>::makeRandomDD(const double min, const double max) {
+    if (min >= max) {
+        std::cout << "min is not less than max" << std::endl;
+        throw std::exception();
+    }
+    const double ABS_OF_MIN = abs(min);
+    const double ABS_OF_MAX = abs(max);
+    const double MAX_ABS = (ABS_OF_MIN > ABS_OF_MAX) ? ABS_OF_MIN : ABS_OF_MAX;
+    initializeEmptyArray();
+
+    // For each row
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        // Keep track of the maximum absolute value for all
+        // elements in a row
+        double rowMaxAbs;
+
+        // For each column in row
+        for (unsigned int j = 0; j < colDim(); j++) {
+            if (i == j) {
+                // Do not set the diagonal value yet
+                continue;
+            }
+
+            // Get a random value
+            double randValue;
+            do {
+                randValue = getRandDouble(min, max);
+                // Continue to loop to look for a random value
+                // if randValue has the maximum absolute value.
+                // This guarantees strict diagonal dominance.
+                // The probablity of this looping is low.
+            } while (abs(randValue) == MAX_ABS);
+
+            // Set element to the random value
+            set(i, j, randValue);
+
+            // Update rowMaxAbs to be new maximum or initialize
+            // if on the first element of the row.
+            double valAbs = abs(randValue);
+            if (j == 0 || valAbs > rowMaxAbs) {
+                rowMaxAbs = valAbs;
+            }
+        }
+
+        // Set element of row on diagonal
+        if (colDim() >= i) {
+            // Get a random value between min and max with an
+            // absolute value greater than rowMaxAbs
+
+            // NOTE: ABS_OF_MIN > rowMaxAbs and not ABS_OF_MAX > rowMaxAbs
+            // implies the random value must be negative.
+            // ABS_OF_MAX > rowMaxAbs and not ABS_OF_MIN > rowMaxAbs
+            // implies the random value must be positive.
+            // If ABS_OF_MIN > rowMaxAbs and ABS_OF_MAX > rowMaxAbs, then
+            // the random value can be positive or negative, so we randomly
+            // select whether it will be positive or negative.
+            bool positive;
+            if (ABS_OF_MIN > rowMaxAbs && ABS_OF_MAX > rowMaxAbs) {
+                // Randomly select whether value will be positive or negative
+                double signSelector = getRandDouble(-1.0, 1.0);
+                positive = (signSelector > 0) ? true : false;
+            }
+            else if (ABS_OF_MIN > rowMaxAbs) {
+                positive = false;
+            }
+            else if (ABS_OF_MAX > rowMaxAbs) {
+                positive = true;
+            }
+            else {
+                std::cout << "min and max are equal" << std::endl;
+                throw std::exception();
+            }
+
+            // Get the random value
+            double randMaxAbs;
+            do {
+                if (positive) {
+                    randMaxAbs = getRandDouble(rowMaxAbs, ABS_OF_MAX);
+                }
+                else {
+                    randMaxAbs = getRandDouble(-rowMaxAbs, -ABS_OF_MIN);
+                }
+                // Continue to loop to look for a random value
+                // if randMaxAbs value has an absolute value equal
+                // to rowMaxAbs. This guarantees strict diagonal dominance.
+                // The probablity of this looping is low.
+            } while (abs(randMaxAbs) == rowMaxAbs);
+
+            // Set the value on the diagonal
+            set(i, i, randMaxAbs);
+        }
+    }
+}
+
 // Sets internal triangular array to contain random values between min and max
 template <typename T>
 void DenseArray<T>::makeRandomInternalTriangular(const double min, const double max) {
@@ -181,8 +278,7 @@ void DenseArray<T>::makeRandomInternalTriangular(const double min, const double 
     assertSquare();
     for (unsigned int i = 0; i < m_rowDim; i++) {
         for (unsigned int j = 0; j < m_colDim - i; j++) {
-            double randFactor = rand() / static_cast<double>(RAND_MAX);
-            double randValue = (randFactor * (max - min)) + min;
+            double randValue = getRandDouble(min, max);
             m_array[i][j] = randValue;
         }
     }
