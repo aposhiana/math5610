@@ -209,11 +209,8 @@ void DenseArray<T>::makeRandomDD(const double min, const double max) {
         double absRowSum = 0;
         for (unsigned int j = 0; j < OFF_DIAG_COUNT; j++) {
             // Find bounds for value
-            double absLimit1 = MAX_ABS - absRowSum;
             double minSumOfRest = absRowSum + ((OFF_DIAG_COUNT - j - 1) * MIN_ABS);
-            double absLimit2 = MAX_ABS - minSumOfRest;
-            // Choose the smallest of the two limits on the absolute value
-            double maxAbsOfVal = absLimit1 < absLimit2 ? absLimit1 : absLimit2;
+            double maxAbsOfVal = MAX_ABS - minSumOfRest;
             double minBound;
             if (min >= 0 || maxAbsOfVal > ABS_OF_MIN) {
                 minBound = min;
