@@ -208,22 +208,25 @@ void DenseArray<T>::makeRandomDD(const double min, const double max) {
         std::vector<double> rowVals(OFF_DIAG_COUNT);
         double absRowSum = 0;
         for (unsigned int j = 0; j < OFF_DIAG_COUNT; j++) {
-            // Find new bounds for random value
-            // TODO: Fix this up so that it is more consistent when MIN_ABS != 0
-            double maxValueAbs = MAX_ABS - absRowSum - ((OFF_DIAG_COUNT - j) * MIN_ABS);
+            // Find bounds for value
+            double absLimit1 = MAX_ABS - absRowSum;
+            double minSumOfRest = absRowSum + ((OFF_DIAG_COUNT - j - 1) * MIN_ABS);
+            double absLimit2 = MAX_ABS - minSumOfRest;
+            // Choose the smallest of the two limits on the absolute value
+            double maxAbsOfVal = absLimit1 < absLimit2 ? absLimit1 : absLimit2;
             double minBound;
-            if (min >= 0 || maxValueAbs > ABS_OF_MIN) {
+            if (min >= 0 || maxAbsOfVal > ABS_OF_MIN) {
                 minBound = min;
             }
             else {
-                minBound = -maxValueAbs;
+                minBound = -maxAbsOfVal;
             }
             double maxBound;
-            if (max <= 0 || maxValueAbs > ABS_OF_MAX) {
+            if (max <= 0 || maxAbsOfVal > ABS_OF_MAX) {
                 maxBound = max;
             }
             else {
-                maxBound = maxValueAbs;
+                maxBound = maxAbsOfVal;
             }
             // Get a random value
             double randValue;
