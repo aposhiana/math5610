@@ -4,9 +4,9 @@
 
 **Language:** C++
 
-This method must be called on an instance of a DenseArray of doubles. See [the docs for DenseArray](./DenseArray.md) for instructions on instantiating a DenseArray object.
+This method must be called on an instance of a DenseArray of doubles. See [the docs for DenseArray](./DenseArray.md) for details about the DenseArray class template.
 
-**Description/Purpose:** The purpose of this method is set an DenseArray to contain entries set to random real floating point values in the range [min, max]. The min and max arguments have default values of 0.0 and 1.0 respectively.
+**Description/Purpose:** The purpose of this method is set a DenseArray to contain entries set to random real floating point values in the range [min, max]. The min and max arguments have default values of 0.0 and 1.0 respectively.
 
 **Input:**
 1. `min` : a double representing the minimum value to which an entry in the matrix can be set

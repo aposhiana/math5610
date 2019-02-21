@@ -8,10 +8,10 @@ by Andrew Aposhian
         * [getMachineEpsilon](./getMachineEpsilon.md)
         * [getDoubleMachineEpsilon](./getDoubleMachineEpsilon.md)
 * **Basic linear algebra routines**
-    * Array.hpp
-    * DenseArray.hpp
+    * [Array\<T\>](./Array.md)
+    * [DenseArray\<T\>](./DenseArray.md)
         * [makeRandomSymmetric.md](./makeRandomSymmetric.md)
-    * Vector.hpp
+    * [Vector\<T\>](./Vector.md)
     * ArrayUtils.hpp
         * [add](./add.md)
         * [multiply](./multiply.md)
