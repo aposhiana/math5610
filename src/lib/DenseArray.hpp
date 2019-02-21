@@ -14,10 +14,14 @@ public:
     bool isLowerTriangularForm() { return m_isLowerTriangularForm; }
 
     // Constructors
-    DenseArray(const unsigned int rowDim, const unsigned int colDim) : 
-        m_rowDim(rowDim), m_colDim(colDim) {}
-    DenseArray(T** array, const unsigned int rowDim, const unsigned int colDim) :
-        m_array(array), m_rowDim(rowDim), m_colDim(colDim) {}
+    DenseArray(const unsigned int rowDim,
+                    const unsigned int colDim, bool init=false) : 
+        m_rowDim(rowDim), m_colDim(colDim)
+        { if (init) { initializeEmptyArray(); }}
+    DenseArray(T** array, const unsigned int rowDim,
+                    const unsigned int colDim, bool init=false) :
+        m_array(array), m_rowDim(rowDim), m_colDim(colDim)
+        { if (init) { initializeEmptyArray(); }}
 
     // Shortcut constructors for square arrays
     DenseArray(const unsigned int axesDim)

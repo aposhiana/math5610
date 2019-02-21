@@ -39,14 +39,39 @@ int main() {
     Array<double>* vec2 = new Vector<double>(vecRows);
     vec2->setAll(11);
 
+    std::cout << "Test add: " << std::endl;
+    Array<double>* sum = add(vec, vec2);
+    sum->print();
+
     std::cout << "colDim: " << std::endl;
     std::cout << vec2->colDim() << std::endl;
 
-    Array<double>* sum = add(vec, vec2);
-    sum = multiply(5, sum);
-    sum = multiply(vec2, sum);
-    std::cout << "sum: " << std::endl;
-    sum->print();
+
+    std::cout << "Test multiply by a scalar:" << std::endl;
+    const double SCALAR_CONST = 0.5;
+    DenseArray<double>* toScale = new DenseArray<double>(5, 5);
+    toScale->makeRandom();
+    std::cout << "Array to be scaled:" << std::endl;
+    toScale->print();
+    // Multiply array by scalar
+    Array<double>* scaledArray = multiply(SCALAR_CONST, toScale);
+    std::cout << "Array scaled by " << SCALAR_CONST << ":" << std::endl;
+    scaledArray->print();
+
+    std::cout << "Test elementwise multiplication of Vectors:" << std::endl;
+    Array<double>* vecToMult1 = new Vector<double>(4);
+    vecToMult1->setAll(3);
+    Array<double>* vecToMult2 = new Vector<double>(4);
+    vecToMult2->setAll(7);
+    // Elementwise multiply two arrays
+    Array<double>* vecProduct = multiply(vecToMult1, vecToMult2);
+    vecProduct->print();
+
+    Array<double>* tArr = add(vec, vec2);
+    tArr = multiply(5, tArr);
+    tArr = multiply(vec2, tArr);
+    std::cout << "test add and multiply: " << std::endl;
+    tArr->print();
 
     std::cout << "symmetric: " << std::endl;
     DenseArray<double>* sym = new DenseArray<double>(5, 5);
@@ -63,11 +88,11 @@ int main() {
     lt->makeRandomLowerTriangular();
     lt->print();
 
-    std::cout << "absoluteError: " << std::endl;
-    std::cout << absoluteError(2.3, 2.5) << std::endl;
+    double absErr = absoluteError(2.3, 2.5);
+    std::cout << "Absolute error: " << absErr << std::endl;
 
-    std::cout << "relativeError: " << std::endl;
-    std::cout << relativeError(2.3, 2.5) << std::endl;
+    double relErr = relativeError(2.3, 2.5);
+    std::cout << "Relative error: " << relErr << std::endl;
 
     std::cout << "random vec y: " << std::endl;
     Vector<double>* y = new Vector<double>(2);

@@ -10,10 +10,12 @@ public:
     unsigned int rowDim() const override { return m_rowDim; }
 
     // Constructors
-    Vector(const unsigned int rowDim) :
-        m_rowDim(rowDim) { initializeEmptyArray(); }
-    Vector(T* array, const unsigned int rowDim) :
-        m_array(array), m_rowDim(rowDim) {}
+    Vector(const unsigned int rowDim, bool init=false) :
+        m_rowDim(rowDim)
+        {if (init) { initializeEmptyArray(); }}
+    Vector(T* array, const unsigned int rowDim, bool init=false) :
+        m_array(array), m_rowDim(rowDim)
+        { if (init) { initializeEmptyArray(); }}
 
     // Overloaded () operators for element acceses by indices
     T operator()(unsigned int i, unsigned int j) override;

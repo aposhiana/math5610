@@ -33,19 +33,27 @@ void assertSameDim(Array<double>& a, Array<double>& b) {
     }
 }
 
+// Internal method that returns a pointer to a new empty initialized
+// Vector matching the specified dimesions if colDim == 1 and
+// otherwise returns a pointer to a DenseArray instance matching
+// the specified dimensions
+Array<double>* getResultArray(const unsigned int rowDim, const unsigned int colDim) {
+    Array<double>* newArray;
+    if (colDim == 1) {
+        newArray = new Vector<double>(rowDim, true);
+    }
+    else {
+        newArray = new DenseArray<double>(rowDim, colDim, true);
+    }
+    return newArray;
+}
+
 // Add two arrays of same dimension element-wise and return a Vector<double>*
 // if colDim is 1 otherwise return a DenseArray
 // TODO return SparseArray if sparse flag is true (default to false)
 Array<double>* add(Array<double>* a, Array<double>* b) {
     assertSameDim(*a, *b);
-    Array<double>* newArray;
-    if (a->colDim() == 1) {
-        newArray = new Vector<double>(a->rowDim());
-    }
-    else {
-        newArray = new DenseArray<double>(a->rowDim(), a->colDim());
-    }
-
+    Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
     for (unsigned int i = 0; i < a->rowDim(); i++) {
         for (unsigned int j = 0; j < a->colDim(); j++) {
             newArray->set(i, j, (*a)(i, j) + (*b)(i, j));
@@ -54,17 +62,9 @@ Array<double>* add(Array<double>* a, Array<double>* b) {
     return newArray;
 }
 
-
 // TODO return SparseArray if sparse flag is true (default to false)
-Array<double>* multiply(double scalar, Array<double>* a) {
-    Array<double>* newArray;
-    if (a->colDim() == 1) {
-        newArray = new Vector<double>(a->rowDim());
-    }
-    else {
-        newArray = new DenseArray<double>(a->rowDim(), a->colDim());
-    }
-
+Array<double>* multiply(const double scalar, Array<double>* a) {
+    Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
     for (unsigned int i = 0; i < a->rowDim(); i++) {
         for (unsigned int j = 0; j < a->colDim(); j++) {
             newArray->set(i, j, (*a)(i, j) * scalar);
@@ -76,14 +76,7 @@ Array<double>* multiply(double scalar, Array<double>* a) {
 // TODO return SparseArray if sparse flag is true (default to false)
 Array<double>* multiply(Array<double>* a, Array<double>* b) {
     assertSameDim(*a, *b);
-    Array<double>* newArray;
-    if (a->colDim() == 1) {
-        newArray = new Vector<double>(a->rowDim());
-    }
-    else {
-        newArray = new DenseArray<double>(a->rowDim(), a->colDim());
-    }
-
+    Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
     for (unsigned int i = 0; i < a->rowDim(); i++) {
         for (unsigned int j = 0; j < a->colDim(); j++) {
             newArray->set(i, j, (*a)(i, j) * (*b)(i, j));

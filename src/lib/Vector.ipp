@@ -4,7 +4,7 @@
 template <typename T>
 void Vector<T>::initializeEmptyArray() {
     if (m_array != nullptr) {
-        return;
+        delete[] m_array;
     }
     m_array = new T[m_rowDim];
 }
@@ -29,7 +29,7 @@ void Vector<T>::set(unsigned int i, unsigned int j, T value) {
     m_array[i] = value;
 }
 
-// Sets m_array to all zeros
+// Sets m_array to all of value
 template <typename T>
 void Vector<T>::setAll(T value) {
     initializeEmptyArray();

@@ -9,5 +9,10 @@ by Andrew Aposhian
         * [getDoubleMachineEpsilon](./getDoubleMachineEpsilon.md)
 * **Basic linear algebra routines**
     * ArrayUtils.hpp
+        * [add](./add.md)
+        * [multiply](./multiply.md)
         * [makeRandomRawArray](./makeRandomRawArray.md)
+    * VectorNorms.hpp
+        * [absoluteError](./absoluteError.md)
+        * [relativeError](./relativeError.md)
 * **Solution of Linear Systems**

@@ -52,7 +52,7 @@ double vectorError(Vector<double>& x,
                 std::function<double(Vector<double>&)> norm) {
     assertSameDim(x, y);
     const unsigned int DIM = x.rowDim();
-    Vector<double>* errorVector = new Vector<double>(DIM);
+    Vector<double>* errorVector = new Vector<double>(DIM, true);
     for (unsigned int i = 0; i < DIM; i++) {
         errorVector->set(i, scalarError(x(i), y(i)));
     }
@@ -61,15 +61,21 @@ double vectorError(Vector<double>& x,
 
 // Get the absolute error between two vectors when L2-norm is used
 double l2NormAbsoluteError(Vector<double>& x, Vector<double>& y) {
-    return vectorError(x, y, absoluteError, l2Norm);
+    std::function<double(const double, const double)> scalarError = absoluteError;
+    std::function<double(Vector<double>&)> norm = l2Norm;
+    return vectorError(x, y, scalarError, norm);
 }
 
 // Get the absolute error between two vectors when L1-norm is used
 double l1NormAbsoluteError(Vector<double>& x, Vector<double>& y) {
-    return vectorError(x, y, absoluteError, l1Norm);
+    std::function<double(const double, const double)> scalarError = absoluteError;
+    std::function<double(Vector<double>&)> norm = l1Norm;
+    return vectorError(x, y, scalarError, norm);
 }
 
 // Get the absolute error between two vectors when infinity-norm is used
 double infNormAbsoluteError(Vector<double>& x, Vector<double>& y) {
-    return vectorError(x, y, absoluteError, infNorm);
+    std::function<double(const double, const double)> scalarError = absoluteError;
+    std::function<double(Vector<double>&)> norm = infNorm;
+    return vectorError(x, y, scalarError, norm);
 }
