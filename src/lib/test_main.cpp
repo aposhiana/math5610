@@ -73,10 +73,17 @@ int main() {
     std::cout << "test add and multiply: " << std::endl;
     tArr->print();
 
+    // Using default min and max
     std::cout << "symmetric: " << std::endl;
     DenseArray<double>* sym = new DenseArray<double>(5, 5);
     sym->makeRandomSymmetric();
     sym->print();
+
+    // Using other min and max
+    std::cout << "symmetric non-default: " << std::endl;
+    DenseArray<double>* symNonDef = new DenseArray<double>(5, 5);
+    symNonDef->makeRandomSymmetric(4.5, 8.5);
+    symNonDef->print();
 
     std::cout << "upper triangular: " << std::endl;
     DenseArray<double>* ut = new DenseArray<double>(3, 3);

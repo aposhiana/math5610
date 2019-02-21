@@ -8,6 +8,10 @@ by Andrew Aposhian
         * [getMachineEpsilon](./getMachineEpsilon.md)
         * [getDoubleMachineEpsilon](./getDoubleMachineEpsilon.md)
 * **Basic linear algebra routines**
+    * Array.hpp
+    * DenseArray.hpp
+        * [makeRandomSymmetric.md](./makeRandomSymmetric.md)
+    * Vector.hpp
     * ArrayUtils.hpp
         * [add](./add.md)
         * [multiply](./multiply.md)
@@ -15,4 +19,7 @@ by Andrew Aposhian
     * VectorNorms.hpp
         * [absoluteError](./absoluteError.md)
         * [relativeError](./relativeError.md)
+        * [l1Norm](./l1Norm.md)
+        * [l2Norm](./l2Norm.md)
+        * [infNorm](./infNorm.md)
 * **Solution of Linear Systems**
