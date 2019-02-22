@@ -137,12 +137,18 @@ int main() {
     std::cout << "Matrix infinity-norm: " << std::endl;
     std::cout << matrixInfNorm(*normishArray) << std::endl;
 
+    DenseArray<double>* ar1 = new DenseArray<double>(3, 2);
+    std::cout << "ar1:  " << std::endl;
+    ar1->makeRandom();
+    ar1->print();
+
     DenseArray<double>* ar2 = new DenseArray<double>(2, 4);
     std::cout << "ar2:  " << std::endl;
     ar2->makeRandom();
     ar2->print();
+
     std::cout << "product:  " << std::endl;
-    Array<double>* product = matmul(normishArray, ar2);
+    Array<double>* product = matmul(ar1, ar2);
     product->print();
 
     std::cout << "Random DD Matrix:  " << std::endl;

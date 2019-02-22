@@ -11,10 +11,12 @@ by Andrew Aposhian
     * [Array\<T\>](./Array.md)
     * [DenseArray\<T\>](./DenseArray.md)
         * [makeRandomSymmetric.md](./makeRandomSymmetric.md)
+        * [makeRandomDD.md](./makeRandomDD.md)
     * [Vector\<T\>](./Vector.md)
     * ArrayUtils.hpp
         * [add](./add.md)
         * [multiply](./multiply.md)
+        * [matmul](./matmul.md)
         * [makeRandomRawArray](./makeRandomRawArray.md)
     * VectorNorms.hpp
         * [absoluteError](./absoluteError.md)
@@ -22,4 +24,7 @@ by Andrew Aposhian
         * [l1Norm](./l1Norm.md)
         * [l2Norm](./l2Norm.md)
         * [infNorm](./infNorm.md)
+        * [l1NormAbsoluteError](l1NormAbsoluteError.md)
+        * [l2NormAbsoluteError](l2NormAbsoluteError.md)
+        * [infNormAbsoluteError](infNormAbsoluteError.md)
 * **Solution of Linear Systems**

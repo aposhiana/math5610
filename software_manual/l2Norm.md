@@ -9,7 +9,7 @@ To use this function, include the correct header file at the top of your file as
 #include "VectorNorms.hpp"
 ```
 
-**Description/Purpose:** The purpose of this function is to take a Vector of doubles and return its L-2 Norm as a vector.
+**Description/Purpose:** The purpose of this function is to take a Vector of doubles and return its L-2 Norm as a double.
 
 **Input:**
 1. A vector of doubles
