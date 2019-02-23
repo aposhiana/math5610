@@ -16,6 +16,8 @@ by Andrew Aposhian
     * ArrayUtils.hpp
         * [add](./add.md)
         * [multiply](./multiply.md)
+        * [dot](./dot.md)
+        * [cross](./cross.md)
         * [matmul](./matmul.md)
         * [makeRandomRawArray](./makeRandomRawArray.md)
     * VectorNorms.hpp
