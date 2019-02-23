@@ -29,7 +29,7 @@ Absolute error: 0.2
 ```
 
 **Implementation/Code:**
-See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+See [VectorNorms.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/VectorNorms.cpp)
 ```
 double absoluteError(const double x, const double y) {
     return abs(x - y);

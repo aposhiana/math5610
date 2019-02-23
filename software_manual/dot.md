@@ -46,7 +46,7 @@ Dot product: 0.89563
 ```
 
 **Implementation/Code:**
-See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+See [ArrayUtils.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
 ```
 double dot(Vector<double>& a, Vector<double>& b) {
     assertSameDim(a, b);

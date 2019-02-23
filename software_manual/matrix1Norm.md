@@ -37,7 +37,7 @@ Matrix 1-norm:
 ```
 
 **Implementation/Code:**
-See [MatrixNorms.cpp](../src/lib/MatrixNorms.cpp)
+See [MatrixNorms.cpp](https://github.com/aposhiana/math5610/blob/master/src/lib/MatrixNorms.cpp)
 ```
 double matrix1Norm(Array<double>& a) {
     // -1 will always be less than any sum

@@ -37,7 +37,7 @@ y l1Norm:
 ```
 
 **Implementation/Code:**
-See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+See [VectorNorms.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/VectorNorms.cpp)
 ```
 double l1Norm(Vector<double>& v) {
     double norm = 0;

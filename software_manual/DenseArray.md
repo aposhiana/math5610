@@ -16,8 +16,8 @@ To use the DenseArray class template, include the correct header file at the top
 Note that currently the template is principally designed to be used only for the `DenseArray<double>` class; however it was designed so that it may also be used for integer types etcetera although keep in mind that for now not all methods may function properly with other data types.
 
 **Implementation/Code:**
-See the following files
-[DenseArray.hpp](../src/lib/DenseArray.hpp)
-[DenseArray.ipp](../src/lib/DenseArray.ipp)
+See the following files on GitHub
+[DenseArray.hpp](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.hpp)
+[DenseArray.ipp](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.ipp)
 
 **Last Modified:** February/2019

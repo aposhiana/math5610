@@ -17,7 +17,7 @@ Note that currently the template is principally designed to be used only for the
 
 **Implementation/Code:**
 See the following files
-[Vector.hpp](../src/lib/Vector.hpp)
-[Vector.ipp](../src/lib/Vector.ipp)
+[Vector.hpp](https://github.com/aposhiana/math5610/blob/master/src/lib/Vector.hpp)
+[Vector.ipp](https://github.com/aposhiana/math5610/blob/master/src/lib/Vector.ipp)
 
 **Last Modified:** February/2019

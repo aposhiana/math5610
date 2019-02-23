@@ -4,7 +4,7 @@
 3. I enabled GitHub Pages for my math5610 repository. [See the math5610 Pages site](https://aposhiana.github.io/math5610/).
 4. I copied the software manual template file into my software_manual directory. [See the template file](../software_manual/softwareManualTemplate.md).
 5. I created tables of contents for my homeworks and my software manual. See the homework table of contents [here](../homework/README.md). See the software manual table of contents [here](../software_manual/README.md).
-6. I used CMake and clang++ to compile my routines into a static library archive file `liblinalg.a`. To run CMake I used a script [build_run.sh](../build_run.sh) to build my project and run tests. This is what my build script looks like:
+6. I used CMake and clang++ to compile my routines into a static library archive file `liblinalg.a`. To run CMake I used a script `build_run.sh` ([See on GitHub](https://github.com/aposhiana/math5610/blob/master/build_run.sh)) to build my project and run tests. This is what my build script looks like:
 ```
 #!/bin/bash
 mkdir -p build
@@ -26,7 +26,6 @@ VectorNorms.cpp.o
 MatrixNorms.cpp.o
 Utils.cpp.o
 ```
-[See the build directory](../build/).
 7. I wrote a Hello World program to test OpenMP with C++ on my Mac. [See the source code for my program](../src/toy_programs/multicore_hello.cpp). To use OpenMP with C++ on macOS, I used the clang++ compiler. Here is an example command for compiling with OpenMP functionality using clang++:
     ```
     clang++ -Xpreprocessor -fopenmp my_program.cpp -o MyProgram -lomp

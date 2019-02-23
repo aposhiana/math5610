@@ -43,7 +43,7 @@ Test add:
 ```
 
 **Implementation/Code:**
-See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+See [ArrayUtils.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
 ```
 Array<double>* add(Array<double>* a, Array<double>* b) {
     assertSameDim(*a, *b);

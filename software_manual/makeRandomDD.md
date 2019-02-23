@@ -33,7 +33,7 @@ Random DD Matrix:
 ```
 
 **Implementation/Code:**
-See [DenseArray.ipp](../src/lib/DenseArray.ipp)
+See [DenseArray.ipp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.ipp)
 ```
 template <typename T>
 void DenseArray<T>::makeRandomDD(const double min, const double max) {

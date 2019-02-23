@@ -27,7 +27,7 @@ Output from lines above:
 ```
 
 **Implementation/Code:**
-See [MachineEpsilon.cpp](../src/lib/MachineEpsilon.cpp)
+See [MachineEpsilon.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/MachineEpsilon.cpp)
 ```
 float getMachineEpsilon() {
     float epsilon = 1;

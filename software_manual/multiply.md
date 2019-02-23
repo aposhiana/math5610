@@ -67,7 +67,7 @@ Test elementwise multiplication of Vectors:
 ```
 
 **Implementation/Code:**
-See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+See [ArrayUtils.cpp](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
 ```
 // TODO return SparseArray if sparse flag is true (default to false)
 Array<double>* multiply(const double scalar, Array<double>* a) {

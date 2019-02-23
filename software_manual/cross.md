@@ -51,7 +51,7 @@ Cross product:
 ```
 
 **Implementation/Code:**
-See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+See [ArrayUtils.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
 ```
 Vector<double>& cross(Vector<double>& a, Vector<double>& b) {
     if (a.rowDim() != 3 || b.rowDim() != 3) {

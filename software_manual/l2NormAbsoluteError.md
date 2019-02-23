@@ -46,7 +46,7 @@ l2NormAbsoluteError:
 ```
 
 **Implementation/Code:**
-See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+See [VectorNorms.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/VectorNorms.cpp)
 ```
 double l2NormAbsoluteError(Vector<double>& x, Vector<double>& y) {
     std::function<double(const double, const double)> scalarError = absoluteError;

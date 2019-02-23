@@ -38,7 +38,7 @@ Output from lines above:
 ```
 
 **Implementation/Code:**
-See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+See [ArrayUtils.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
 ```
 double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
                 const double min, const double max) {
