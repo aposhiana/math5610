@@ -47,5 +47,12 @@ l1NormAbsoluteError:
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double l1NormAbsoluteError(Vector<double>& x, Vector<double>& y) {
+    std::function<double(const double, const double)> scalarError = absoluteError;
+    std::function<double(Vector<double>&)> norm = l1Norm;
+    return vectorError(x, y, scalarError, norm);
+}
+```
 
 **Last Modified:** February/2019

@@ -38,5 +38,14 @@ y l2Norm:
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double l2Norm(Vector<double>& v) {
+    double sum = 0;
+    for (unsigned int i = 0; i < v.rowDim(); i++) {
+        sum += v(i) * v(i);
+    }
+    return sqrt(sum);
+}
+```
 
 **Last Modified:** February/2019

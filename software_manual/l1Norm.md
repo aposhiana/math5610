@@ -38,5 +38,14 @@ y l1Norm:
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double l1Norm(Vector<double>& v) {
+    double norm = 0;
+    for (unsigned int i = 0; i < v.rowDim(); i++) {
+        norm += abs(v(i));
+    }
+    return norm;
+}
+```
 
 **Last Modified:** February/2019

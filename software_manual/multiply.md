@@ -68,5 +68,29 @@ Test elementwise multiplication of Vectors:
 
 **Implementation/Code:**
 See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+```
+// TODO return SparseArray if sparse flag is true (default to false)
+Array<double>* multiply(const double scalar, Array<double>* a) {
+    Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
+    for (unsigned int i = 0; i < a->rowDim(); i++) {
+        for (unsigned int j = 0; j < a->colDim(); j++) {
+            newArray->set(i, j, (*a)(i, j) * scalar);
+        }
+    }
+    return newArray;
+}
+
+// TODO return SparseArray if sparse flag is true (default to false)
+Array<double>* multiply(Array<double>* a, Array<double>* b) {
+    assertSameDim(*a, *b);
+    Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
+    for (unsigned int i = 0; i < a->rowDim(); i++) {
+        for (unsigned int j = 0; j < a->colDim(); j++) {
+            newArray->set(i, j, (*a)(i, j) * (*b)(i, j));
+        }
+    }
+    return newArray;
+}
+```
 
 **Last Modified:** February/2019

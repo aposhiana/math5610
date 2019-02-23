@@ -137,6 +137,32 @@ int main() {
     std::cout << "Matrix infinity-norm: " << std::endl;
     std::cout << matrixInfNorm(*normishArray) << std::endl;
 
+    Vector<double>* v1 = new Vector<double>(3);
+    v1->makeRandom();
+    std::cout << "Vector 1 for dot product:" << std::endl;
+    v1->print();
+
+    Vector<double>* v2 = new Vector<double>(3);
+    v2->makeRandom();
+    std::cout << "Vector 2 for dot product:" << std::endl;
+    v2->print();
+
+    std::cout << "Dot product: " << dot(*v1, *v2) << std::endl;
+
+    Vector<double>* vc1 = new Vector<double>(3);
+    vc1->makeRandom();
+    std::cout << "Vector 1 for cross product:" << std::endl;
+    vc1->print();
+
+    Vector<double>* vc2 = new Vector<double>(3);
+    vc2->makeRandom();
+    std::cout << "Vector 2 for cross product:" << std::endl;
+    vc2->print();
+
+    Vector<double> crossProductResult = cross(*vc1, *vc2);
+    std::cout << "Cross product:" << std::endl;
+    crossProductResult.print();
+
     DenseArray<double>* ar1 = new DenseArray<double>(3, 2);
     std::cout << "ar1:  " << std::endl;
     ar1->makeRandom();

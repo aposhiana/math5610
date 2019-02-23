@@ -38,5 +38,18 @@ y infNorm:
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double infNorm(Vector<double>& v) {
+    // -1 will always be less than the abs of any element
+    double max = -1;
+    for (unsigned int i = 0; i < v.rowDim(); i++) {
+        double absValElement = abs(v(i));
+        if (absValElement > max) {
+            max = absValElement;
+        }
+    }
+    return max;
+}
+```
 
 **Last Modified:** February/2019

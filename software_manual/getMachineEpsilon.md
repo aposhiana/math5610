@@ -28,5 +28,16 @@ Output from lines above:
 
 **Implementation/Code:**
 See [MachineEpsilon.cpp](../src/lib/MachineEpsilon.cpp)
+```
+float getMachineEpsilon() {
+    float epsilon = 1;
+    float nextPossibleEpsilon = epsilon;
+    while (nextPossibleEpsilon > 0) {
+        epsilon = nextPossibleEpsilon;
+        nextPossibleEpsilon /= 2;
+    }
+    return epsilon;
+}
+```
 
 **Last Modified:** January/2019

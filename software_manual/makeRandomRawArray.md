@@ -39,5 +39,23 @@ Output from lines above:
 
 **Implementation/Code:**
 See [ArrayUtils.cpp](../src/lib/ArrayUtils.cpp)
+```
+double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
+                const double min, const double max) {
+    // Assert min < max
+    assertProperMinMax(min, max);
+    // Allocate rows
+    double** a = new double*[rowDim];
+    for (unsigned int i = 0; i < rowDim; i++) {
+        // Allocate column
+        a[i] = new double[colDim];
+        for (unsigned int j = 0; j < colDim; j++) {
+            // Set element
+            a[i][j] = getRandDouble(min, max);
+        }
+    }
+    return a;
+}
+```
 
 **Last Modified:** February/2019

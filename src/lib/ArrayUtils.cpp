@@ -1,7 +1,6 @@
 #include <cstdlib>
 
 #include "ArrayUtils.hpp"
-#include "Vector.hpp"
 #include "DenseArray.hpp"
 #include "Utils.hpp"
 
@@ -112,4 +111,27 @@ Array<double>* matmul(Array<double>* a, Array<double>* b) {
     }
     Array<double>* c = new DenseArray<double>(cRaw, M, P);
     return c;
+}
+
+// Compute the dot product of two vectors of the same length
+double dot(Vector<double>& a, Vector<double>& b) {
+    assertSameDim(a, b);
+    double result = 0;
+    for (unsigned int i = 0; i < a.rowDim(); i++) {
+        result += a(i) * b(i);
+    }
+    return result;
+}
+
+// Compute the cross product of two 3D vectors
+Vector<double>& cross(Vector<double>& a, Vector<double>& b) {
+    if (a.rowDim() != 3 || b.rowDim() != 3) {
+        std::cout << "Vectors must be 3-dimensional for cross product" << std::endl;
+        throw std::exception();
+    }
+    Vector<double>* result = new Vector<double>(3, true);
+    result->set(0, a(1) * b(2) - b(1) * a(2));
+    result->set(1, a(2) * b(0) - b(2) * a(0));
+    result->set(2, a(0) * b(1) - b(0) * a(1));
+    return *result;
 }

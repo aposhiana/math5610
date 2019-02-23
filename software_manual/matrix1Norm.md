@@ -38,5 +38,20 @@ Matrix 1-norm:
 
 **Implementation/Code:**
 See [MatrixNorms.cpp](../src/lib/MatrixNorms.cpp)
-
+```
+double matrix1Norm(Array<double>& a) {
+    // -1 will always be less than any sum
+    double maxColL1Norm = -1;
+    for (unsigned int j = 0; j < a.colDim(); j++) {
+        double colL1Norm = 0;
+        for (unsigned int i = 0; i < a.rowDim(); i++) {
+            colL1Norm += abs(a(i, j));
+        }
+        if (colL1Norm > maxColL1Norm) {
+            maxColL1Norm = colL1Norm;
+        }
+    }
+    return maxColL1Norm;
+}
+```
 **Last Modified:** February/2019

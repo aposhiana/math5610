@@ -48,5 +48,17 @@ symmetric non-default:
 
 **Implementation/Code:**
 See [DenseArray.ipp](../src/lib/DenseArray.ipp)
+```
+template <typename T>
+void DenseArray<T>::makeRandomSymmetric(const double min, const double max) {
+    assertSquare();
+    assertProperMinMax(min, max);
+    // It is important that the form be changed before array initialization
+    // so that the correct form of array be allocated
+    setIsSymmetricForm();
+    initializeEmptyArray();
+    makeRandomInternalTriangular(min, max);
+}
+```
 
 **Last Modified:** February/2019

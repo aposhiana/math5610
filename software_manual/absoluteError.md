@@ -30,5 +30,10 @@ Absolute error: 0.2
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double absoluteError(const double x, const double y) {
+    return abs(x - y);
+}
+```
 
 **Last Modified:** February/2019

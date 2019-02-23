@@ -47,5 +47,12 @@ infNormAbsoluteError:
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double infNormAbsoluteError(Vector<double>& x, Vector<double>& y) {
+    std::function<double(const double, const double)> scalarError = absoluteError;
+    std::function<double(Vector<double>&)> norm = infNorm;
+    return vectorError(x, y, scalarError, norm);
+}
+```
 
 **Last Modified:** February/2019

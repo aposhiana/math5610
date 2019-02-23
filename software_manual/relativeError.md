@@ -30,5 +30,10 @@ Relative error: 0.0869565
 
 **Implementation/Code:**
 See [VectorNorms.cpp](../src/lib/VectorNorms.cpp)
+```
+double relativeError(const double x, const double y) {
+    return absoluteError(x, y) / x;
+}
+```
 
 **Last Modified:** February/2019
