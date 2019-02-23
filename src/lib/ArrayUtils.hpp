@@ -2,6 +2,7 @@
 #define _ARRAY_UTILS_HPP_
 
 #include "Array.hpp"
+#include "DenseArray.hpp"
 #include "Vector.hpp"
 
 double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
@@ -13,7 +14,6 @@ Array<double>* multiply(Array<double>* a, Array<double>* b);
 Array<double>* matmul(Array<double>* a, Array<double>* b);
 double dot(Vector<double>& a, Vector<double>& b);
 Vector<double>& cross(Vector<double>& a, Vector<double>& b);
-// DenseArray<double>* transpose(DenseArray<double>* a);
-// DenseArray<double>* transpose(Vector<double>* v);
+DenseArray<double>* transpose(Array<double>* a);
 
 #endif

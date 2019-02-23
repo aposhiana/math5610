@@ -1,7 +1,6 @@
 #include <cstdlib>
 
 #include "ArrayUtils.hpp"
-#include "DenseArray.hpp"
 #include "Utils.hpp"
 
 
@@ -134,4 +133,20 @@ Vector<double>& cross(Vector<double>& a, Vector<double>& b) {
     result->set(1, a(2) * b(0) - b(2) * a(0));
     result->set(2, a(0) * b(1) - b(0) * a(1));
     return *result;
+}
+
+// Get the transpose of an Array of doubles as a DenseArray of doubles
+DenseArray<double>* transpose(Array<double>* a) {
+    const unsigned int OLD_ROW_DIM = a->rowDim();
+    const unsigned int OLD_COL_DIM = a->colDim();
+    const unsigned int NEW_ROW_DIM = OLD_COL_DIM;
+    const unsigned int NEW_COL_DIM = OLD_ROW_DIM;
+
+    DenseArray<double>* aT = new DenseArray<double>(NEW_ROW_DIM, NEW_COL_DIM, true);
+    for (unsigned int i = 0; i < NEW_ROW_DIM; i++) {
+        for (unsigned int j = 0; j < NEW_COL_DIM; j++) {
+            aT->set(i, j, (*a)(j, i));
+        }
+    }
+    return aT;
 }

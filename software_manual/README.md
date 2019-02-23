@@ -19,6 +19,7 @@ by Andrew Aposhian
         * [dot](./dot.md)
         * [cross](./cross.md)
         * [matmul](./matmul.md)
+        * [transpose](./transpose.md)
         * [makeRandomRawArray](./makeRandomRawArray.md)
     * VectorNorms.hpp
         * [absoluteError](./absoluteError.md)

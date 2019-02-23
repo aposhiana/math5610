@@ -39,12 +39,35 @@ int main() {
     Array<double>* vec2 = new Vector<double>(vecRows);
     vec2->setAll(11);
 
-    std::cout << "Test add: " << std::endl;
-    Array<double>* sum = add(vec, vec2);
-    sum->print();
+    // TEST add
+    std::cout << "Vector 1 to be added: " << std::endl;
+    Vector<double>* vtba1 = new Vector<double>(5);
+    vtba1->makeRandom(0, 9.6);
+    vtba1->print();
 
-    std::cout << "colDim: " << std::endl;
-    std::cout << vec2->colDim() << std::endl;
+    std::cout << "Vector 2 to be added: " << std::endl;
+    Vector<double>* vtba2 = new Vector<double>(5);
+    vtba2->makeRandom(0, 4.5);
+    vtba2->print();
+
+    std::cout << "Vector sum: " << std::endl;
+    Array<double>* vectorSum = add(vtba1, vtba2);
+    vectorSum->print();
+
+    std::cout << "Matrix 1 to be added: " << std::endl;
+    DenseArray<double>* mtba1 = new DenseArray<double>(3, 2);
+    mtba1->makeRandom(1.0, 4.3);
+    mtba1->print();
+
+    std::cout << "Matrix 2 to be added: " << std::endl;
+    DenseArray<double>* mtba2 = new DenseArray<double>(3, 2);
+    mtba2->makeRandom(0, 5.5);
+    mtba2->print();
+
+    std::cout << "Matrix sum: " << std::endl;
+    Array<double>* matrixSum = add(mtba1, mtba2);
+    matrixSum->print();
+
 
 
     std::cout << "Test multiply by a scalar:" << std::endl;
@@ -198,6 +221,22 @@ int main() {
     double** rawArray = makeRandomRawArray(ROWS, COLS);
     DenseArray<double>* myArray = new DenseArray<double>(rawArray, ROWS, COLS);
     myArray->print();
+
+    std::cout << "Matrix to be transposed:  " << std::endl;
+    DenseArray<double>* mtbt = new DenseArray<double>(4, 2);
+    mtbt->makeRandom(0, 9.5);
+    mtbt->print();
+    std::cout << "Transpose of matrix: " << std::endl;
+    DenseArray<double>* mtbtT = transpose(mtbt);
+    mtbtT->print();
+
+    std::cout << "Vector to be transposed:  " << std::endl;
+    Vector<double>* vtbt = new Vector<double>(4);
+    vtbt->makeRandom(-4, 10.5);
+    vtbt->print();
+    std::cout << "Transpose of vector:  " << std::endl;
+    DenseArray<double>* vtbtT = transpose(vtbt);
+    vtbtT->print();
 
     return 0;
 }
