@@ -17,7 +17,7 @@ Note that currently the template is principally designed to be used only for the
 
 **Implementation/Code:**
 See the following files on GitHub
-[DenseArray.hpp](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.hpp)
-[DenseArray.ipp](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.ipp)
+* [DenseArray.hpp](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.hpp)
+* [DenseArray.ipp](https://github.com/aposhiana/math5610/blob/master/src/lib/DenseArray.ipp)
 
 **Last Modified:** February/2019

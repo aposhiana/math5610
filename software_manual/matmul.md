@@ -50,7 +50,7 @@ product:
 ```
 
 **Implementation/Code:**
-See [ArrayUtils.cpp](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
+See [ArrayUtils.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/ArrayUtils.cpp)
 ```
 Array<double>* matmul(Array<double>* a, Array<double>* b) {
     if (a->colDim() != b->rowDim()) {

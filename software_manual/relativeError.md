@@ -29,7 +29,7 @@ Relative error: 0.0869565
 ```
 
 **Implementation/Code:**
-See [VectorNorms.cpp](https://github.com/aposhiana/math5610/blob/master/src/lib/VectorNorms.cpp)
+See [VectorNorms.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/VectorNorms.cpp)
 ```
 double relativeError(const double x, const double y) {
     return absoluteError(x, y) / x;
