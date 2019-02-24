@@ -39,7 +39,7 @@ int main() {
     Array<double>* vec2 = new Vector<double>(vecRows);
     vec2->setAll(11);
 
-    // TEST add
+    // Test add
     std::cout << "Vector 1 to be added: " << std::endl;
     Vector<double>* vtba1 = new Vector<double>(5);
     vtba1->makeRandom(0, 9.6);
@@ -67,7 +67,6 @@ int main() {
     std::cout << "Matrix sum: " << std::endl;
     Array<double>* matrixSum = add(mtba1, mtba2);
     matrixSum->print();
-
 
 
     std::cout << "Test multiply by a scalar:" << std::endl;
@@ -196,9 +195,25 @@ int main() {
     ar2->makeRandom();
     ar2->print();
 
+    // Test matmul
     std::cout << "product:  " << std::endl;
     Array<double>* product = matmul(ar1, ar2);
     product->print();
+
+    std::cout << "Vector 1 for outer product:  " << std::endl;
+    Vector<double>* vfcp1 = new Vector<double>(5);
+    vfcp1->makeRandom();
+    vfcp1->print();
+
+    std::cout << "Vector 2 for outer product:  " << std::endl;
+    Vector<double>* vfcp2 = new Vector<double>(5);
+    vfcp2->makeRandom();
+    vfcp2->print();
+
+    std::cout << "Outer product:  " << std::endl;
+    Array<double>* outerProductResult = matmul(vfcp1, transpose(vfcp2));
+    outerProductResult->print();
+
 
     std::cout << "Random DD Matrix:  " << std::endl;
     DenseArray<double>* ddA = new DenseArray<double>(5, 5);
