@@ -267,5 +267,16 @@ int main() {
     Vector<double> x_dls = solveLinearDiagonalSystem(*A_dls, *b_ls);
     x_dls.print();
 
+    std::cout << "A for upper triangular linear system:  " << std::endl;
+    DenseArray<double>* A_utls = new DenseArray<double>(5);
+    A_utls->makeRandomUpperTriangular(1.0, 10.0);
+    A_utls->print();
+
+    std::cout << "x found for upper triangular system:  " << std::endl;
+    b_ls->print();
+    Vector<double> x_utls = backsub(*A_utls, *b_ls);
+    // std::cout << "hi";
+    x_utls.print();
+
     return 0;
 }
