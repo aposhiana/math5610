@@ -7,6 +7,7 @@
 #include "ArrayUtils.hpp"
 #include "VectorNorms.hpp"
 #include "MatrixNorms.hpp"
+#include "LinearSolvers.hpp"
 
 int main() {
     // TODO: Set up real tests
@@ -22,10 +23,10 @@ int main() {
     std::cout << "zeros: " << std::endl;
     a.print();
 
-    DenseArray<int> b = DenseArray<int>(3, 3);
-    b.makeIdentity();
+    DenseArray<double> identity_arr = DenseArray<double>(5);
+    identity_arr.makeIdentity();
     std::cout << "identity: " << std::endl;
-    b.print();
+    identity_arr.print();
 
     unsigned int vecRows = 8;
     Array<double>* vec = new Vector<double>(vecRows);
@@ -252,6 +253,19 @@ int main() {
     std::cout << "Transpose of vector:  " << std::endl;
     DenseArray<double>* vtbtT = transpose(vtbt);
     vtbtT->print();
+
+    std::cout << "b for linear systems:  " << std::endl;
+    Vector<double>* b_ls = new Vector<double>(5);
+    b_ls->makeRandom(1, 10);
+    b_ls->print();
+
+    std::cout << "A for diagonal linear system:  " << std::endl;
+    Array<double>* A_dls = multiply(2.0, &identity_arr);
+    A_dls->print();
+
+    std::cout << "x found for diagonal system:  " << std::endl;
+    Vector<double> x_dls = solveLinearDiagonalSystem(*A_dls, *b_ls);
+    x_dls.print();
 
     return 0;
 }

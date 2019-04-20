@@ -6,6 +6,7 @@
 template <typename T>
 class Vector : public Array<T> {
 public:
+    // Getters
     unsigned int colDim() const override { return m_colDim; }
     unsigned int rowDim() const override { return m_rowDim; }
 
@@ -20,23 +21,21 @@ public:
     // Overloaded () operators for element acceses by indices
     T operator()(unsigned int i, unsigned int j) override;
     T operator()(unsigned int i) { return m_array[i]; }
-
     // Element setters
     void set(unsigned int i, unsigned int j, T value) override;
     void set(unsigned int i, T value) { m_array[i] = value; }
     void setAll(T value) override;
 
+    // Prints the array
+    void print() override;
+
     // Overloaded assignment and move assignment
     Vector<T>& operator=(const Vector<T>& rhs);
     Vector<T>& operator=(Vector<T>&& rhs);
-
     // Destructor, copy constructor, and move constructor
     ~Vector();
     Vector(const Vector<T>& obj);
     Vector(Vector<T>&& obj);
-
-    // Prints the array
-    void print() override;
 
 private:
     // Internal representation of vector

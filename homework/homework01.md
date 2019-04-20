@@ -26,7 +26,7 @@
     MatrixNorms.cpp.o
     Utils.cpp.o
     ```
-7. I wrote a Hello World program to test OpenMP with C++ on my Mac. [See the source code for my program](../src/toy_programs/multicore_hello.cpp). To use OpenMP with C++ on macOS, I used the clang++ compiler. Here is an example command for compiling with OpenMP functionality using clang++:
+7. I wrote a Hello World program to test OpenMP with C++ on my Mac. [See the source code for my program on GitHub](https://github.com/aposhiana/math5610/blob/master/src/toy_programs/multicore_hello.cpp). To use OpenMP with C++ on macOS, I used the clang++ compiler. Here is an example command for compiling with OpenMP functionality using clang++:
     ```
     clang++ -Xpreprocessor -fopenmp my_program.cpp -o MyProgram -lomp
     ```

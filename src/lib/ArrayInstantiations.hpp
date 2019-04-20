@@ -1,0 +1,4 @@
+#ifndef _ARRAY_INSTANTIATIONS_HPP_
+#define _ARRAY_INSTANTIATIONS_HPP_
+
+#endif

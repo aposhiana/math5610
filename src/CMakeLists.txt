@@ -13,18 +13,25 @@ add_library(linalg STATIC
     lib/DenseArray.ipp
     lib/Vector.hpp
     lib/Vector.ipp
+    lib/ArrayInstantiations.hpp
+    lib/ArrayInstantiations.cpp
     lib/VectorNorms.hpp
     lib/VectorNorms.cpp
     lib/MatrixNorms.hpp
     lib/MatrixNorms.cpp
     lib/Utils.hpp
     lib/Utils.cpp
+    lib/LibLinAlg.hpp
+    lib/LinearSolvers.cpp
+    lib/LinearSolvers.hpp
 )
 
 # TODO: move the tests to test directory not lib
 add_executable(LinAlgTester
     lib/test_main.cpp
 )
+
+target_include_directories(linalg INTERFACE ${CMAKE_CURRENT_LIST_DIR}/lib)
 
 set_target_properties(linalg PROPERTIES LINKER_LANGUAGE CXX)
 

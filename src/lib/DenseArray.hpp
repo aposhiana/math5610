@@ -15,7 +15,7 @@ public:
 
     // Constructors
     DenseArray(const unsigned int rowDim,
-                    const unsigned int colDim, bool init=false) : 
+                    const unsigned int colDim, bool init=false) :
         m_rowDim(rowDim), m_colDim(colDim)
         { if (init) { initializeEmptyArray(); }}
     DenseArray(T** array, const unsigned int rowDim,
@@ -24,32 +24,16 @@ public:
         { if (init) { initializeEmptyArray(); }}
 
     // Shortcut constructors for square arrays
-    DenseArray(const unsigned int axesDim)
-        { return DenseArray(axesDim, axesDim); }
-    DenseArray(T** array, const unsigned int axesDim)
-        { return DenseArray(array, axesDim, axesDim); }
-
-    // Methods to change internal array form
-    void makeFullForm();
-    void makeSymmetricForm();
-    // void setLowerTriangular();
-    // void setUpperTriangular();
+    DenseArray(const unsigned int axesDim) :
+        DenseArray(axesDim, axesDim) {}
+    DenseArray(T** array, const unsigned int axesDim) :
+        DenseArray(array, axesDim, axesDim) {}
 
     // Overloaded () operator for element acceses by indices
     T operator()(unsigned int i, unsigned int j) override;
-    
     // Element setter
     void set(unsigned int i, unsigned int j, T value) override;
     void setAll(T value) override;
-
-    // Overloaded assignment and move assignment
-    DenseArray<T>& operator=(const DenseArray<T>& rhs);
-    DenseArray<T>& operator=(DenseArray<T>&& rhs);
-
-    // Destructor, copy constructor, and move constructor
-    ~DenseArray();
-    DenseArray(const DenseArray<T>& obj);
-    DenseArray(DenseArray<T>&& obj);
 
     // Shortcuts to initialize m_array values
     void makeRandomDD(const double min=0.0, const double max=1.0);
@@ -58,8 +42,22 @@ public:
     void makeRandomLowerTriangular(const double min=0.0, const double max=1.0);
     void makeIdentity(); // TODO: If a DiagonalArray class is made, this should be removed
 
+    // Methods to change internal array form
+    void makeFullForm();
+    void makeSymmetricForm();
+    // void setLowerTriangular();
+    // void setUpperTriangular();
+
     // Prints the array
     void print() override;
+
+    // Overloaded assignment and move assignment
+    DenseArray<T>& operator=(const DenseArray<T>& rhs);
+    DenseArray<T>& operator=(DenseArray<T>&& rhs);
+    // Destructor, copy constructor, and move constructor
+    ~DenseArray();
+    DenseArray(const DenseArray<T>& obj);
+    DenseArray(DenseArray<T>&& obj);
 
 private:
     // Internal representation of array

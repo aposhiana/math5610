@@ -11,9 +11,9 @@ class Array {
 public:
     virtual unsigned int colDim() const = 0;
     virtual unsigned int rowDim() const = 0;
-    virtual T operator()(unsigned int i, unsigned int j)=0;
-    virtual void set(unsigned int i, unsigned int j, T value)=0;
-    virtual void setAll(T value)=0;
+    virtual T operator()(unsigned int i, unsigned int j) = 0;
+    virtual void set(unsigned int i, unsigned int j, T value) = 0;
+    virtual void setAll(T value) = 0;
     void makeRandom(const double min=0.0, const double max=1.0);
     void makeZeros() { setAll(0); }
     void makeOnes() { setAll(1); }

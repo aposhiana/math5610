@@ -22,11 +22,18 @@ double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim
     return a;
 }
 
-
 // Asserts Arrays have the same dimensionality
 void assertSameDim(Array<double>& a, Array<double>& b) {
     if (a.colDim() != b.colDim() || a.rowDim() != b.rowDim()) {
         std::cout << "Arrays of different dimensionality" << std::endl;
+        throw std::exception();
+    }
+}
+
+// Asserts Arrays have the same dimensionality
+void assertLinearSystem(Array<double>& A, Vector<double>& b) {
+    if (A.rowDim() != A.colDim() || A.rowDim() != b.rowDim()) {
+        std::cout << "Incorrect dimensionality for linear system" << std::endl;
         throw std::exception();
     }
 }
