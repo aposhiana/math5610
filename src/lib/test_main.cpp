@@ -274,7 +274,6 @@ int main() {
     A_utls->print();
 
     std::cout << "x found for upper triangular system:  " << std::endl;
-    b_ls->print();
     Vector<double> x_utls = backsub(*A_utls, *b_ls);
     std::cout << "backsub done";
     x_utls.print();

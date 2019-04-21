@@ -14,7 +14,6 @@ Vector<double>& solveLinearDiagonalSystem(Array<double>& A, Vector<double>& b) {
 }
 
 Vector<double>& backsub(DenseArray<double>& A, Vector<double>& b) {
-    std::cout << "yo";
     assertLinearSystem(A, b);
     if (!A.isUpperTriangularForm()) {
         std::cout << "Array passed to backsub is not upper triangular form" << std::endl;
@@ -25,7 +24,8 @@ Vector<double>& backsub(DenseArray<double>& A, Vector<double>& b) {
     unsigned int lastIndex = n - 1;
     double x_last = b(lastIndex) / A(lastIndex, lastIndex);
     x->set(lastIndex, x_last);
-    for (unsigned int i = lastIndex - 1; i >= 0; i--) {
+    // Note that the loop ends when i is negative
+    for (int i = lastIndex - 1; i >= 0; i--) {
         double sum = 0.0;
         for (unsigned int j = i + 1; j < n; j++) {
             sum += A(i, j) * (*x)(j);
