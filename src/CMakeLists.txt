@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
-project(linalg VERSION 1.0.1 DESCRIPTION "linear algebra library")
+project(linalg)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -g ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 -g -o0 ${CMAKE_CXX_FLAGS}")
 
 add_library(linalg STATIC
     lib/MachineEpsilon.hpp

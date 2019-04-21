@@ -177,8 +177,8 @@ template <typename T>
 void DenseArray<T>::makeRandomDD(const double min, const double max) {
     assertSquare();
     assertProperMinMax(min, max);
-    const double ABS_OF_MIN = abs(min);
-    const double ABS_OF_MAX = abs(max);
+    const double ABS_OF_MIN = std::fabs(min);
+    const double ABS_OF_MAX = std::fabs(max);
     const double MAX_ABS = (ABS_OF_MIN > ABS_OF_MAX) ? ABS_OF_MIN : ABS_OF_MAX;
     double minAbs;
     if (min <= 0 && max >= 0) {
@@ -197,7 +197,6 @@ void DenseArray<T>::makeRandomDD(const double min, const double max) {
         std::cout << " * (n - 1) >= (max absolute val=" << MAX_ABS << ")" << std::endl;
         throw std::exception();
     }
-
     initializeEmptyArray();
 
     const double OFF_DIAG_COUNT = colDim() - 1;
@@ -234,13 +233,13 @@ void DenseArray<T>::makeRandomDD(const double min, const double max) {
                 // This guarantees strict diagonal dominance.
                 // >= instead of == just for extra safety with 
                 // floating point arithmetic.
-            } while (abs(randValue) + absRowSum >= MAX_ABS);
+            } while (std::fabs(randValue) + absRowSum >= MAX_ABS);
 
             // Save the random value in rowVals
             rowVals[j] = randValue;
 
             // Update the absolute row sum
-            absRowSum += abs(randValue);
+            absRowSum += std::fabs(randValue);
         }
         // Randomly permute rowVals
         std::random_shuffle(rowVals.begin(), rowVals.end());
@@ -295,7 +294,7 @@ void DenseArray<T>::makeRandomDD(const double min, const double max) {
             // The probablity of this looping is low.
             // <= instead of == just for extra safety with 
             // floating point arithmetic.
-        } while (abs(randMaxAbs) <= absRowSum);
+        } while (std::fabs(randMaxAbs) <= absRowSum);
         // Set array value on diagonal to the random value
         set(i, i, randMaxAbs);
     }

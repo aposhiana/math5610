@@ -1,5 +1,4 @@
 #include <cmath>
-#include <functional>
 
 #include "VectorNorms.hpp"
 #include "ArrayUtils.hpp"
@@ -8,7 +7,7 @@
 double l1Norm(Vector<double>& v) {
     double norm = 0;
     for (unsigned int i = 0; i < v.rowDim(); i++) {
-        norm += abs(v(i));
+        norm += std::fabs(v(i));
     }
     return norm;
 }
@@ -27,7 +26,7 @@ double infNorm(Vector<double>& v) {
     // -1 will always be less than the abs of any element
     double max = -1;
     for (unsigned int i = 0; i < v.rowDim(); i++) {
-        double absValElement = abs(v(i));
+        double absValElement = std::fabs(v(i));
         if (absValElement > max) {
             max = absValElement;
         }
@@ -37,7 +36,7 @@ double infNorm(Vector<double>& v) {
 
 // Get the absolute error between two scalars
 double absoluteError(const double x, const double y) {
-    return abs(x - y);
+    return std::fabs(x - y);
 }
 
 // Get the relative error between two scalars

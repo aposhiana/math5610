@@ -9,7 +9,7 @@ double matrix1Norm(Array<double>& a) {
     for (unsigned int j = 0; j < a.colDim(); j++) {
         double colL1Norm = 0;
         for (unsigned int i = 0; i < a.rowDim(); i++) {
-            colL1Norm += abs(a(i, j));
+            colL1Norm += std::fabs(a(i, j));
         }
         if (colL1Norm > maxColL1Norm) {
             maxColL1Norm = colL1Norm;
@@ -25,7 +25,7 @@ double matrixInfNorm(Array<double>& a) {
     for (unsigned int i = 0; i < a.rowDim(); i++) {
         double rowL1Norm = 0;
         for (unsigned int j = 0; j < a.colDim(); j++) {
-            rowL1Norm += abs(a(i, j));
+            rowL1Norm += std::fabs(a(i, j));
         }
         if (rowL1Norm > maxRowL1Norm) {
             maxRowL1Norm = rowL1Norm;

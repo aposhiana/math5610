@@ -1,6 +1,8 @@
 #ifndef _VECTOR_NORMS_HPP_
 #define _VECTOR_NORMS_HPP_
 
+#include <functional>
+
 #include "Vector.hpp"
 
 double absoluteError(const double x, const double y);
