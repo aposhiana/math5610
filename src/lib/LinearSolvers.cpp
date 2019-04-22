@@ -35,3 +35,22 @@ Vector<double>& backsub(DenseArray<double>& A, Vector<double>& b) {
     }
     return *x;
 }
+
+Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b) {
+    assertLinearSystem(A, b);
+    if (!A.isLowerTriangularForm()) {
+        std::cout << "Array passed to forwardsub is not lower triangular form" << std::endl;
+        throw std::exception();
+    }
+    unsigned int n = b.rowDim();
+    Vector<double>* x = new Vector<double>(n, true);
+    for (unsigned int i = 0; i < n; i++) {
+        double sum = 0.0;
+        for (unsigned int j = 0; j < i; j++) {
+            sum += A(i, j) * (*x)(j);
+        }
+        double x_i = (b(i) - sum) / A(i, i);
+        x->set(i, x_i);
+    }
+    return *x;
+}

@@ -269,13 +269,26 @@ int main() {
 
     std::cout << "A for upper triangular linear system:  " << std::endl;
     DenseArray<double>* A_utls = new DenseArray<double>(5);
-    A_utls->print();
     A_utls->makeRandomUpperTriangular(1.0, 10.0);
     A_utls->print();
 
     std::cout << "x found for upper triangular system:  " << std::endl;
     Vector<double> x_utls = backsub(*A_utls, *b_ls);
     x_utls.print();
+
+    std::cout << "b for lower triangular system:  " << std::endl;
+    Vector<double>* b_ls2 = new Vector<double>(3);
+    b_ls2->makeRandom(1, 10);
+    b_ls2->print();
+
+    std::cout << "A for lower triangular linear system:  " << std::endl;
+    DenseArray<double>* A_ltls = new DenseArray<double>(3);
+    A_ltls->makeRandomLowerTriangular(1.0, 10.0);
+    A_ltls->print();
+
+    std::cout << "x found for lower triangular system:  " << std::endl;
+    Vector<double> x_ltls = forwardsub(*A_ltls, *b_ls2);
+    x_ltls.print();
 
     return 0;
 }
