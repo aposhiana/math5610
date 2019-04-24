@@ -349,6 +349,29 @@ void DenseArray<T>::makeRandomLowerTriangular(const double min, const double max
     makeRandomInternalTriangular(min, max);
 }
 
+// Makes a random augmented coefficient matrix in reduced echelon form
+template <typename T>
+void DenseArray<T>::makeRandomAugmentedEchelon(const double min, const double max) {
+    if (colDim() != (rowDim() + 1)) {
+        std::cout << "Incorrect dimensionality for augmented coefficient matrix" << std::endl;
+        throw std::exception();
+    }
+    assertProperMinMax(min, max);
+    initializeEmptyArray();
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        for (unsigned int j = 0; j < colDim(); j++) {
+            T value;
+            if (j < i) {
+                value = 0;
+            }
+            else {
+                value = getRandDouble(min, max);
+            }
+            m_array[i][j] = value;
+        }
+    }
+}
+
 // Sets m_array to the identity
 template <typename T>
 void DenseArray<T>::makeIdentity() {

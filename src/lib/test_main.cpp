@@ -290,5 +290,14 @@ int main() {
     Vector<double> x_ltls = forwardsub(*A_ltls, *b_ls2);
     x_ltls.print();
 
+    std::cout << "Random reduced row echelon coefficient matrix: " << std::endl;
+    DenseArray<double>* AB_0 = new DenseArray<double>(3, 4);
+    AB_0->makeRandomAugmentedEchelon(1.0, 10.0);
+    AB_0->print();
+
+    std::cout << "x found for random augmented reduced row echelon system:  " << std::endl;
+    Vector<double> x_rarre = backsub(*AB_0);
+    x_rarre.print();
+
     return 0;
 }

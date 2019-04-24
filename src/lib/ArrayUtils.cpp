@@ -38,6 +38,14 @@ void assertLinearSystem(Array<double>& A, Vector<double>& b) {
     }
 }
 
+// Asserts that array is n x n + 1
+void assertLinearSystem(Array<double>& A) {
+    if (A.colDim() != (A.rowDim() + 1)) {
+        std::cout << "Incorrect dimensionality for augmented coefficient matrix" << std::endl;
+        throw std::exception();
+    }
+}
+
 // Internal method that returns a pointer to a new empty initialized
 // Vector matching the specified dimesions if colDim == 1 and
 // otherwise returns a pointer to a DenseArray instance matching

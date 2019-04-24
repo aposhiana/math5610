@@ -6,6 +6,8 @@
 
 Vector<double>& solveLinearDiagonalSystem(Array<double>& A, Vector<double>& b);
 Vector<double>& backsub(DenseArray<double>& A, Vector<double>& b);
+Vector<double>& backsub(DenseArray<double>& AB);
 Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b);
+// Vector<double>& forwardsub(DenseArray<double>& AB);
 
 #endif

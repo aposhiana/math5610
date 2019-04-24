@@ -40,6 +40,7 @@ public:
     void makeRandomSymmetric(const double min=0.0, const double max=1.0);
     void makeRandomUpperTriangular(const double min=0.0, const double max=1.0);
     void makeRandomLowerTriangular(const double min=0.0, const double max=1.0);
+    void makeRandomAugmentedEchelon(const double min=0.0, const double max=1.0);
     void makeIdentity(); // TODO: If a DiagonalArray class is made, this should be removed
 
     // Methods to change internal array form
