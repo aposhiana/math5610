@@ -67,18 +67,36 @@ Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b) {
     return *x;
 }
 
-// Vector<double>& forwardsub(DenseArray<double>& AB) {
-//     assertLinearSystem(AB);
-//     unsigned int n = AB.rowDim();
-//     // Note that column n of AB is b
-//     Vector<double>* x = new Vector<double>(n, true);
-//     for (unsigned int i = 0; i < n; i++) {
-//         double sum = 0.0;
-//         for (unsigned int j = 0; j < i; j++) {
-//             sum += AB(i, j) * (*x)(j);
-//         }
-//         double x_i = (AB(i, n) - sum) / AB(i, i);
-//         x->set(i, x_i);
-//     }
-//     return *x;
-// }
+void rowReduce(DenseArray<double>& A, Vector<double>& b) {
+    assertLinearSystem(A, b);
+    unsigned int n = A.rowDim();
+    for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
+        double pivot = A(pivotIdx, pivotIdx);
+        for (unsigned int i = pivotIdx + 1; i < n; i++) {
+            double factor = A(i, pivotIdx) / pivot;
+            A.set(i, pivotIdx, 0.0);
+            for (unsigned int j = pivotIdx + 1; j < n; j++) {
+                double oldVal = A(i, j);
+                A.set(i, j, oldVal - factor * A(pivotIdx, j));
+            }
+            double oldBVal = b(i);
+            b.set(i, oldBVal - factor * b(pivotIdx));
+        }
+    }
+}
+
+void rowReduce(DenseArray<double>& AB) {
+    assertLinearSystem(AB);
+    unsigned int n = AB.rowDim();
+    for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
+        double pivot = AB(pivotIdx, pivotIdx);
+        for (unsigned int i = pivotIdx + 1; i < n; i++) {
+            double factor = AB(i, pivotIdx) / pivot;
+            AB.set(i, pivotIdx, 0.0);
+            for (unsigned int j = pivotIdx + 1; j < (n + 1); j++) {
+                double oldVal = AB(i, j);
+                AB.set(i, j, oldVal - factor * AB(pivotIdx, j));
+            }
+        }
+    }
+}

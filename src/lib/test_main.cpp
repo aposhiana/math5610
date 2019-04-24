@@ -299,5 +299,14 @@ int main() {
     Vector<double> x_rarre = backsub(*AB_0);
     x_rarre.print();
 
+    std::cout << "Random augmented coefficient matrix  AB_1 to be reduced: " << std::endl;
+    DenseArray<double>* AB_1 = new DenseArray<double>(3, 4);
+    AB_1->makeRandom(1.0, 10.0);
+    AB_1->print();
+
+    std::cout << "AB_1 after row reduction: " << std::endl;
+    rowReduce(*AB_1);
+    AB_1->print();
+
     return 0;
 }
