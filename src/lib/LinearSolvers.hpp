@@ -10,5 +10,7 @@ Vector<double>& backsub(DenseArray<double>& AB);
 Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b);
 void rowReduce(DenseArray<double>& A, Vector<double>& b);
 void rowReduce(DenseArray<double>& AB);
+Vector<double>& solveLinearSystem(DenseArray<double>& A, Vector<double>& b);
+Vector<double>& solveLinearSystem(DenseArray<double>& AB);
 
 #endif

@@ -100,3 +100,13 @@ void rowReduce(DenseArray<double>& AB) {
         }
     }
 }
+
+Vector<double>& solveLinearSystem(DenseArray<double>& A, Vector<double>& b) {
+    rowReduce(A, b);
+    return backsub(A, b);
+}
+
+Vector<double>& solveLinearSystem(DenseArray<double>& AB) {
+    rowReduce(AB);
+    return backsub(AB);
+}

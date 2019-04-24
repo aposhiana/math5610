@@ -308,5 +308,28 @@ int main() {
     rowReduce(*AB_1);
     AB_1->print();
 
+    std::cout << "Random augmented coefficient matrix  AB_2 to be solved: " << std::endl;
+    DenseArray<double>* AB_2 = new DenseArray<double>(3, 4);
+    AB_2->makeRandom(1.0, 10.0);
+    AB_2->print();
+
+    std::cout << "x found for AB_2 system:  " << std::endl;
+    Vector<double> x_ab2 = solveLinearSystem(*AB_2);
+    x_ab2.print();
+
+    std::cout << "Diagonally dominant coefficient matrix  A_3 to be solved: " << std::endl;
+    DenseArray<double>* AB_3 = new DenseArray<double>(3, 3);
+    AB_3->makeRandomDD(1.0, 10.0);
+    AB_3->print();
+
+    std::cout << "b_3: " << std::endl;
+    Vector<double>* b_3 = new Vector<double>(3);
+    b_3->makeRandom(1.0, 10.0);
+    b_3->print();
+
+    std::cout << "x found for A_3 system:  " << std::endl;
+    Vector<double> x_a3 = solveLinearSystem(*AB_3, *b_3);
+    x_a3.print();
+
     return 0;
 }
