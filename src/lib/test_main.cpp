@@ -318,9 +318,9 @@ int main() {
     x_ab2.print();
 
     std::cout << "Diagonally dominant coefficient matrix  A_3 to be solved: " << std::endl;
-    DenseArray<double>* AB_3 = new DenseArray<double>(3, 3);
-    AB_3->makeRandomDD(1.0, 10.0);
-    AB_3->print();
+    DenseArray<double>* A_3 = new DenseArray<double>(3, 3);
+    A_3->makeRandomDD(1.0, 10.0);
+    A_3->print();
 
     std::cout << "b_3: " << std::endl;
     Vector<double>* b_3 = new Vector<double>(3);
@@ -328,8 +328,20 @@ int main() {
     b_3->print();
 
     std::cout << "x found for A_3 system:  " << std::endl;
-    Vector<double> x_a3 = solveLinearSystem(*AB_3, *b_3);
+    Vector<double> x_a3 = solveLinearSystem(*A_3, *b_3);
     x_a3.print();
+
+    std::cout << "Diagonally dominant coefficient matrix  A_4 to be factorized: " << std::endl;
+    DenseArray<double>* A_4 = new DenseArray<double>(3, 3);
+    A_4->makeRandomDD(1.0, 10.0);
+    A_4->print();
+
+    DenseArray<double>* L_4 = new DenseArray<double>(3, 3);
+    lu(*A_4, *L_4);
+    std::cout << "U from A_4 " << std::endl;
+    A_4->print();
+    std::cout << "L from A_4 " << std::endl;
+    L_4->print();
 
     return 0;
 }

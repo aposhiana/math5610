@@ -68,34 +68,56 @@ Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b) {
 }
 
 void rowReduce(DenseArray<double>& A, Vector<double>& b) {
+    // TODO: Add scaled partial pivoting
     assertLinearSystem(A, b);
     unsigned int n = A.rowDim();
     for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
         double pivot = A(pivotIdx, pivotIdx);
         for (unsigned int i = pivotIdx + 1; i < n; i++) {
-            double factor = A(i, pivotIdx) / pivot;
+            double l = A(i, pivotIdx) / pivot;
             A.set(i, pivotIdx, 0.0);
             for (unsigned int j = pivotIdx + 1; j < n; j++) {
                 double oldVal = A(i, j);
-                A.set(i, j, oldVal - factor * A(pivotIdx, j));
+                A.set(i, j, oldVal - l * A(pivotIdx, j));
             }
             double oldBVal = b(i);
-            b.set(i, oldBVal - factor * b(pivotIdx));
+            b.set(i, oldBVal - l * b(pivotIdx));
         }
     }
 }
 
 void rowReduce(DenseArray<double>& AB) {
+    // TODO: Add scaled partial pivoting
     assertLinearSystem(AB);
     unsigned int n = AB.rowDim();
     for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
         double pivot = AB(pivotIdx, pivotIdx);
         for (unsigned int i = pivotIdx + 1; i < n; i++) {
-            double factor = AB(i, pivotIdx) / pivot;
+            double l = AB(i, pivotIdx) / pivot;
             AB.set(i, pivotIdx, 0.0);
             for (unsigned int j = pivotIdx + 1; j < (n + 1); j++) {
                 double oldVal = AB(i, j);
-                AB.set(i, j, oldVal - factor * AB(pivotIdx, j));
+                AB.set(i, j, oldVal - l * AB(pivotIdx, j));
+            }
+        }
+    }
+}
+
+// Changes A to U and whatever is passed to L to L
+void lu(DenseArray<double>& A, DenseArray<double>& L) {
+    assertSameDim(A, L);
+    // TODO: Add scaled partial pivoting
+    L.makeIdentity();
+    unsigned int n = A.rowDim();
+    for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
+        double pivot = A(pivotIdx, pivotIdx);
+        for (unsigned int i = pivotIdx + 1; i < n; i++) {
+            double l = A(i, pivotIdx) / pivot;
+            L.set(i, pivotIdx, l);
+            A.set(i, pivotIdx, 0.0);
+            for (unsigned int j = pivotIdx + 1; j < n; j++) {
+                double oldVal = A(i, j);
+                A.set(i, j, oldVal - l * A(pivotIdx, j));
             }
         }
     }
