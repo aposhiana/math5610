@@ -1,4 +1,6 @@
-#include <cstdlib>
+#include <cmath>
+#include <string>
+#include <exception>
 
 #include "LinearSolvers.hpp"
 #include "ArrayUtils.hpp"
@@ -137,4 +139,34 @@ Vector<double>& luSolve(DenseArray<double>& L,
                 DenseArray<double>& U, Vector<double>& b) {
     Vector<double> y = forwardsub(L, b);
     return backsub(U, y);
+}
+
+// Takes a PD matrix A and overwites the lower part to be
+// the Cholesky factor
+void cholesky(Array<double>& A) {
+    std::string errorMessage = "Matrix is not positive definite";
+    unsigned int n = A.rowDim();
+    unsigned int lastIndex = n - 1;
+    for (unsigned int k = 0; k < (n - 1); k++) {
+        double diagonalValueSquared = A(k, k);
+        if (diagonalValueSquared < 0) {
+            std::cout << errorMessage << std::endl;
+            throw std::exception();
+        }
+        A.set(k, k, sqrt(diagonalValueSquared));
+        for (unsigned int i = k + 1; i < n; i++) {
+            A.set(i, k, A(i, k) / A(k, k));
+        }
+        for (unsigned int j = k + 1; j < n; j++) {
+            for (unsigned int i = j; i < n; i++) {
+                A.set(i, j, A(i, j) - A(i, k) * A(j, k));
+            }
+        }
+    }
+    double lastValSquared = A(lastIndex, lastIndex);
+    if (lastValSquared < 0) {
+        std::cout << errorMessage << std::endl;
+        throw std::exception();
+    }
+    A.set(lastIndex, lastIndex, sqrt(lastValSquared));
 }

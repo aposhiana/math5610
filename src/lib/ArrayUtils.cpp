@@ -165,3 +165,11 @@ DenseArray<double>* transpose(Array<double>* a) {
     }
     return aT;
 }
+
+// Create and return a random PD matrix
+Array<double>* getRandomPDArray(unsigned int dim) {
+    DenseArray<double>* G = new DenseArray<double>(dim);
+    G->makeRandomLowerTriangular(0.0, 10.0);
+    DenseArray<double>* GT = transpose(G);
+    return matmul(G, GT);
+}

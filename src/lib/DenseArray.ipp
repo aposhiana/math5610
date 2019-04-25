@@ -8,6 +8,7 @@
 // Changes internal array to full form
 template <typename T>
 void DenseArray<T>::makeFullForm() {
+    std::cout << "Making full form" << std::endl;
     T** newArray = new T*[m_rowDim];
     for (unsigned int i = 0; i < m_rowDim; i++) {
         newArray[i] = new T[m_colDim];

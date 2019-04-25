@@ -15,5 +15,6 @@ Vector<double>& solveLinearSystem(DenseArray<double>& AB);
 void lu(DenseArray<double>& A, DenseArray<double>& L);
 Vector<double>& luSolve(DenseArray<double>& L,
                 DenseArray<double>& U, Vector<double>& b);
+void cholesky(Array<double>& A);
 
 #endif

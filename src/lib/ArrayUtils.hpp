@@ -17,5 +17,6 @@ Array<double>* matmul(Array<double>* a, Array<double>* b);
 double dot(Vector<double>& a, Vector<double>& b);
 Vector<double>& cross(Vector<double>& a, Vector<double>& b);
 DenseArray<double>* transpose(Array<double>* a);
+Array<double>* getRandomPDArray(unsigned int dim);
 
 #endif

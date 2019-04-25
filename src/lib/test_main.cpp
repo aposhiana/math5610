@@ -352,5 +352,24 @@ int main() {
     Vector<double> x_4 = luSolve(*L_4, *A_4, *b_4);
     x_4.print();
 
+    std::cout << "PD_1: " << std::endl;
+    Array<double>* PD_1 = getRandomPDArray(3);
+    PD_1->print();
+
+    std::cout << "cholesky(PD_1):  " << std::endl;
+    cholesky(*PD_1);
+    PD_1->print();
+
+
+    std::cout << "test1: " << std::endl;
+    Array<double>* test1 = new DenseArray<double>(3, 3);
+    test1->makeRandom(1.0, 10.0);
+    test1->print();
+
+    std::cout << "cholesky(test1):  " << std::endl;
+    cholesky(*test1);
+    test1->print();
+
+
     return 0;
 }
