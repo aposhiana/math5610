@@ -343,5 +343,14 @@ int main() {
     std::cout << "L from A_4 " << std::endl;
     L_4->print();
 
+    std::cout << "b_4: " << std::endl;
+    Vector<double>* b_4 = new Vector<double>(3);
+    b_4->makeRandom(1.0, 10.0);
+    b_4->print();
+
+    std::cout << "x_4: " << std::endl;
+    Vector<double> x_4 = luSolve(*L_4, *A_4, *b_4);
+    x_4.print();
+
     return 0;
 }

@@ -132,3 +132,9 @@ Vector<double>& solveLinearSystem(DenseArray<double>& AB) {
     rowReduce(AB);
     return backsub(AB);
 }
+
+Vector<double>& luSolve(DenseArray<double>& L,
+                DenseArray<double>& U, Vector<double>& b) {
+    Vector<double> y = forwardsub(L, b);
+    return backsub(U, y);
+}
