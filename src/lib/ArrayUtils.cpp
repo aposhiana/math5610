@@ -31,7 +31,7 @@ void assertSameDim(Array<double>& a, Array<double>& b) {
 }
 
 // Asserts Arrays have the same dimensionality
-void assertLinearSystem(Array<double>& A, Vector<double>& b) {
+void assertLinearSystem(Array<double>& A, Array<double>& b) {
     if (A.rowDim() != A.colDim() || A.rowDim() != b.rowDim()) {
         std::cout << "Incorrect dimensionality for linear system" << std::endl;
         throw std::exception();

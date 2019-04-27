@@ -15,7 +15,7 @@ Vector<double>& solveLinearDiagonalSystem(Array<double>& A, Vector<double>& b) {
     return *x;
 }
 
-Vector<double>& backsub(DenseArray<double>& A, Vector<double>& b) {
+Vector<double>& backsub(Array<double>& A, Vector<double>& b) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
     Vector<double>* x = new Vector<double>(n, true);
@@ -34,7 +34,7 @@ Vector<double>& backsub(DenseArray<double>& A, Vector<double>& b) {
     return *x;
 }
 
-Vector<double>& backsub(DenseArray<double>& AB) {
+Vector<double>& backsub(Array<double>& AB) {
     assertLinearSystem(AB);
     unsigned int n = AB.rowDim();
     Vector<double>* x = new Vector<double>(n, true);
@@ -54,7 +54,7 @@ Vector<double>& backsub(DenseArray<double>& AB) {
     return *x;
 }
 
-Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b) {
+Vector<double>& forwardsub(Array<double>& A, Array<double>& b) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
     Vector<double>* x = new Vector<double>(n, true);
@@ -63,7 +63,7 @@ Vector<double>& forwardsub(DenseArray<double>& A, Vector<double>& b) {
         for (unsigned int j = 0; j < i; j++) {
             sum += A(i, j) * (*x)(j);
         }
-        double x_i = (b(i) - sum) / A(i, i);
+        double x_i = (b(i, 0) - sum) / A(i, i);
         x->set(i, x_i);
     }
     return *x;
@@ -125,6 +125,98 @@ void lu(DenseArray<double>& A, DenseArray<double>& L) {
     }
 }
 
+// Get Q and R for A using classical Gram-Schmidt
+void squareClassicalGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
+                DenseArray<double>& R) {
+    assertSameDim(A, Q);
+    assertSameDim(Q, R);
+    unsigned int n = A.colDim();
+    if (n != A.rowDim()) {
+        std::cout << "Matrix is not square" << std::endl;
+        throw std::exception();
+    }
+    R.makeIdentity(); // Make lower part of R zeros
+    // Don't use unsigned int for j and i because j - 1 condition
+    // for i loop can be negative
+    for (int j = 0; j < n; j++) {
+        // Set q_j to a_j
+        for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+            Q.set(rowIdx, j, A(rowIdx, j));
+        }
+        for (int i = 0; i < (j - 1); i++) {
+            // Set r_ij to dot(a_j, q_i)
+            double r_ij = 0;
+            for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+                r_ij += A(rowIdx, j) * Q(rowIdx, i);
+            }
+            R.set(i, j, r_ij);
+            // Set q_j to q_j - r_ij * q_i
+            for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+                Q.set(rowIdx, j, Q(rowIdx, j) - r_ij * Q(rowIdx, i));
+            }
+        }
+        // Set r_jj to the l2 norm of q_j
+        double q_j_norm = 0;
+        for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+            q_j_norm += Q(rowIdx, j) * Q(rowIdx, j);
+        }
+        q_j_norm = sqrt(q_j_norm);
+        double r_jj = q_j_norm;
+        R.set(j, j, r_jj);
+
+        // Set q_j to q_j / r_jj
+        for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+            Q.set(rowIdx, j, Q(rowIdx, j) / r_jj);
+        }
+    }
+}
+
+// Get Q and R for A using modified Gram-Schmidt
+void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
+                DenseArray<double>& R) {
+    assertSameDim(A, Q);
+    assertSameDim(Q, R);
+    unsigned int n = A.colDim();
+    if (n != A.rowDim()) {
+        std::cout << "Matrix is not square" << std::endl;
+        throw std::exception();
+    }
+    R.makeIdentity(); // Make lower part of R zeros
+    // Don't use unsigned int for j and i because j - 1 condition
+    // for i loop can be negative
+    for (int j = 0; j < n; j++) {
+        // Set q_j to a_j
+        for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+            Q.set(rowIdx, j, A(rowIdx, j));
+        }
+        for (int i = 0; i < (j - 1); i++) {
+            // Set r_ij to dot(q_j, q_i)
+            double r_ij = 0;
+            for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+                r_ij += Q(rowIdx, j) * Q(rowIdx, i);
+            }
+            R.set(i, j, r_ij);
+            // Set q_j to q_j - r_ij * q_i
+            for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+                Q.set(rowIdx, j, Q(rowIdx, j) - r_ij * Q(rowIdx, i));
+            }
+        }
+        // Set r_jj to the l2 norm of q_j
+        double q_j_norm = 0;
+        for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+            q_j_norm += Q(rowIdx, j) * Q(rowIdx, j);
+        }
+        q_j_norm = sqrt(q_j_norm);
+        double r_jj = q_j_norm;
+        R.set(j, j, r_jj);
+
+        // Set q_j to q_j / r_jj
+        for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
+            Q.set(rowIdx, j, Q(rowIdx, j) / r_jj);
+        }
+    }
+}
+
 Vector<double>& solveLinearSystem(DenseArray<double>& A, Vector<double>& b) {
     rowReduce(A, b);
     return backsub(A, b);
@@ -141,8 +233,7 @@ Vector<double>& luSolve(DenseArray<double>& L,
     return backsub(U, y);
 }
 
-// Takes a PD matrix A and overwites the lower part to be
-// the Cholesky factor
+// Takes a PD matrix A and changes it to be the Cholesky factor
 void cholesky(Array<double>& A) {
     std::string errorMessage = "Matrix is not positive definite";
     unsigned int n = A.rowDim();
@@ -169,4 +260,21 @@ void cholesky(Array<double>& A) {
         throw std::exception();
     }
     A.set(lastIndex, lastIndex, sqrt(lastValSquared));
+    // Set upper part of matrix to zeros
+    for (unsigned int i = 0; i < (n - 1); i++) {
+        for (unsigned int j = i + 1; j < n; j++) {
+            A.set(i, j, 0.0);
+        }
+    }
+}
+
+// Solve a least squares problem using the normal equation
+Vector<double>& solveNormalEquation(Array<double>& A, Vector<double>& b) {
+    Array<double>* AT = transpose(&A);
+    Array<double>* B = matmul(AT, &A);
+    Array<double>* y = matmul(AT, &b);
+    cholesky(*B); // After this, B really should be named G
+    Array<double>* GT = transpose(B);
+    Vector<double> z = forwardsub(*B, *y);
+    return backsub(*GT, z);
 }

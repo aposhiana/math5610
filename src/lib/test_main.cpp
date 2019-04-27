@@ -360,16 +360,49 @@ int main() {
     cholesky(*PD_1);
     PD_1->print();
 
+    // Test that non-PD matrix fails (note that the random matrix could be PD - check)
+    // std::cout << "test1: " << std::endl;
+    // Array<double>* test1 = new DenseArray<double>(3, 3);
+    // test1->makeRandom(1.0, 10.0);
+    // test1->print();
+    // std::cout << "cholesky(test1):  " << std::endl;
+    // cholesky(*test1);
+    // test1->print();
 
-    std::cout << "test1: " << std::endl;
-    Array<double>* test1 = new DenseArray<double>(3, 3);
-    test1->makeRandom(1.0, 10.0);
-    test1->print();
+    std::cout << "Random skinny matrix A_cnes: " << std::endl;
+    Array<double>* A_cnes = new DenseArray<double>(20, 2);
+    A_cnes->makeRandom(1.0, 10.0);
+    A_cnes->print();
 
-    std::cout << "cholesky(test1):  " << std::endl;
-    cholesky(*test1);
-    test1->print();
+    std::cout << "Random vector b_cnes: " << std::endl;
+    Vector<double>* b_cnes = new Vector<double>(20);
+    b_cnes->makeRandom(1.0, 10.0);
+    b_cnes->print();
 
+    std::cout << "Least squares solution to A_cnes * x_cnes = b_nes" << std::endl;
+    Vector<double> x_cnes = solveNormalEquation(*A_cnes, *b_cnes);
+    x_cnes.print();
+
+    std::cout << "A_gs1 for Gram-Schmidt" << std::endl;
+    DenseArray<double>* A_gs1 = new DenseArray<double>(5, 5);
+    A_gs1->makeRandom(1.0, 10.0);
+    A_gs1->print();
+
+    DenseArray<double>* Q_c_gs1 = new DenseArray<double>(5, 5, true);
+    DenseArray<double>* R_c_gs1 = new DenseArray<double>(5, 5, true);
+    squareClassicalGramSchmidt(*A_gs1, *Q_c_gs1, *R_c_gs1);
+    std::cout << "Q_c_gs1 from Classical Gram Schmidt" << std::endl;
+    Q_c_gs1->print();
+    std::cout << "R_c_gs1 from Classical Gram Schmidt" << std::endl;
+    R_c_gs1->print();
+
+    DenseArray<double>* Q_m_gs1 = new DenseArray<double>(5, 5, true);
+    DenseArray<double>* R_m_gs1 = new DenseArray<double>(5, 5, true);
+    squareModifiedGramSchmidt(*A_gs1, *Q_m_gs1, *R_m_gs1);
+    std::cout << "Q_m_gs1 from Modified Gram Schmidt" << std::endl;
+    Q_m_gs1->print();
+    std::cout << "R_m_gs1 from Modified Gram Schmidt" << std::endl;
+    R_m_gs1->print();
 
     return 0;
 }

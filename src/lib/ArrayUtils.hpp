@@ -8,7 +8,7 @@
 double** makeRandomRawArray(const unsigned int rowDim, const unsigned int colDim,
                 const double min=0.0, const double max=1.0);
 void assertSameDim(Array<double>& x, Array<double>& y);
-void assertLinearSystem(Array<double>& A, Vector<double>& b);
+void assertLinearSystem(Array<double>& A, Array<double>& b);
 void assertLinearSystem(Array<double>& A);
 Array<double>* add(Array<double>* a, Array<double>* b);
 Array<double>* multiply(const double scalar, Array<double>* a);
