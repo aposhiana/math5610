@@ -23,5 +23,7 @@ void squareClassicalGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
                 DenseArray<double>& R);
 void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
                 DenseArray<double>& R);
+Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
+                unsigned int maxiter);
 
 #endif

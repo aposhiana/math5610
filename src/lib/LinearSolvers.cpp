@@ -290,3 +290,24 @@ Vector<double>& solveNormalEquation(Array<double>& A, Vector<double>& b) {
     Vector<double> z = forwardsub(*B, *y);
     return backsub(*GT, z);
 }
+
+// Solve the linear system using Jacobi iteration
+Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
+                unsigned int maxiter) {
+    assertLinearSystem(A, b);
+    double n = b.rowDim();
+    Vector<double>* x = new Vector<double>(n);
+    x->makeRandom(-10.0, 10.0);
+    for (unsigned int k = 0; k < maxiter; k++) {
+        for (unsigned int i = 0; i < n; i++) {
+            double sum = 0;
+            for (unsigned int j = 0; j < n; j++) {
+                if (j != i) {
+                    sum += A(i, j) * (*x)(j);
+                }
+            }
+            x->set(i, (b(i) - sum) / A(i, i));
+        }
+    }
+    return *x;
+}

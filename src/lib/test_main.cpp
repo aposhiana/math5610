@@ -421,5 +421,19 @@ int main() {
     std::cout << "R_m_gs1 from Modified Gram Schmidt" << std::endl;
     R_m_gs1->print();
 
+    std::cout << "A_ji for Jacobi Iteration: " << std::endl;
+    DenseArray<double>* A_ji = new DenseArray<double>(5, 5);
+    A_ji->makeRandomDD(1.0, 10.0);
+    A_ji->print();
+
+    std::cout << "b_ji for Jacobi Iteration: " << std::endl;
+    Vector<double>* b_ji = new Vector<double>(5);
+    b_ji->makeRandom(1.0, 10.0);
+    b_ji->print();
+
+    Vector<double> x_ji = jacobiSolve(*A_ji, *b_ji, 1000000);
+    std::cout << "x_ji: " << std::endl;
+    x_ji.print();
+
     return 0;
 }
