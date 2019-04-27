@@ -345,3 +345,33 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
     }
     return *x;
 }
+
+// Solve the linear system iteratively using steepest descent
+Array<double>* steepestDescentSolve(Array<double>& A, Vector<double>& b,
+                unsigned int maxiter) {
+    assertLinearSystem(A, b);
+    unsigned int n = b.rowDim();
+    // Get random initial x
+    Array<double>* x = new Vector<double>(n);
+    x->makeRandom(-10.0, 10.0);
+    // Get first r
+    Array<double>* r = subtract(&b, matmul(&A, x));
+    // Used for properly deleting the last iteration x and r
+    Array<double>* tempVectorPtr = nullptr;
+
+    // TODO: redo this so it is not constantly allocating new memory
+    // Either use raw arrays or reimplement matmul, add, multiply, and subtract
+    // to have in-place options or ability to pass return Arrays
+    for (unsigned int k = 0; k < maxiter; k++) {
+        Array<double>* s = matmul(&A, r);
+        double alpha = dot(*r, *r) / dot(*r, *s);
+        tempVectorPtr = x;
+        x = add(x, multiply(alpha, r));
+        delete tempVectorPtr;
+        tempVectorPtr = r;
+        r = subtract(r, multiply(alpha, s));
+        delete tempVectorPtr;
+        tempVectorPtr = nullptr;
+    }
+    return x;
+}

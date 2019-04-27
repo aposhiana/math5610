@@ -439,5 +439,9 @@ int main() {
     std::cout << "x_iterative_gs found using Gauss-Seidel: " << std::endl;
     x_iterative_gs.print();
 
+    Array<double>* x_iterative_sd = steepestDescentSolve(*A_iterative, *b_iterative, 50);
+    std::cout << "x_iterative_sd found using steepest descent: " << std::endl;
+    x_iterative_sd->print();
+
     return 0;
 }

@@ -27,5 +27,7 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                 unsigned int maxiter);
 Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                 unsigned int maxiter);
+Array<double>* steepestDescentSolve(Array<double>& A, Vector<double>& b,
+                unsigned int maxiter);
 
 #endif

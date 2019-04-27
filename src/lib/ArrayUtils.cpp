@@ -75,6 +75,20 @@ Array<double>* add(Array<double>* a, Array<double>* b) {
     return newArray;
 }
 
+// Do subtraction with two arrays of same dimension element-wise and return
+// a Vector<double>* if colDim is 1 otherwise return a DenseArray
+// TODO return SparseArray if sparse flag is true (default to false)
+Array<double>* subtract(Array<double>* a, Array<double>* b) {
+    assertSameDim(*a, *b);
+    Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
+    for (unsigned int i = 0; i < a->rowDim(); i++) {
+        for (unsigned int j = 0; j < a->colDim(); j++) {
+            newArray->set(i, j, (*a)(i, j) - (*b)(i, j));
+        }
+    }
+    return newArray;
+}
+
 // TODO return SparseArray if sparse flag is true (default to false)
 Array<double>* multiply(const double scalar, Array<double>* a) {
     Array<double>* newArray = getResultArray(a->rowDim(), a->colDim());
@@ -128,11 +142,15 @@ Array<double>* matmul(Array<double>* a, Array<double>* b) {
 }
 
 // Compute the dot product of two vectors of the same length
-double dot(Vector<double>& a, Vector<double>& b) {
+double dot(Array<double>& a, Array<double>& b) {
     assertSameDim(a, b);
+    if (a.colDim() != 1) {
+        std::cout << "Arrays must have one column" << std::endl;
+        throw std::exception();
+    }
     double result = 0;
     for (unsigned int i = 0; i < a.rowDim(); i++) {
-        result += a(i) * b(i);
+        result += a(i, 0) * b(i, 0);
     }
     return result;
 }
