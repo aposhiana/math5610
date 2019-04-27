@@ -421,19 +421,23 @@ int main() {
     std::cout << "R_m_gs1 from Modified Gram Schmidt" << std::endl;
     R_m_gs1->print();
 
-    std::cout << "A_ji for Jacobi Iteration: " << std::endl;
-    DenseArray<double>* A_ji = new DenseArray<double>(5, 5);
-    A_ji->makeRandomDD(1.0, 10.0);
-    A_ji->print();
+    std::cout << "A_iterative for Iterative methods: " << std::endl;
+    DenseArray<double>* A_iterative = new DenseArray<double>(10, 10);
+    A_iterative->makeRandomDD(1.0, 30.0);
+    A_iterative->print();
 
-    std::cout << "b_ji for Jacobi Iteration: " << std::endl;
-    Vector<double>* b_ji = new Vector<double>(5);
-    b_ji->makeRandom(1.0, 10.0);
-    b_ji->print();
+    std::cout << "b_iterative for Iterative methods: " << std::endl;
+    Vector<double>* b_iterative = new Vector<double>(10);
+    b_iterative->makeRandom(1.0, 10.0);
+    b_iterative->print();
 
-    Vector<double> x_ji = jacobiSolve(*A_ji, *b_ji, 1000000);
-    std::cout << "x_ji: " << std::endl;
-    x_ji.print();
+    Vector<double> x_iterative_ji = jacobiSolve(*A_iterative, *b_iterative, 10000);
+    std::cout << "x_iterative_ji found using Jacobi: " << std::endl;
+    x_iterative_ji.print();
+
+    Vector<double> x_iterative_gs = gaussSeidelSolve(*A_iterative, *b_iterative, 100);
+    std::cout << "x_iterative_gs found using Gauss-Seidel: " << std::endl;
+    x_iterative_gs.print();
 
     return 0;
 }

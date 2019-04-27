@@ -25,5 +25,7 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
                 DenseArray<double>& R);
 Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                 unsigned int maxiter);
+Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
+                unsigned int maxiter);
 
 #endif

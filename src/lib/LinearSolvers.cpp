@@ -295,9 +295,43 @@ Vector<double>& solveNormalEquation(Array<double>& A, Vector<double>& b) {
 Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                 unsigned int maxiter) {
     assertLinearSystem(A, b);
-    double n = b.rowDim();
+    unsigned int n = b.rowDim();
+    double* x = new double[n];
+    // Randomly initialize x values
+    for (unsigned int i = 0; i < n; i++) {
+        x[i] = getRandDouble(-10, 10);
+    }
+    double* x_next = new double[n];
+
+    for (unsigned int k = 0; k < maxiter; k++) {
+        for (unsigned int i = 0; i < n; i++) {
+            double sum = 0;
+            for (unsigned int j = 0; j < n; j++) {
+                if (j != i) {
+                    sum += A(i, j) * x[j];
+                }
+            }
+            x_next[i] = (b(i) - sum) / A(i, i);
+        }
+        // Switch pointers. x must become x_next
+        // and x_next can become anything as long as it has
+        // distinct memory locations from x
+        double* tempPtr = x;
+        x = x_next;
+        x_next = tempPtr;
+        tempPtr = nullptr;
+    }
+    Vector<double>* xVector = new Vector<double>(x, n);
+    return *xVector;
+}
+
+// Solve the linear system iteratively using Gauss Seidel
+Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
+                unsigned int maxiter) {
+    assertLinearSystem(A, b);
+    unsigned int n = b.rowDim();
     Vector<double>* x = new Vector<double>(n);
-    x->makeRandom(-10.0, 10.0);
+    x->makeRandom(-10.0, 10.0); // Random initial x
     for (unsigned int k = 0; k < maxiter; k++) {
         for (unsigned int i = 0; i < n; i++) {
             double sum = 0;
