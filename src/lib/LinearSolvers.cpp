@@ -15,12 +15,12 @@ Vector<double>& solveLinearDiagonalSystem(Array<double>& A, Vector<double>& b) {
     return *x;
 }
 
-Vector<double>& backsub(Array<double>& A, Vector<double>& b) {
+Vector<double>& backsub(Array<double>& A, Array<double>& b) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
     Vector<double>* x = new Vector<double>(n, true);
     unsigned int lastIndex = n - 1;
-    double x_n = b(lastIndex) / A(lastIndex, lastIndex);
+    double x_n = b(lastIndex, 0) / A(lastIndex, lastIndex);
     x->set(lastIndex, x_n);
     // Note that the loop ends when i is negative
     for (int i = lastIndex - 1; i >= 0; i--) {
@@ -28,7 +28,7 @@ Vector<double>& backsub(Array<double>& A, Vector<double>& b) {
         for (unsigned int j = i + 1; j < n; j++) {
             sum += A(i, j) * (*x)(j);
         }
-        double x_i = (b(i) - sum) / A(i, i);
+        double x_i = (b(i, 0) - sum) / A(i, i);
         x->set(i, x_i);
     }
     return *x;
@@ -231,6 +231,18 @@ Vector<double>& luSolve(DenseArray<double>& L,
                 DenseArray<double>& U, Vector<double>& b) {
     Vector<double> y = forwardsub(L, b);
     return backsub(U, y);
+}
+
+Vector<double>& qrSolve(DenseArray<double>& Q,
+                DenseArray<double>& R, Vector<double>& b) {
+    // std::cout << "qrSolve: " << std::endl; 
+    Array<double>* QT = transpose(&Q);
+    // std::cout << "QT: " << std::endl;
+    // QT->print();
+    Array<double>* c = matmul(QT, &b);
+    // std::cout << "c: " << std::endl;
+    // c->print();
+    return backsub(R, *c);
 }
 
 // Takes a PD matrix A and changes it to be the Cholesky factor
