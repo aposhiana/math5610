@@ -8,6 +8,7 @@
 #include "VectorNorms.hpp"
 #include "MatrixNorms.hpp"
 #include "LinearSolvers.hpp"
+#include "EigenvalueSolvers.hpp"
 
 int main() {
     // TODO: Set up real tests
@@ -450,6 +451,12 @@ int main() {
     Vector<double>* x_spd_cg = cg(*A_spd_cg, *b_iterative, 0.1);
     std::cout << "x_spd_cg found using CG: " << std::endl;
     x_spd_cg->print();
+
+    std::cout << "A_eig" << std::endl;
+    Array<double>* A_eig = getRandomSPDArray(3);
+    A_eig->print();
+    double A_eig_lambda = powerEigenSolve(*A_eig, 0.0001, 1000000);
+    std::cout << "A_eig_lambda found using power method: " << A_eig_lambda << std::endl;
 
     return 0;
 }

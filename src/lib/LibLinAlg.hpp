@@ -9,5 +9,7 @@
 #include "Utils.hpp"
 #include "Vector.hpp"
 #include "VectorNorms.hpp"
+#include "LinearSolvers.hpp"
+#include "EigenvalueSolvers.hpp"
 
 #endif

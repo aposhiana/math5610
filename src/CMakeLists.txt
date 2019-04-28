@@ -24,6 +24,8 @@ add_library(linalg STATIC
     lib/LibLinAlg.hpp
     lib/LinearSolvers.cpp
     lib/LinearSolvers.hpp
+    lib/EigenvalueSolvers.cpp
+    lib/EigenvalueSolvers.hpp
 )
 
 # TODO: move the tests to test directory not lib
