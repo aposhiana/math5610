@@ -18,6 +18,12 @@ Array<double>* matmul(Array<double>* a, Array<double>* b);
 double dot(Array<double>& a, Array<double>& b);
 Vector<double>& cross(Vector<double>& a, Vector<double>& b);
 DenseArray<double>* transpose(Array<double>* a);
-Array<double>* getRandomPDArray(unsigned int dim);
+Array<double>* getRandomSPDArray(unsigned int dim);
+double* rawMatVecProduct(const double *const * A, const double* v,
+                const unsigned int m, const unsigned int n);
+double* rawAdd(const double* a, const double* b, const unsigned int n);
+double* rawSubtract(const double* a, const double* b, const unsigned int n);
+double rawDot(const double* v, const double* w, const unsigned int n);
+void copyBintoA(double* a, const double* b, const unsigned int n);
 
 #endif

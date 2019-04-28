@@ -12,6 +12,7 @@ public:
     bool isSymmetricForm() { return m_isSymmetricForm; }
     bool isUpperTriangularForm() { return m_isUpperTriangularForm; }
     bool isLowerTriangularForm() { return m_isLowerTriangularForm; }
+    T** getRawArray() override { return m_array; }
 
     // Constructors
     DenseArray(const unsigned int rowDim,

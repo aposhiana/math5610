@@ -369,15 +369,15 @@ int main() {
     Vector<double> x_4 = luSolve(*L_4, *A_4, *b_4);
     x_4.print();
 
-    std::cout << "PD_1: " << std::endl;
-    Array<double>* PD_1 = getRandomPDArray(3);
-    PD_1->print();
+    std::cout << "SPD_1: " << std::endl;
+    Array<double>* SPD_1 = getRandomSPDArray(3);
+    SPD_1->print();
 
-    std::cout << "cholesky(PD_1):  " << std::endl;
-    cholesky(*PD_1);
-    PD_1->print();
+    std::cout << "cholesky(SPD_1):  " << std::endl;
+    cholesky(*SPD_1);
+    SPD_1->print();
 
-    // Test that non-PD matrix fails (note that the random matrix could be PD - check)
+    // Test that non-SPD matrix fails (note that the random matrix could be SPD - check)
     // std::cout << "test1: " << std::endl;
     // Array<double>* test1 = new DenseArray<double>(3, 3);
     // test1->makeRandom(1.0, 10.0);
@@ -442,6 +442,14 @@ int main() {
     Array<double>* x_iterative_sd = steepestDescentSolve(*A_iterative, *b_iterative, 50);
     std::cout << "x_iterative_sd found using steepest descent: " << std::endl;
     x_iterative_sd->print();
+
+    std::cout << "A_spd_cg for Iterative methods: " << std::endl;
+    Array<double>* A_spd_cg = getRandomSPDArray(10);
+    A_spd_cg->print();
+
+    Vector<double>* x_spd_cg = cg(*A_spd_cg, *b_iterative, 0.1);
+    std::cout << "x_spd_cg found using CG: " << std::endl;
+    x_spd_cg->print();
 
     return 0;
 }

@@ -1,12 +1,24 @@
 #include <exception>
 
+
+// Deletes m_array
+template <typename T>
+void Vector<T>::deleteArrayMember() {
+    if (m_array != nullptr) {
+        delete[] m_array[0];
+        delete[] m_array;
+    }
+    m_array = nullptr;
+}
+
 // Allocates memory for m_array
 template <typename T>
 void Vector<T>::initializeEmptyArray() {
     if (m_array != nullptr) {
-        delete[] m_array;
+        deleteArrayMember();
     }
-    m_array = new T[m_rowDim];
+    m_array = new T*[1];
+    m_array[0] = new T[rowDim()];
 }
 
 // Overriden method for getting element in m_array
@@ -16,7 +28,7 @@ T Vector<T>::operator()(unsigned int i, unsigned int j) {
         std::cout << "Column index for Vector must be 0 or omitted" << std::endl;
         throw std::exception();
     }
-    return m_array[i];
+    return m_array[0][i];
 }
 
 // Overriden method for setting element in m_array
@@ -26,14 +38,14 @@ void Vector<T>::set(unsigned int i, unsigned int j, T value) {
         std::cout << "Column index for Vector must be 0 or omitted" << std::endl;
         throw std::exception();
     }
-    m_array[i] = value;
+    m_array[0][i] = value;
 }
 
 // Sets m_array to all of value
 template <typename T>
 void Vector<T>::setAll(T value) {
     initializeEmptyArray();
-    for (unsigned int i = 0; i < m_rowDim; i++) {
+    for (unsigned int i = 0; i < rowDim(); i++) {
         set(i, value);
     }
 }
@@ -41,17 +53,18 @@ void Vector<T>::setAll(T value) {
 // Destructor
 template <typename T>
 Vector<T>::~Vector() {
-    delete[] m_array;
+    deleteArrayMember();
 }
 
 // Helper function that makes the instance match the passed object
 template <typename T>
 void Vector<T>::makeCopyOfOther(const Vector<T>& obj) {
     m_rowDim = obj.m_rowDim;
-    m_array = new T[m_rowDim];
+    m_array = new T*[1];
+    m_array[0] = new T[rowDim()];
     // Copy all elements of obj to m_array
-    for (unsigned int i = 0; i < m_rowDim; i++) {
-        m_array[i] = obj.m_array[i];
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        m_array[0][i] = obj.m_array[0][i];
     }
 }
 
@@ -76,7 +89,7 @@ template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& rhs) {
     // Check for self-assignment
     if (&rhs != this) {
-        delete[] m_array;
+        deleteArrayMember();
         makeCopyOfOther(rhs);
     }
     return *this;
@@ -100,7 +113,7 @@ void Vector<T>::print() {
         std::cout << "internal array not set" << std::endl;
         return;
     }
-    for (unsigned int i = 0; i < m_rowDim; i++) {
+    for (unsigned int i = 0; i < rowDim(); i++) {
         std::cout << (*this)(i) << std::endl;
     }
 }

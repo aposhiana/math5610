@@ -251,12 +251,12 @@ void cholesky(Array<double>& A) {
     unsigned int n = A.rowDim();
     unsigned int lastIndex = n - 1;
     for (unsigned int k = 0; k < (n - 1); k++) {
-        double diagonalValueSquared = A(k, k);
-        if (diagonalValueSquared < 0) {
+        double previousDiagVal = A(k, k);
+        if (previousDiagVal < 0) {
             std::cout << errorMessage << std::endl;
             throw std::exception();
         }
-        A.set(k, k, sqrt(diagonalValueSquared));
+        A.set(k, k, sqrt(previousDiagVal));
         for (unsigned int i = k + 1; i < n; i++) {
             A.set(i, k, A(i, k) / A(k, k));
         }
@@ -321,7 +321,9 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x_next = tempPtr;
         tempPtr = nullptr;
     }
-    Vector<double>* xVector = new Vector<double>(x, n);
+    double** x_array = new double*[1];
+    x_array[0] = x;
+    Vector<double>* xVector = new Vector<double>(x_array, n);
     return *xVector;
 }
 
@@ -374,4 +376,72 @@ Array<double>* steepestDescentSolve(Array<double>& A, Vector<double>& b,
         tempVectorPtr = nullptr;
     }
     return x;
+}
+
+Vector<double>* cg(Array<double>& A, Vector<double>& b, double tol) {
+    assertLinearSystem(A, b);
+    unsigned int n = A.rowDim();
+
+    // Use raw array members for compatability with faster operations
+    double** A_raw_member = A.getRawArray();
+    double* b_raw_member = b.getRawArray()[0];
+
+    // Initialize x randomly
+    double* x = new double[n];
+    for (unsigned int i = 0; i < n; i++) {
+        x[i] = getRandDouble(-10.0, 10.0);
+    }
+
+    // Compute initial r
+    double* Ax_0 = rawMatVecProduct(A_raw_member, x, n, n);
+    double* r = rawSubtract(b_raw_member, Ax_0, n);
+
+    // Set initial p to r
+    double* p = new double[n];
+    copyBintoA(p, r, n);
+
+    // Allocate memory for the following
+    double* s = new double[n];
+
+    // Initialize end condition variables
+    double delta = rawDot(r, r, n);
+    double endConditionValue = tol * tol * rawDot(b_raw_member, b_raw_member, n);
+
+    while (delta > endConditionValue) {
+        // Update s
+        double* Ap = rawMatVecProduct(A_raw_member, p, n, n);
+        copyBintoA(s, Ap, n);
+        delete[] Ap;
+        Ap = nullptr;
+        // Compute alpha
+        double alpha = delta / rawDot(p, s, n);
+        // Update x
+        for (unsigned int i = 0; i < n; i++) {
+            x[i] += alpha * p[i];
+        }
+        // Update r
+        for (unsigned int i = 0; i < n; i++) {
+            r[i] -= alpha * s[i];
+        }
+        double delta_next = rawDot(r, r, n);
+        // Update p
+        for (unsigned int i = 0; i < n; i++) {
+            p[i] = r[i] + (delta_next / delta) * p[i];
+        }
+        delta = delta_next;
+    }
+    // Clean up memory
+    delete[] r;
+    delete[] p;
+    delete[] s;
+    delete[] Ax_0;
+    r = nullptr;
+    p = nullptr;
+    s = nullptr;
+    Ax_0 = nullptr;
+
+    double** x_array = new double*[1];
+    x_array[0] = x;
+    Vector<double>* xVector = new Vector<double>(x_array, n);
+    return new Vector<double>(x_array, n);
 }

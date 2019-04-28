@@ -141,6 +141,47 @@ Array<double>* matmul(Array<double>* a, Array<double>* b) {
     return c;
 }
 
+// Return a new raw array that is the result of Av
+double* rawMatVecProduct(const double* const* A, const double* v,
+                const unsigned int m, const unsigned int n) {
+    double* y = new double[m];
+    for (unsigned int i = 0; i < m; i++) {
+        double sum = 0;
+        for (unsigned int j = 0; j < n; j++) {
+            sum += A[i][j] * v[j];
+        }
+        y[i] = sum;
+    }
+    return y;
+}
+
+// Returns the dot product of two vectors v and w
+double rawDot(const double* v, const double* w, const unsigned int n) {
+    double sum = 0;
+    for (unsigned int i = 0; i < n; i++) {
+        sum += v[i] * w[i];
+    }
+    return sum;
+}
+
+// Returns a + b element-wise as a new array where a and b are vectors
+double* rawAdd(const double* a, const double* b, const unsigned int n) {
+    double* y = new double[n];
+    for (unsigned int i = 0; i < n; i++) {
+        y[i] = a[i] + b[i];
+    }
+    return y;
+}
+
+// Returns a - b element-wise as a new array where a and b are vectors
+double* rawSubtract(const double* a, const double* b, const unsigned int n) {
+    double* y = new double[n];
+    for (unsigned int i = 0; i < n; i++) {
+        y[i] = a[i] - b[i];
+    }
+    return y;
+}
+
 // Compute the dot product of two vectors of the same length
 double dot(Array<double>& a, Array<double>& b) {
     assertSameDim(a, b);
@@ -153,6 +194,12 @@ double dot(Array<double>& a, Array<double>& b) {
         result += a(i, 0) * b(i, 0);
     }
     return result;
+}
+
+void copyBintoA(double* a, const double* b, const unsigned int n) {
+    for (unsigned int i = 0; i < n; i++) {
+        a[i] = b[i];
+    }
 }
 
 // Compute the cross product of two 3D vectors
@@ -184,8 +231,8 @@ DenseArray<double>* transpose(Array<double>* a) {
     return aT;
 }
 
-// Create and return a random PD matrix
-Array<double>* getRandomPDArray(unsigned int dim) {
+// Create and return a random SPD matrix
+Array<double>* getRandomSPDArray(unsigned int dim) {
     DenseArray<double>* G = new DenseArray<double>(dim);
     G->makeRandomLowerTriangular(0.0, 10.0);
     DenseArray<double>* GT = transpose(G);

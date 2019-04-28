@@ -9,21 +9,22 @@ public:
     // Getters
     unsigned int colDim() const override { return m_colDim; }
     unsigned int rowDim() const override { return m_rowDim; }
+    T** getRawArray() override { return m_array; }
 
     // Constructors
     Vector(const unsigned int rowDim, bool init=false) :
         m_rowDim(rowDim)
         {if (init) { initializeEmptyArray(); }}
-    Vector(T* array, const unsigned int rowDim, bool init=false) :
+    Vector(T** array, const unsigned int rowDim, bool init=false) :
         m_array(array), m_rowDim(rowDim)
         { if (init) { initializeEmptyArray(); }}
 
     // Overloaded () operators for element acceses by indices
     T operator()(unsigned int i, unsigned int j) override;
-    T operator()(unsigned int i) { return m_array[i]; }
+    T operator()(unsigned int i) { return m_array[0][i]; }
     // Element setters
     void set(unsigned int i, unsigned int j, T value) override;
-    void set(unsigned int i, T value) { m_array[i] = value; }
+    void set(unsigned int i, T value) { m_array[0][i] = value; }
     void setAll(T value) override;
 
     // Prints the array
@@ -39,12 +40,13 @@ public:
 
 private:
     // Internal representation of vector
-    T* m_array = nullptr;
+    T** m_array = nullptr;
     unsigned int m_rowDim;
     const unsigned int m_colDim = 1;
 
     void makeCopyOfOther(const Vector<T>& obj);
     void initializeEmptyArray() override;
+    void deleteArrayMember();
 };
 
 #include "Vector.ipp"

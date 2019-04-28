@@ -27,3 +27,7 @@ The software manual is the technical documentation for this project. It includes
 My homeworks are included in this repository as markdown files. The homeowork tasks contain short descriptions and links to the relevent files produced and software manual entries.
 
 [See homework](homework/README.md).
+
+
+#### Design philosophy notes
+Don't require users of the library to use raw arrays but use them internally for speed. Note that currently a lot of the methods internally use more of the fluffy, non-raw methods than they should. TODO: change this.
