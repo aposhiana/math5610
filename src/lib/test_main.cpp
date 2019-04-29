@@ -468,10 +468,12 @@ int main() {
     std::cout << "A_eig" << std::endl;
     Array<double>* A_eig = getRandomSPDArray(3);
     A_eig->print();
-    double A_eig_lambda = powerEigenSolve(*A_eig, 0.0001, 1000000);
+    double A_eig_lambda = powerEigenSolve(*A_eig, 0.0001, 10000);
     std::cout << "A_eig_lambda found using power method: " << A_eig_lambda << std::endl;
-    double A_eig_smallest = inverseEigenSolve(*A_eig, 0, 0.000001, 10000000);
+    double A_eig_smallest = inverseEigenSolve(*A_eig, 0, 0.000001, 10000);
     std::cout << "A_eig_smallest found using inverse iteration: " << A_eig_smallest << std::endl;
+    double A_eig_rayleigh = rayleighEigenSolve(*A_eig, 0.000001, 1000);
+    std::cout << "eigenvalue found with Rayleigh Quotient Iteration: " << A_eig_rayleigh << std::endl;
 
     return 0;
 }

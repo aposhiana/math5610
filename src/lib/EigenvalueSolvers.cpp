@@ -101,3 +101,62 @@ double inverseEigenSolve(Array<double>& A, double alpha, double tol,
     delete[] y;
     return lambda;
 }
+
+// Solve for a random eigenvalue using Rayleigh Quotient Iteration
+double rayleighEigenSolve(Array<double>& A, double tol, unsigned int maxiter) {
+    unsigned int n = A.rowDim();
+    double** A_raw_member = A.getRawArray();
+
+    // Make B a copy of A
+    double** B_raw_member = new double*[n];
+    for (unsigned int i = 0; i < n; i++) {
+        B_raw_member[i] = new double[n];
+        for (unsigned int j = 0; j < n; j++) {
+            B_raw_member[i][j] = A_raw_member[i][j];
+        }
+    }
+    DenseArray<double>* B = new DenseArray<double>(B_raw_member, n);
+
+    // Initialize empty L and U
+    DenseArray<double>* L = new DenseArray<double>(n);
+    DenseArray<double>* U = new DenseArray<double>(n);
+    // Initialize v randomly
+    Vector<double>* v = new Vector<double>(n);
+    v->makeRandom();
+    double* v_raw_member = v->getRawArray()[0];
+    // Initialize lambda
+    double* y = rawMatVecProduct(A_raw_member, v_raw_member, n, n);
+    double lambda = rawDot(v_raw_member, y, n);
+
+    double error = 10 * tol;
+    unsigned int k = 0;
+    while (error > tol && k < maxiter) {
+        // Get new, shifted B
+        for (unsigned int i = 0; i < n; i++) {
+            B->set(i, i, A(i, i) - lambda);
+        }
+        lu(*B, *L, *U); // Get new L and U
+        Vector<double> v_tilda = luSolve(*L, *U, *v);
+        double v_tilda_norm = l2Norm(v_tilda);
+
+        // Update v
+        for (unsigned int i = 0; i < n; i++) {
+            v->set(i, v_tilda(i) / v_tilda_norm);
+        }
+
+        // Get next lambda
+        if (y != nullptr) {
+            delete[] y;
+        }
+        y = rawMatVecProduct(A_raw_member, v_raw_member, n, n);
+        double lambda_next = rawDot(v_raw_member, y, n);
+
+        // Update error, lambda, and k
+        error = std::fabs(lambda_next - lambda);
+        lambda = lambda_next;
+        k++;
+    }
+    delete v;
+    delete[] y;
+    return lambda;
+}
