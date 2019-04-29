@@ -105,24 +105,127 @@ void rowReduce(DenseArray<double>& AB) {
     }
 }
 
-// Changes A to U and whatever is passed to L to L
-void lu(DenseArray<double>& A, DenseArray<double>& L) {
+Vector<double>& solveLinearSystem(DenseArray<double>& A, Vector<double>& b) {
+    rowReduce(A, b);
+    return backsub(A, b);
+}
+
+Vector<double>& solveLinearSystem(DenseArray<double>& AB) {
+    rowReduce(AB);
+    return backsub(AB);
+}
+
+// Get the LU factorization for A. L and U passed must simply have correct
+// dimensionality
+void lu(DenseArray<double>& A, DenseArray<double>& L, DenseArray<double>& U) {
+    if (A.rowDim() != A.colDim()) {
+        std::cout << "Matrix A is not square" << std::endl;
+        throw std::exception();
+    }
     assertSameDim(A, L);
-    // TODO: Add scaled partial pivoting
-    L.makeIdentity();
+    assertSameDim(A, U);
     unsigned int n = A.rowDim();
-    for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
-        double pivot = A(pivotIdx, pivotIdx);
-        for (unsigned int i = pivotIdx + 1; i < n; i++) {
-            double l = A(i, pivotIdx) / pivot;
-            L.set(i, pivotIdx, l);
-            A.set(i, pivotIdx, 0.0);
-            for (unsigned int j = pivotIdx + 1; j < n; j++) {
-                double oldVal = A(i, j);
-                A.set(i, j, oldVal - l * A(pivotIdx, j));
+    // Initialize L and U to anything. Does not need to be identity.
+    L.makeIdentity();
+    U.makeIdentity();
+    // Make U a copy of A
+    for (unsigned int i = 0; i < n; i++) {
+        for (unsigned int j = 0; j < n; j++) {
+            U.set(i, j, A(i, j));
+        }
+    }
+    // Set s to the absolute maximum row values
+    Vector<double>* s = new Vector<double>(n, true);
+    for (unsigned int i = 0; i < n; i++) {
+        double rowMaxAbs = -1; // Initialize to be impossibly low
+        for (unsigned int j = 0; j < n; j++) {
+            double valAbs = std::fabs(A(i, j));
+            if (valAbs > rowMaxAbs) {
+                rowMaxAbs = valAbs;
+            }
+        }
+        s->set(i, rowMaxAbs);
+    }
+    // Initialize row index map
+    unsigned int* rowMap = new unsigned int[n];
+    for (unsigned int i = 0; i < n; i++) {
+        rowMap[i] = i;
+    }
+    // Find permuted L and U
+    for (unsigned int k = 0; k < n; k++) {
+        // Choose pivot using scaled partial pivoting
+        unsigned int q;
+        double relMaxPivotAbs = -1; // Initialize to be impossibly low
+        for (unsigned int i = k; i < n; i++) {
+            // Examine the proper row desired at rowMap[i]
+            double relPivotAbs = std::fabs(U(rowMap[i], k)) / (*s)(rowMap[i]);
+            if (relPivotAbs > relMaxPivotAbs) {
+                relMaxPivotAbs = relPivotAbs;
+                q = i;
+            }
+        }
+        // Exchange row indices in rowMap
+        unsigned int temp = rowMap[k];
+        rowMap[k] = rowMap[q]; // not just q because q is not permuted
+        rowMap[q] = temp;
+
+        double pivot = U(rowMap[k], k);
+        for (unsigned int i = k + 1; i < n; i++) {
+            double l = U(rowMap[i], k) / pivot;
+            L.set(rowMap[i], k, l);
+            U.set(rowMap[i], k, 0.0); // Fill zeros in lower part of U
+            for (unsigned int j = k + 1; j < n; j++) {
+                double oldVal = U(rowMap[i], j);
+                U.set(rowMap[i], j, oldVal - l * U(rowMap[k], j));
             }
         }
     }
+    // Copy L
+    double** L_copy = new double*[n];
+    for (unsigned int i = 0; i < n; i++) {
+        L_copy[i] = new double[n];
+        for (unsigned int j = 0; j < n; j++) {
+            L_copy[i][j] = L(i, j);
+        }
+    }
+    // Copy U
+    double** U_copy = new double*[n];
+    for (unsigned int i = 0; i < n; i++) {
+        U_copy[i] = new double[n];
+        for (unsigned int j = 0; j < n; j++) {
+            U_copy[i][j] = U(i, j);
+        }
+    }
+    // Put L and U in proper order and set trivial L values
+    for (unsigned int i = 0; i < n; i++) {
+        unsigned int oldRow = rowMap[i];
+        for (unsigned int j = 0; j < n; j++) {
+            if (j < i) {
+                L.set(i, j, L_copy[oldRow][j]);
+            }
+            else if (j == i) {
+                L.set(i, j, 1.0);
+            }
+            else {
+                L.set(i, j, 0.0);
+            }
+            U.set(i, j, U_copy[oldRow][j]);
+        }
+    }
+    // Clean up dynamically allocated raw arrays
+    delete[] rowMap;
+    for (unsigned int i = 0; i < n; i++) {
+        delete[] L_copy[i];
+        delete[] U_copy[i];
+    }
+    delete[] L_copy;
+    delete[] U_copy;
+}
+
+Vector<double>& luSolve(DenseArray<double>& L,
+                DenseArray<double>& U, Vector<double>& b) {
+    Vector<double> y = forwardsub(L, b);
+    return backsub(U, y);
 }
 
 // Get Q and R for A using classical Gram-Schmidt
@@ -215,22 +318,6 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
             Q.set(rowIdx, j, Q(rowIdx, j) / r_jj);
         }
     }
-}
-
-Vector<double>& solveLinearSystem(DenseArray<double>& A, Vector<double>& b) {
-    rowReduce(A, b);
-    return backsub(A, b);
-}
-
-Vector<double>& solveLinearSystem(DenseArray<double>& AB) {
-    rowReduce(AB);
-    return backsub(AB);
-}
-
-Vector<double>& luSolve(DenseArray<double>& L,
-                DenseArray<double>& U, Vector<double>& b) {
-    Vector<double> y = forwardsub(L, b);
-    return backsub(U, y);
 }
 
 Vector<double>& qrSolve(DenseArray<double>& Q,

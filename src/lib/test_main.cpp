@@ -360,15 +360,28 @@ int main() {
     b_4->print();
 
     DenseArray<double>* L_4 = new DenseArray<double>(4, 4);
-    lu(*A_4, *L_4);
-    std::cout << "U from A_4 " << std::endl;
-    A_4->print();
+    DenseArray<double>* U_4 = new DenseArray<double>(4, 4);
+    lu(*A_4, *L_4, *U_4);
     std::cout << "L from A_4 " << std::endl;
     L_4->print();
+    std::cout << "U from A_4 " << std::endl;
+    U_4->print();
 
     std::cout << "x_4 found with LU: " << std::endl;
-    Vector<double> x_4 = luSolve(*L_4, *A_4, *b_4);
+    Vector<double> x_4 = luSolve(*L_4, *U_4, *b_4);
     x_4.print();
+
+    std::cout << "A_randlu for LU" << std::endl;
+    DenseArray<double>* A_randlu = new DenseArray<double>(4, 4);
+    A_randlu->makeRandom();
+    A_randlu->print();
+    DenseArray<double>* L_randlu = new DenseArray<double>(4, 4);
+    DenseArray<double>* U_randlu = new DenseArray<double>(4, 4);
+    lu(*A_randlu, *L_randlu, *U_randlu);
+    std::cout << "L from A_randlu " << std::endl;
+    L_randlu->print();
+    std::cout << "U from A_randlu " << std::endl;
+    U_randlu->print();
 
     std::cout << "SPD_1: " << std::endl;
     Array<double>* SPD_1 = getRandomSPDArray(3);
@@ -457,6 +470,8 @@ int main() {
     A_eig->print();
     double A_eig_lambda = powerEigenSolve(*A_eig, 0.0001, 1000000);
     std::cout << "A_eig_lambda found using power method: " << A_eig_lambda << std::endl;
+    double A_eig_smallest = inverseEigenSolve(*A_eig, 0, 0.000001, 10000000);
+    std::cout << "A_eig_smallest found using inverse iteration: " << A_eig_smallest << std::endl;
 
     return 0;
 }
