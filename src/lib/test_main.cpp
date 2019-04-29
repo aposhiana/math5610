@@ -475,5 +475,15 @@ int main() {
     double A_eig_rayleigh = rayleighEigenSolve(*A_eig, 0.000001, 1000);
     std::cout << "eigenvalue found with Rayleigh Quotient Iteration: " << A_eig_rayleigh << std::endl;
 
+    std::cout << "Symmetric Diagonally Dominant Matrix: " << std::endl;
+    DenseArray<double>* A_sdd = new DenseArray<double>(4);
+    A_sdd->makeRandomSymmetricDD();
+    A_sdd->print();
+
+    std::cout << "Hilbert Matrix: " << std::endl;
+    DenseArray<double>* A_hilbert = new DenseArray<double>(4);
+    A_hilbert->makeHilbert();
+    A_hilbert->print();
+
     return 0;
 }

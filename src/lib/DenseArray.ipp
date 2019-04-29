@@ -326,6 +326,35 @@ void DenseArray<T>::makeRandomSymmetric(const double min, const double max) {
     makeRandomInternalTriangular(min, max);
 }
 
+// Sets to a symmetric DD matrix containing random values between min and max
+template <typename T>
+void DenseArray<T>::makeRandomSymmetricDD(const double offDiagMin, const double offDiagMax) {
+    assertSquare();
+    assertProperMinMax(offDiagMin, offDiagMax);
+    // It is important that the form be changed before array initialization
+    // so that the correct form of array be allocated
+    setIsSymmetricForm();
+    initializeEmptyArray();
+    makeRandomInternalTriangular(offDiagMin, offDiagMax);
+    double maxAbs = ((std::fabs(offDiagMin) > std::fabs(offDiagMax)) ? offDiagMin : offDiagMax);
+    double offset = (rowDim() + 5) * maxAbs;
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        set(i, i, (*this)(i, i) + offset);
+    }
+}
+
+// Sets m_array to a Hilbert matrix
+template <typename T>
+void DenseArray<T>::makeHilbert() {
+    assertSquare();
+    initializeEmptyArray();
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        for (unsigned int j = 0; j < rowDim(); j++) {
+            set(i, j, 1 / static_cast<double>(j + i + 1));
+        }
+    }
+}
+
 // Sets to a upper triangular matrix containing random values between min and max
 template <typename T>
 void DenseArray<T>::makeRandomUpperTriangular(const double min, const double max) {

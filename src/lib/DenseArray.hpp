@@ -39,10 +39,12 @@ public:
     // Shortcuts to initialize m_array values
     void makeRandomDD(const double min=0.0, const double max=1.0);
     void makeRandomSymmetric(const double min=0.0, const double max=1.0);
+    void makeRandomSymmetricDD(const double offDiagMin=0.0, const double offDiagMax=1.0);
     void makeRandomUpperTriangular(const double min=0.0, const double max=1.0);
     void makeRandomLowerTriangular(const double min=0.0, const double max=1.0);
     void makeRandomAugmentedEchelon(const double min=0.0, const double max=1.0);
     void makeIdentity();
+    void makeHilbert();
 
     // Methods to change internal array form
     void makeFullForm();
