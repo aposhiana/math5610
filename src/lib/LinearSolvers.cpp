@@ -88,16 +88,18 @@ void rowReduce(DenseArray<double>& A, Vector<double>& b) {
     }
 }
 
-void rowReduce(DenseArray<double>& AB) {
+void rowReduce(DenseArray<double>& AB, bool isLinearSystem) {
     // TODO: Add scaled partial pivoting
-    assertLinearSystem(AB);
+    if (isLinearSystem) {
+        assertLinearSystem(AB);
+    }
     unsigned int n = AB.rowDim();
     for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
         double pivot = AB(pivotIdx, pivotIdx);
         for (unsigned int i = pivotIdx + 1; i < n; i++) {
             double l = AB(i, pivotIdx) / pivot;
             AB.set(i, pivotIdx, 0.0);
-            for (unsigned int j = pivotIdx + 1; j < (n + 1); j++) {
+            for (unsigned int j = pivotIdx + 1; j < AB.colDim(); j++) {
                 double oldVal = AB(i, j);
                 AB.set(i, j, oldVal - l * AB(pivotIdx, j));
             }

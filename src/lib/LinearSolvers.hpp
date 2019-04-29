@@ -9,7 +9,7 @@ Vector<double>& backsub(Array<double>& A, Array<double>& b);
 Vector<double>& backsub(Array<double>& AB);
 Vector<double>& forwardsub(Array<double>& A, Array<double>& b);
 void rowReduce(DenseArray<double>& A, Vector<double>& b);
-void rowReduce(DenseArray<double>& AB);
+void rowReduce(DenseArray<double>& AB, bool isLinearSystem=true);
 Vector<double>& solveLinearSystem(DenseArray<double>& A, Vector<double>& b);
 Vector<double>& solveLinearSystem(DenseArray<double>& AB);
 void lu(DenseArray<double>& A, DenseArray<double>& L, DenseArray<double>& U);

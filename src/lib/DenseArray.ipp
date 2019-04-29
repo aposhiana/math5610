@@ -301,6 +301,19 @@ void DenseArray<T>::makeRandomDD(const double min, const double max) {
     }
 }
 
+template <typename T>
+void DenseArray<T>::makeRandomDDWide(const double offDiagMin, const double offDiagMax) {
+    assertProperMinMax(offDiagMin, offDiagMax);
+    // It is important that the form be changed before array initialization
+    // so that the correct form of array be allocated
+    this->makeRandom(offDiagMin, offDiagMax);
+    double maxAbs = ((std::fabs(offDiagMin) > std::fabs(offDiagMax)) ? offDiagMin : offDiagMax);
+    double offset = (rowDim() + 5) * maxAbs;
+    for (unsigned int i = 0; i < rowDim(); i++) {
+        set(i, i, (*this)(i, i) + offset);
+    }
+}
+
 // Sets internal triangular array to contain random values between min and max
 template <typename T>
 void DenseArray<T>::makeRandomInternalTriangular(const double min, const double max) {

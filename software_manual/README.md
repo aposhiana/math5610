@@ -31,3 +31,8 @@ by Andrew Aposhian
         * [l2NormAbsoluteError](l2NormAbsoluteError.md)
         * [infNormAbsoluteError](infNormAbsoluteError.md)
 * **Solution of Linear Systems**
+    * [solveLinearDiagonalSystem](solveLinearDiagonalSystem.md)
+    * [backsub](backsub.md)
+    * [forwardsub](forwardsub.md)
+    
+

@@ -300,6 +300,22 @@ int main() {
     Vector<double> x_rarre = backsub(*AB_0);
     x_rarre.print();
 
+    std::cout << "Random DD matrix A_dd0: " << std::endl;
+    DenseArray<double>* A_dd0 = new DenseArray<double>(3, 3);
+    A_dd0->makeRandomDD(1.0, 10.0);
+    A_dd0->print();
+
+    std::cout << "b_dd0 for A_dd0 system:  " << std::endl;
+    Vector<double>* b_dd0 = new Vector<double>(3);
+    b_dd0->makeRandom(1, 10);
+    b_dd0->print();
+
+    rowReduce(*A_dd0, *b_dd0);
+    std::cout << "A_dd0 after rowReduce: " << std::endl;
+    A_dd0->print();
+    std::cout << "b_dd0 after rowReduce: " << std::endl;
+    b_dd0->print();
+
     std::cout << "Random augmented coefficient matrix  AB_1 to be reduced: " << std::endl;
     DenseArray<double>* AB_1 = new DenseArray<double>(3, 4);
     AB_1->makeRandom(1.0, 10.0);
@@ -484,6 +500,15 @@ int main() {
     DenseArray<double>* A_hilbert = new DenseArray<double>(4);
     A_hilbert->makeHilbert();
     A_hilbert->print();
+
+    std::cout << "Wide DD Matrix A_wide_dd" << std::endl;
+    DenseArray<double>* A_wide_dd = new DenseArray<double>(3, 6);
+    A_wide_dd->makeRandomDDWide(1.0, 10.0);
+    A_wide_dd->print();
+
+    std::cout << "A_wide_dd in echelon form" << std::endl;
+    rowReduce(*A_wide_dd, false);
+    A_wide_dd->print();
 
     return 0;
 }
