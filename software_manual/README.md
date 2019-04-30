@@ -12,6 +12,7 @@ by Andrew Aposhian
     * [DenseArray\<T\>](./DenseArray.md)
         * [makeRandomSymmetric.md](./makeRandomSymmetric.md)
         * [makeRandomDD.md](./makeRandomDD.md)
+        * [makeRandomSymmetricDD.md](./makeRandomSymmetricDD.md)
     * [Vector\<T\>](./Vector.md)
     * ArrayUtils.hpp
         * [add](./add.md)
@@ -21,6 +22,7 @@ by Andrew Aposhian
         * [matmul](./matmul.md)
         * [transpose](./transpose.md)
         * [makeRandomRawArray](./makeRandomRawArray.md)
+        * [getRandomSPDArray](./getRandomSPDArray)
     * VectorNorms.hpp
         * [absoluteError](./absoluteError.md)
         * [relativeError](./relativeError.md)
@@ -34,5 +36,9 @@ by Andrew Aposhian
     * [solveLinearDiagonalSystem](solveLinearDiagonalSystem.md)
     * [backsub](backsub.md)
     * [forwardsub](forwardsub.md)
-    
-
+    * [solveLinearSystem](solveLinearSystem.md)
+    * [lu](lu.md)
+    * [luSolve](luSolve.md)
+    * [cholesky](cholesky.md)
+    * [solveNormalEquation](solveNormalEquation.md)
+    * [jacobiSolve](jacobiSolve.md)

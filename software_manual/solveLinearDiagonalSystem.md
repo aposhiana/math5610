@@ -17,7 +17,7 @@ To use this function, include the correct header file at the top of your file as
 
 **Output:** A vector of doubles of dimensionality n x 1 representing the solution to the linear system
 
-**Usage/Example:** The example below shows creating a random diagonal matrix and b vector, printing them, then using the routine to find the solution. The solition is then printed.
+**Usage/Example:** The example below shows creating a random diagonal matrix and b vector, printing them, then using the routine to find the solution. The solution is then printed.
 ```
 std::cout << "b for linear systems:  " << std::endl;
 Vector<double>* b_ls = new Vector<double>(5);
