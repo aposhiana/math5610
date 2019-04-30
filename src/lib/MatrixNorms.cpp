@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "MatrixNorms.hpp"
+#include "EigenvalueSolvers.hpp"
 
 // Get 1-norm of a matrix
 double matrix1Norm(Array<double>& a) {
@@ -32,4 +33,10 @@ double matrixInfNorm(Array<double>& a) {
         }
     }
     return maxRowL1Norm;
+}
+
+double estimate2NormConditionNumber(Array<double>& A, double tol, unsigned int maxiter) {
+    double largest = powerEigenSolve(A, tol, maxiter);
+    double smallest = inverseEigenSolve(A, 0, tol, maxiter);
+    return std::fabs(largest / smallest);
 }

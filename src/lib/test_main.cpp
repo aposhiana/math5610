@@ -384,7 +384,7 @@ int main() {
     std::cout << "x_4 found with LU: " << std::endl;
     Vector<double> x_4 = luSolve(*L_4, *U_4, *b_4);
     x_4.print();
-    std::cout << "x_4 found with QR (v0): " << std::endl;
+    std::cout << "x_4 found with QR: " << std::endl;
     x_4_qr.print();
 
     std::cout << "A_randlu for LU" << std::endl;
@@ -553,6 +553,87 @@ int main() {
     std::cout << "A_wide_dd in echelon form" << std::endl;
     rowReduce(*A_wide_dd, false);
     A_wide_dd->print();
+
+    // Hilbert tests
+    std::cout << "Hilbert 2" << std::endl;
+    DenseArray<double>* hil2 = new DenseArray<double>(2);
+    hil2->makeHilbert();
+    double hil2Kappa = estimate2NormConditionNumber(*hil2, 0.000001, 10000);
+    std::cout << "hil2Kappa: " << hil2Kappa << std::endl;
+
+    std::cout << "Hilbert 4" << std::endl;
+    DenseArray<double>* hil4 = new DenseArray<double>(4);
+    hil4->makeHilbert();
+    double hil4Kappa = estimate2NormConditionNumber(*hil4, 0.000001, 10000);
+    std::cout << "hil4Kappa: " << hil4Kappa << std::endl;
+    // hil4->print();
+    // DenseArray<double>* Q_hil4 = new DenseArray<double>(4, 4, true);
+    // DenseArray<double>* R_hil4 = new DenseArray<double>(4, 4, true);
+    // squareClassicalGramSchmidt(*hil4, *Q_hil4, *R_hil4);
+    // std::cout << "Q_hil4 from Classical Gram Schmidt" << std::endl;
+    // Q_hil4->print();
+    // std::cout << "R_hil4 from Classical Gram Schmidt" << std::endl;
+    // R_hil4->print();
+    // std::cout << "Q_hil4 * transpose(Q_hil4)" << std::endl;
+    // Array<double>* QQThil4 = matmul(Q_hil4, transpose(Q_hil4));
+    // QQThil4->print();
+
+    std::cout << "Hilbert 6" << std::endl;
+    DenseArray<double>* hil6 = new DenseArray<double>(6);
+    hil6->makeHilbert();
+    double hil6Kappa = estimate2NormConditionNumber(*hil6, 0.000001, 10000);
+    std::cout << "hil6Kappa: " << hil6Kappa << std::endl;
+    // hil6->print();
+    // DenseArray<double>* Q_hil6 = new DenseArray<double>(6, 6, true);
+    // DenseArray<double>* R_hil6 = new DenseArray<double>(6, 6, true);
+    // squareClassicalGramSchmidt(*hil6, *Q_hil6, *R_hil6);
+    // std::cout << "Q_hil6 from Classical Gram Schmidt" << std::endl;
+    // Q_hil6->print();
+    // std::cout << "R_hil6 from Classical Gram Schmidt" << std::endl;
+    // R_hil6->print();
+    // std::cout << "Q_hil6 * transpose(Q_hil6)" << std::endl;
+    // Array<double>* QQThil6 = matmul(Q_hil6, transpose(Q_hil6));
+    // QQThil6->print();
+
+    std::cout << "Hilbert 8" << std::endl;
+    DenseArray<double>* hil8 = new DenseArray<double>(8);
+    hil8->makeHilbert();
+    double hil8Kappa = estimate2NormConditionNumber(*hil8, 0.000001, 10000);
+    std::cout << "hil8Kappa: " << hil8Kappa << std::endl;
+    // hil8->print();
+    // DenseArray<double>* Q_hil8 = new DenseArray<double>(8, 8, true);
+    // DenseArray<double>* R_hil8 = new DenseArray<double>(8, 8, true);
+    // squareClassicalGramSchmidt(*hil8, *Q_hil8, *R_hil8);
+    // std::cout << "Q_hil8 from Classical Gram Schmidt" << std::endl;
+    // Q_hil8->print();
+    // std::cout << "R_hil8 from Classical Gram Schmidt" << std::endl;
+    // R_hil8->print();
+    // std::cout << "Q_hil8 * transpose(Q_hil8)" << std::endl;
+    // Array<double>* QQThil8 = matmul(Q_hil8, transpose(Q_hil8));
+    // QQThil8->print();
+
+    std::cout << "Hilbert 10" << std::endl;
+    DenseArray<double>* hil10 = new DenseArray<double>(10);
+    hil10->makeHilbert();
+    double hil10Kappa = estimate2NormConditionNumber(*hil10, 0.000001, 10000);
+    std::cout << "hil10Kappa: " << hil10Kappa << std::endl;
+    // hil10->print();
+    // DenseArray<double>* Q_hil10 = new DenseArray<double>(10, 10, true);
+    // DenseArray<double>* R_hil10 = new DenseArray<double>(10, 10, true);
+    // squareClassicalGramSchmidt(*hil10, *Q_hil10, *R_hil10);
+    // std::cout << "Q_hil10 from Classical Gram Schmidt" << std::endl;
+    // Q_hil10->print();
+    // std::cout << "R_hil10 from Classical Gram Schmidt" << std::endl;
+    // R_hil10->print();
+    // std::cout << "Q_hil10 * transpose(Q_hil10)" << std::endl;
+    // Array<double>* QQThil10 = matmul(Q_hil10, transpose(Q_hil10));
+    // QQThil10->print();
+
+    std::cout << "Hilbert 12" << std::endl;
+    DenseArray<double>* hil12 = new DenseArray<double>(12);
+    hil12->makeHilbert();
+    double hil12Kappa = estimate2NormConditionNumber(*hil12, 0.000001, 10000);
+    std::cout << "hil12Kappa: " << hil12Kappa << std::endl;
 
     return 0;
 }

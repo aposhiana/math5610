@@ -245,7 +245,199 @@
     ```
 6. I wrote a routine called `solveNormalEquation` that computes the approximate solution of the least squares problem using the normal equation. My routine utilizes my `cholesky`. [See my software manual entry](../software_manual/solveNormalEquation.md).
 7. I wrote a routine called `squareClassicalGramSchmidt` which uses the Gram-Schmidt algorithm to compute the QR factorization of a matrix. [See my software manual entry](../software_manual/squareClassicalGramSchmidt.md).
-8. 
+8. I tested the `squareClassicalGramSchmidt` routine on Hilbert matrices for n = 4, 6, 8, 10. After each factorization, I computed matmul(Q, transpose(Q)) to verify how close to orthonormal Q was. The larger the Hilbert matrices, the further the result of matmul(Q, transpose(Q)) was from the identity, indicating that my factorization was less accurate. Below is my code and results:
+    ```
+    std::cout << "Hilbert 4" << std::endl;
+    DenseArray<double>* hil4 = new DenseArray<double>(4);
+    hil4->makeHilbert();
+    hil4->print();
+    DenseArray<double>* Q_hil4 = new DenseArray<double>(4, 4, true);
+    DenseArray<double>* R_hil4 = new DenseArray<double>(4, 4, true);
+    squareClassicalGramSchmidt(*hil4, *Q_hil4, *R_hil4);
+    std::cout << "Q_hil4 from Classical Gram Schmidt" << std::endl;
+    Q_hil4->print();
+    std::cout << "R_hil4 from Classical Gram Schmidt" << std::endl;
+    R_hil4->print();
+    std::cout << "Q_hil4 * transpose(Q_hil4)" << std::endl;
+    Array<double>* QQThil4 = matmul(Q_hil4, transpose(Q_hil4));
+    QQThil4->print();
+
+    std::cout << "Hilbert 6" << std::endl;
+    DenseArray<double>* hil6 = new DenseArray<double>(6);
+    hil6->makeHilbert();
+    hil6->print();
+    DenseArray<double>* Q_hil6 = new DenseArray<double>(6, 6, true);
+    DenseArray<double>* R_hil6 = new DenseArray<double>(6, 6, true);
+    squareClassicalGramSchmidt(*hil6, *Q_hil6, *R_hil6);
+    std::cout << "Q_hil6 from Classical Gram Schmidt" << std::endl;
+    Q_hil6->print();
+    std::cout << "R_hil6 from Classical Gram Schmidt" << std::endl;
+    R_hil6->print();
+    std::cout << "Q_hil6 * transpose(Q_hil6)" << std::endl;
+    Array<double>* QQThil6 = matmul(Q_hil6, transpose(Q_hil6));
+    QQThil6->print();
+
+    std::cout << "Hilbert 8" << std::endl;
+    DenseArray<double>* hil8 = new DenseArray<double>(8);
+    hil8->makeHilbert();
+    hil8->print();
+    DenseArray<double>* Q_hil8 = new DenseArray<double>(8, 8, true);
+    DenseArray<double>* R_hil8 = new DenseArray<double>(8, 8, true);
+    squareClassicalGramSchmidt(*hil8, *Q_hil8, *R_hil8);
+    std::cout << "Q_hil8 from Classical Gram Schmidt" << std::endl;
+    Q_hil8->print();
+    std::cout << "R_hil8 from Classical Gram Schmidt" << std::endl;
+    R_hil8->print();
+    std::cout << "Q_hil8 * transpose(Q_hil8)" << std::endl;
+    Array<double>* QQThil8 = matmul(Q_hil8, transpose(Q_hil8));
+    QQThil8->print();
+
+    std::cout << "Hilbert 10" << std::endl;
+    DenseArray<double>* hil10 = new DenseArray<double>(10);
+    hil10->makeHilbert();
+    hil10->print();
+    DenseArray<double>* Q_hil10 = new DenseArray<double>(10, 10, true);
+    DenseArray<double>* R_hil10 = new DenseArray<double>(10, 10, true);
+    squareClassicalGramSchmidt(*hil10, *Q_hil10, *R_hil10);
+    std::cout << "Q_hil10 from Classical Gram Schmidt" << std::endl;
+    Q_hil10->print();
+    std::cout << "R_hil10 from Classical Gram Schmidt" << std::endl;
+    R_hil10->print();
+    std::cout << "Q_hil10 * transpose(Q_hil10)" << std::endl;
+    Array<double>* QQThil10 = matmul(Q_hil10, transpose(Q_hil10));
+    QQThil10->print();
+    ```
+    Output from the code above:
+    ```
+    Hilbert 4
+    1 0.5 0.333333 0.25 
+    0.5 0.333333 0.25 0.2 
+    0.333333 0.25 0.2 0.166667 
+    0.25 0.2 0.166667 0.142857 
+    Q_hil4 from Classical Gram Schmidt
+    0.838116 -0.522648 0.153973 -0.0263067 
+    0.419058 0.441713 -0.727754 0.31568 
+    0.279372 0.528821 0.139506 -0.7892 
+    0.209529 0.502072 0.653609 0.526134 
+    R_hil4 from Classical Gram Schmidt
+    1.19315 0.670493 0.474933 0.369835 
+    0 0.118533 0.125655 0.117542 
+    0 0 0.00622177 0.00956609 
+    0 0 0 0.000187905 
+    Q_hil4 * transpose(Q_hil4)
+    1 2.30978e-12 -4.26429e-12 2.11242e-12 
+    2.30978e-12 1 2.2206e-11 -5.93509e-12 
+    -4.26429e-12 2.2206e-11 1 -1.61937e-11 
+    2.11242e-12 -5.93509e-12 -1.61937e-11 1 
+    Hilbert 6
+    1 0.5 0.333333 0.25 0.2 0.166667 
+    0.5 0.333333 0.25 0.2 0.166667 0.142857 
+    0.333333 0.25 0.2 0.166667 0.142857 0.125 
+    0.25 0.2 0.166667 0.142857 0.125 0.111111 
+    0.2 0.166667 0.142857 0.125 0.111111 0.1 
+    0.166667 0.142857 0.125 0.111111 0.1 0.0909091 
+    Q_hil6 from Classical Gram Schmidt
+    0.81885 -0.539681 0.189261 -0.0482361 0.00902961 -0.00110541 
+    0.409425 0.331988 -0.702417 0.448926 -0.161653 0.0331574 
+    0.27295 0.421935 -0.152933 -0.572323 0.58539 -0.232076 
+    0.204713 0.406725 0.201513 -0.38664 -0.468685 0.618816 
+    0.16377 0.373526 0.396261 0.0915169 -0.428541 -0.69612 
+    0.136475 0.339931 0.499772 0.557422 0.477276 0.278432 
+    R_hil6 from Classical Gram Schmidt
+    1.22122 0.701872 0.50447 0.396969 0.328434 0.280613 
+    0 0.138467 0.15113 0.144364 0.134008 0.123669 
+    0 0 0.00956161 0.0151932 0.0181303 0.0195317 
+    0 0 0 0.000480282 0.000994238 0.0014191 
+    0 0 0 0 1.7339e-05 4.40307e-05 
+    0 0 0 0 0 3.98624e-07 
+    Q_hil6 * transpose(Q_hil6)
+    1 -2.25328e-08 1.29756e-07 -2.87325e-07 2.70119e-07 -9.0616e-08 
+    -2.25328e-08 1 -2.77994e-06 5.6402e-06 -4.74311e-06 1.37215e-06 
+    1.29756e-07 -2.77994e-06 1.00001 -2.35596e-05 1.5268e-05 -2.42751e-06 
+    -2.87325e-07 5.6402e-06 -2.35596e-05 1.00003 -3.30938e-06 -8.48711e-06 
+    2.70119e-07 -4.74311e-06 1.5268e-05 -3.30938e-06 0.99997 2.30261e-05 
+    -9.0616e-08 1.37215e-06 -2.42751e-06 -8.48711e-06 2.30261e-05 0.999986 
+    Hilbert 8
+    1 0.5 0.333333 0.25 0.2 0.166667 0.142857 0.125 
+    0.5 0.333333 0.25 0.2 0.166667 0.142857 0.125 0.111111 
+    0.333333 0.25 0.2 0.166667 0.142857 0.125 0.111111 0.1 
+    0.25 0.2 0.166667 0.142857 0.125 0.111111 0.1 0.0909091 
+    0.2 0.166667 0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 
+    0.166667 0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 
+    0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 
+    0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 0.0666667 
+    Q_hil8 from Classical Gram Schmidt
+    0.809134 -0.546655 0.206392 -0.0604753 0.0144143 -0.00277652 8.32896e-05 -6.14669e-05 
+    0.404567 0.28253 -0.67657 0.493355 -0.223607 0.0713523 -0.007408 0.0068354 
+    0.269711 0.373639 -0.24129 -0.427368 0.613506 -0.385459 0.0959512 -0.0927811 
+    0.202284 0.363608 0.0543266 -0.451867 -0.110896 0.592018 -0.398529 0.393427 
+    0.161827 0.335355 0.222629 -0.212438 -0.448134 0.0757814 0.58027 -0.580522 
+    0.134856 0.305932 0.316135 0.0579406 -0.335968 -0.442761 -0.00552749 0.00950489 
+    0.115591 0.279243 0.366918 0.293215 0.0291512 -0.331778 -0.611583 0.613348 
+    0.101142 0.255918 0.392873 0.481305 0.496545 0.428929 0.348044 -0.351095 
+    R_hil8 from Classical Gram Schmidt
+    1.23589 0.71923 0.521442 0.413013 0.343473 0.294696 0.258423 0.230313 
+    0 0.149919 0.166512 0.161161 0.151153 0.140662 0.13084 0.121966 
+    0 0 0.0118284 0.0191923 0.0232833 0.0254209 0.0264065 0.0267049 
+    0 0 0 0.000731517 0.00154947 0.00225333 0.00280789 0.00322702 
+    0 0 0 0 3.61918e-05 9.41426e-05 0.000159206 0.000222793 
+    0 0 0 0 0 1.41303e-06 4.33923e-06 8.35336e-06 
+    0 0 0 0 0 0 4.18719e-08 1.58146e-06 
+    0 0 0 0 0 0 0 1.43472e-06 
+    Q_hil8 * transpose(Q_hil8)
+    1 5.67991e-06 -4.70417e-05 0.000146183 -0.000173575 6.56806e-06 0.000128109 -6.58116e-05 
+    5.67991e-06 0.999837 0.00105358 -0.00243879 0.00213228 -0.000670323 0.000603913 -0.000532657 
+    -4.70417e-05 0.00105358 0.995997 -0.00055469 0.0114152 0.012774 -0.0481504 0.027679 
+    0.000146183 -0.00243879 -0.00055469 1.05666 -0.102327 -0.0894116 0.297747 -0.160596 
+    -0.000173575 0.00213228 0.0114152 -0.102327 1.11363 0.290771 -0.617404 0.303173 
+    6.56806e-06 -0.000670323 0.012774 -0.0894116 0.290771 0.524112 0.380317 -0.117976 
+    0.000128109 0.000603913 -0.0481504 0.297747 -0.617404 0.380317 1.1731 -0.187603 
+    -6.58116e-05 -0.000532657 0.027679 -0.160596 0.303173 -0.117976 -0.187603 1.13667 
+    Hilbert 10
+    1 0.5 0.333333 0.25 0.2 0.166667 0.142857 0.125 0.111111 0.1 
+    0.5 0.333333 0.25 0.2 0.166667 0.142857 0.125 0.111111 0.1 0.0909091 
+    0.333333 0.25 0.2 0.166667 0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 
+    0.25 0.2 0.166667 0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 
+    0.2 0.166667 0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 
+    0.166667 0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 0.0666667 
+    0.142857 0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 0.0666667 0.0625 
+    0.125 0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 0.0666667 0.0625 0.0588235 
+    0.111111 0.1 0.0909091 0.0833333 0.0769231 0.0714286 0.0666667 0.0625 0.0588235 0.0555556 
+    0.1 0.0909091 0.0833333 0.0769231 0.0714286 0.0666667 0.0625 0.0588235 0.0555556 0.0526316 
+    Q_hil10 from Classical Gram Schmidt
+    0.80328 -0.55033 0.216481 -0.0682831 0.0182675 -0.00418892 0.00102396 0.000979483 0.000950891 0.000921123 
+    0.40164 0.254417 -0.657679 0.51362 -0.259222 0.0976859 -0.0336862 -0.0326299 -0.0319398 -0.0312132 
+    0.26776 0.346139 -0.280854 -0.339936 0.59766 -0.449889 0.242857 0.23785 0.23447 0.230825 
+    0.20082 0.339042 -0.0158501 -0.441101 0.057403 0.471067 -0.572405 -0.566515 -0.562022 -0.556763 
+    0.160656 0.3136 0.138397 -0.297418 -0.315083 0.309612 0.269661 0.271463 0.271461 0.270486 
+    0.13388 0.286551 0.226325 -0.108015 -0.386287 -0.128836 0.416236 0.415534 0.415375 0.415434 
+    0.114754 0.261827 0.275879 0.0658122 -0.263812 -0.376578 -0.00674839 -0.00958886 -0.0105234 -0.0107279 
+    0.10041 0.240132 0.302857 0.209404 -0.0460717 -0.328878 -0.378704 -0.382817 -0.38561 -0.388608 
+    0.0892533 0.221296 0.31625 0.322969 0.205626 -0.0274597 -0.300742 -0.302687 -0.304931 -0.308106 
+    0.080328 0.204944 0.321313 0.41084 0.457693 0.450501 0.363812 0.369867 0.374323 0.379409 
+    R_hil10 from Classical Gram Schmidt
+    1.2449 0.730254 0.532477 0.423641 0.353591 0.304294 0.267524 0.23895 0.216054 0.197267 
+    0 0.157357 0.176816 0.172683 0.16314 0.152733 0.142791 0.133686 0.125472 0.118095 
+    0 0 0.0134548 0.022149 0.0271856 0.0299697 0.0313865 0.0319636 0.0320187 0.0317474 
+    0 0 0 0.000938887 0.00202152 0.00298003 0.00375637 0.00435984 0.00481744 0.00515741 
+    0 0 0 0 5.49241e-05 0.000145408 0.000249603 0.000353809 0.000450912 0.000537824 
+    0 0 0 0 0 2.69847e-06 8.45658e-06 1.653e-05 2.5999e-05 3.60845e-05 
+    0 0 0 0 0 0 1.10345e-07 -8.07566e-07 -9.20326e-07 -8.96876e-07 
+    0 0 0 0 0 0 0 1.20503e-06 -5.93595e-07 -4.51496e-07 
+    0 0 0 0 0 0 0 0 2.38436e-06 -1.53066e-07 
+    0 0 0 0 0 0 0 0 0 3.00489e-06 
+    Q_hil10 * transpose(Q_hil10)
+    1 -0.000101151 0.000727124 -0.00169472 0.000733702 0.00130976 3.90465e-05 -0.00118185 -0.000988761 0.00115789 
+    -0.000101151 1.00332 -0.0237896 0.0550142 -0.0226034 -0.0439185 -0.00212349 0.0393043 0.0334207 -0.03866 
+    0.000727124 -0.0237896 1.16935 -0.386146 0.142337 0.328488 0.024387 -0.288953 -0.25051 0.285086 
+    -0.00169472 0.0550142 -0.386146 1.84974 -0.215961 -0.853177 -0.0929421 0.71357 0.630889 -0.701612 
+    0.000733702 -0.0226034 0.142337 -0.215961 0.720166 0.706814 0.0755002 -0.432071 -0.371224 0.397473 
+    0.00130976 -0.0439185 0.328488 -0.853177 0.706814 1.01978 0.280522 -0.449972 -0.469456 0.481212 
+    3.90465e-05 -0.00212349 0.024387 -0.0929421 0.0755002 0.280522 0.373933 0.322184 0.144226 -0.125845 
+    -0.00118185 0.0393043 -0.288953 0.71357 -0.432071 -0.449972 0.322184 0.903278 0.692152 -0.499776 
+    -0.000988761 0.0334207 -0.25051 0.630889 -0.371224 -0.469456 0.144226 0.692152 0.674275 -0.0838388 
+    0.00115789 -0.03866 0.285086 -0.701612 0.397473 0.481212 -0.125845 -0.499776 -0.0838388 1.28615 
+    ```
 9. I implemented a method called `makeRandomDD` on my DenseArray class template that makes the class instance from which it is called a square diagonally dominant matrix. [See my software manual entry](../software_manual/makeRandomDD.md).
 10. * I read an article from a scientific computing company called COMSOL at [https://www.comsol.com/blogs/solutions-linear-systems-equations-direct-iterative-solvers/](https://www.comsol.com/blogs/solutions-linear-systems-equations-direct-iterative-solvers/). The article discusses the differences between their direct and iterative solvers for linear systems of equations and some of their advantages and disadvantages. One of the disadvantages of their direct solvers that they list is that if the problem does not have an exact solution, the method will fail. Interestingly, they state that their iterative methods take much more RAM and are generally more robust.
     * I read an article from SimScale, a scientific and engineering simulation software company, at [https://www.simscale.com/blog/2016/08/how-to-choose-solvers-for-fem/](https://www.simscale.com/blog/2016/08/how-to-choose-solvers-for-fem/). The website discusses iterative versus direct methods for finite element analysis (FEA). The article states that direct methods will typically fail when the matrices being dealt with become too large. For example, it discusses how matrices with dimensions in the millions could require ExaFlops of computation when direct methods are used. Another disadvantage of direct methods that it states is that they do not efficiently handle sparse matrices.

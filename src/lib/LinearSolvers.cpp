@@ -324,13 +324,8 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
 
 Vector<double>& qrSolve(DenseArray<double>& Q,
                 DenseArray<double>& R, Vector<double>& b) {
-    // std::cout << "qrSolve: " << std::endl; 
     Array<double>* QT = transpose(&Q);
-    // std::cout << "QT: " << std::endl;
-    // QT->print();
     Array<double>* c = matmul(QT, &b);
-    // std::cout << "c: " << std::endl;
-    // c->print();
     return backsub(R, *c);
 }
 

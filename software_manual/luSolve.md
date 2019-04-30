@@ -1,4 +1,4 @@
-**Routine Name:** solveLinearDiagonalSystem
+**Routine Name:** luSolve
 
 **Author:** Andrew Aposhian
 
@@ -18,7 +18,7 @@ To use this function, include the correct header file at the top of your file as
 
 **Output:** A vector of doubles of dimensionality n x 1 representing the solution to the linear system.
 
-**Usage/Example:** The example below shows creating and printing a random 20 x 2 coefficient matrix and a correponding 20-dimensional b vector. The routine then is used to compute the approximate solution and the result is printed.
+**Usage/Example:** The example below shows creating and printing a random diagonally dominant matrix and a corresponding b vector to form a system of equations. The matrix is then factorized into L and U using the `lu` routine. The L and U matrices together with the b vector are then passed to `luSolve` which finds the solution to the linear system of equations. The solution is then printed.
 
 ```
 std::cout << "Diagonally dominant coefficient matrix  A_4 to be factorized: " << std::endl;
