@@ -9,7 +9,7 @@ To use this function, include the correct header file at the top of your file as
 #include "LinearSolvers.hpp"
 ```
 
-**Description/Purpose:** The purpose of this overloaded routine is to take a matrix and change it to reduced row echelon form. There are two signatures for `rowReduce`. The first accepts a square matrix and corresponding b vector for a linear system and treats them as if they were an augmented coefficient matrix. The second signature can accept rectangular matrices. An exception will be thrown by default if the rectangular matrix is not n x n + 1 dimensional unless the `isLinearSystem` flag is set to false.
+**Description/Purpose:** The purpose of this overloaded routine is to take a matrix and change it to row echelon form. There are two signatures for `rowReduce`. The first accepts a square matrix and corresponding b vector for a linear system and treats them as if they were an augmented coefficient matrix. The second signature can accept rectangular matrices. An exception will be thrown by default if the rectangular matrix is not n x n + 1 dimensional unless the `isLinearSystem` flag is set to false.
 
 **Input:**
 *Signature 1:*
@@ -21,7 +21,7 @@ To use this function, include the correct header file at the top of your file as
 
 **Output:** None. This method modifies the original Array passed to it.
 
-**Usage/Example:** Below is example code that demonstrates all basic uses of `rowReduce`. The first use shows creating and printing a diagonally dominant matrix and b vector, then using `rowReduce` to put the linear system in reduced row echelon form. The matrix and vector are printed afte the reduction. The second use shows creating a random augmented coefficient matrix, then printing it before and after performing `rowReduce` on it. The third use shows creating a random rectangular matrix, then printing it before and after performing `rowReduce` on it.
+**Usage/Example:** Below is example code that demonstrates all basic uses of `rowReduce`. The first use shows creating and printing a diagonally dominant matrix and b vector, then using `rowReduce` to put the linear system in row echelon form. The matrix and vector are printed afte the reduction. The second use shows creating a random augmented coefficient matrix, then printing it before and after performing `rowReduce` on it. The third use shows creating a random rectangular matrix, then printing it before and after performing `rowReduce` on it.
 ```
 // USE 1
 std::cout << "Random DD matrix A_dd0: " << std::endl;
@@ -41,7 +41,7 @@ std::cout << "b_dd0 after rowReduce: " << std::endl;
 b_dd0->print();
 
 // USE 2
-std::cout << "Random augmented coefficient matrix  AB_1 to be reduced: " << std::endl;
+std::cout << "Random augmented coefficient matrix AB_1 to be put in row echelon form: " << std::endl;
 DenseArray<double>* AB_1 = new DenseArray<double>(3, 4);
 AB_1->makeRandom(1.0, 10.0);
 AB_1->print();
@@ -79,7 +79,7 @@ b_dd0 after rowReduce:
 7.59193
 7.44616
 -5.49089
-Random augmented coefficient matrix  AB_1 to be reduced: 
+Random augmented coefficient matrix  AB_1 to be put in row echelon form: 
 7.06185 5.50175 4.61396 9.82841 
 8.41619 2.93302 9.22008 6.53497 
 8.01373 3.81651 4.02855 3.65356 

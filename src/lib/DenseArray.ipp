@@ -392,7 +392,7 @@ void DenseArray<T>::makeRandomLowerTriangular(const double min, const double max
     makeRandomInternalTriangular(min, max);
 }
 
-// Makes a random augmented coefficient matrix in reduced echelon form
+// Makes a random augmented coefficient matrix in echelon form
 template <typename T>
 void DenseArray<T>::makeRandomAugmentedEchelon(const double min, const double max) {
     if (colDim() != (rowDim() + 1)) {
