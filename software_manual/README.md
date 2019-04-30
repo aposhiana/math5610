@@ -42,3 +42,10 @@ by Andrew Aposhian
     * [cholesky](cholesky.md)
     * [solveNormalEquation](solveNormalEquation.md)
     * [jacobiSolve](jacobiSolve.md)
+    * [gaussSeidelSolve](gaussSeidelSolve.md)
+    * [steepestDescentSolve](steepestDescentSolve.md)
+    * [cg](cg.md)
+* **Eigenvalue Solvers**
+    * [powerEigenSolve](powerEigenSolve.md)
+    * [inverseEigenSolve](inverseEigenSolve.md)
+    * [rayleighEigenSolve](rayleighEigenSolve.md)
