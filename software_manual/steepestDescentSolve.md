@@ -9,7 +9,7 @@ To use this function, include the correct header file at the top of your file as
 #include "LinearSolvers.hpp"
 ```
 
-**Description/Purpose:** The purpose of this function is to compute and return an approximate solution to a linear system of equations using the iterative Jacobi method.
+**Description/Purpose:** The purpose of this function is to compute and return an approximate solution to a linear system of equations using the method of steepest descent.
 
 **Input:**
 1. `A` : Array of doubles of dimensionality n x n

@@ -399,6 +399,22 @@ int main() {
     std::cout << "U from A_randlu " << std::endl;
     U_randlu->print();
 
+    // std::cout << "SPD_large: " << std::endl;
+    // Array<double>* SPD_large = getRandomSPDArray(110);
+    // SPD_large->print();
+
+    // std::cout << "cholesky(SPD_large):  " << std::endl;
+    // cholesky(*SPD_large);
+    // SPD_large->print();
+
+    std::cout << "SPD_0: " << std::endl;
+    Array<double>* SPD_0 = getRandomSPDArray(10);
+    SPD_0->print();
+
+    std::cout << "cholesky(SPD_0):  " << std::endl;
+    cholesky(*SPD_0);
+    SPD_0->print();
+
     std::cout << "SPD_1: " << std::endl;
     Array<double>* SPD_1 = getRandomSPDArray(3);
     SPD_1->print();
@@ -451,6 +467,27 @@ int main() {
     std::cout << "R_m_gs1 from Modified Gram Schmidt" << std::endl;
     R_m_gs1->print();
 
+    // Large Iterative tests
+    // std::cout << "A_iterative_large: " << std::endl;
+    // DenseArray<double>* A_iterative_large = new DenseArray<double>(1000);
+    // A_iterative_large->makeRandomSymmetricDD(-100.0, 100.0);
+    // A_iterative_large->print();
+
+    // std::cout << "b_iterative_large for Iterative methods: " << std::endl;
+    // Vector<double>* b_iterative_large = new Vector<double>(1000);
+    // b_iterative_large->makeRandom(-100.0, 100.0);
+    // b_iterative_large->print();
+
+    // Vector<double> x_ji_large = jacobiSolve(*A_iterative_large, *b_iterative_large, 5000);
+    // std::cout << "x_ji_large found using Jacobi: " << std::endl;
+    // x_ji_large.print();
+
+    // Vector<double> x_gs_large = gaussSeidelSolve(*A_iterative_large, *b_iterative_large, 5000);
+    // std::cout << "x_gs_large found using Gauss-Seidel: " << std::endl;
+    // x_gs_large.print();
+
+
+    // Small iterative tests
     std::cout << "A_iterative for Iterative methods: " << std::endl;
     DenseArray<double>* A_iterative = new DenseArray<double>(10, 10);
     A_iterative->makeRandomDD(1.0, 30.0);
@@ -491,15 +528,22 @@ int main() {
     double A_eig_rayleigh = rayleighEigenSolve(*A_eig, 0.000001, 1000);
     std::cout << "eigenvalue found with Rayleigh Quotient Iteration: " << A_eig_rayleigh << std::endl;
 
+    std::cout << "Hilbert Matrix: " << std::endl;
+    DenseArray<double>* A_hilbert = new DenseArray<double>(5);
+    A_hilbert->makeHilbert();
+    A_hilbert->print();
+
+    double A_hilbert_lambda = powerEigenSolve(*A_hilbert, 0.0001, 10000);
+    std::cout << "A_hilbert_lambda found using power method: " << A_hilbert_lambda << std::endl;
+    double A_hilbert_smallest = inverseEigenSolve(*A_hilbert, 0, 0.000001, 10000);
+    std::cout << "A_hilbert_smallest found using inverse iteration: " << A_hilbert_smallest << std::endl;
+    double A_hilbert_rayleigh = rayleighEigenSolve(*A_hilbert, 0.000001, 1000);
+    std::cout << "eigenvalue for hilbert found with Rayleigh Quotient Iteration: " << A_hilbert_rayleigh << std::endl;
+
     std::cout << "Symmetric Diagonally Dominant Matrix: " << std::endl;
     DenseArray<double>* A_sdd = new DenseArray<double>(4);
     A_sdd->makeRandomSymmetricDD();
     A_sdd->print();
-
-    std::cout << "Hilbert Matrix: " << std::endl;
-    DenseArray<double>* A_hilbert = new DenseArray<double>(4);
-    A_hilbert->makeHilbert();
-    A_hilbert->print();
 
     std::cout << "Wide DD Matrix A_wide_dd" << std::endl;
     DenseArray<double>* A_wide_dd = new DenseArray<double>(3, 6);

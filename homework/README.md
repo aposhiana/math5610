@@ -5,3 +5,4 @@ Here are links to all of my homeworks.
 * [Homework 3](./homework03.md)
 * [Homework 4](./homework04.md)
 * [Homework 5](./homework05.md)
+* [Homework 6](./homework06.md)

@@ -234,7 +234,7 @@ DenseArray<double>* transpose(Array<double>* a) {
 // Create and return a random SPD matrix
 Array<double>* getRandomSPDArray(unsigned int dim) {
     DenseArray<double>* G = new DenseArray<double>(dim);
-    G->makeRandomLowerTriangular(0.0, 10.0);
+    G->makeRandomLowerTriangular(0.0, 10000.0);
     DenseArray<double>* GT = transpose(G);
     return matmul(G, GT);
 }
