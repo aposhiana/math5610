@@ -349,12 +349,12 @@ int main() {
     x_a3.print();
 
     std::cout << "Diagonally dominant coefficient matrix  A_4 to be factorized: " << std::endl;
-    DenseArray<double>* A_4 = new DenseArray<double>(4, 4);
-    A_4->makeRandomDD(1.0, 10.0);
+    DenseArray<double>* A_4 = new DenseArray<double>(6, 6);
+    A_4->makeRandomDD(1.0, 100.0);
     A_4->print();
 
-    DenseArray<double>* Q_4 = new DenseArray<double>(4, 4, true);
-    DenseArray<double>* R_4 = new DenseArray<double>(4, 4, true);
+    DenseArray<double>* Q_4 = new DenseArray<double>(6, 6, true);
+    DenseArray<double>* R_4 = new DenseArray<double>(6, 6, true);
     squareModifiedGramSchmidt(*A_4, *Q_4, *R_4);
     std::cout << "Q_4 from Modified Gram Schmidt" << std::endl;
     Q_4->print();
@@ -362,21 +362,19 @@ int main() {
     R_4->print();
 
     std::cout << "b_4: " << std::endl;
-    Vector<double>* b_4 = new Vector<double>(4);
-    b_4->makeRandom(1.0, 10.0);
+    Vector<double>* b_4 = new Vector<double>(6);
+    b_4->makeRandom(1.0, 5000.0);
     b_4->print();
 
     Vector<double> x_4_qr = qrSolve(*Q_4, *R_4, *b_4);
-    std::cout << "x_4 found with QR: " << std::endl;
-    x_4_qr.print();
 
     std::cout << "Again: A_4 to be factorized: " << std::endl;
     A_4->print();
     std::cout << "Again: b_4: " << std::endl;
     b_4->print();
 
-    DenseArray<double>* L_4 = new DenseArray<double>(4, 4);
-    DenseArray<double>* U_4 = new DenseArray<double>(4, 4);
+    DenseArray<double>* L_4 = new DenseArray<double>(6, 6);
+    DenseArray<double>* U_4 = new DenseArray<double>(6, 6);
     lu(*A_4, *L_4, *U_4);
     std::cout << "L from A_4 " << std::endl;
     L_4->print();
@@ -386,6 +384,8 @@ int main() {
     std::cout << "x_4 found with LU: " << std::endl;
     Vector<double> x_4 = luSolve(*L_4, *U_4, *b_4);
     x_4.print();
+    std::cout << "x_4 found with QR (v0): " << std::endl;
+    x_4_qr.print();
 
     std::cout << "A_randlu for LU" << std::endl;
     DenseArray<double>* A_randlu = new DenseArray<double>(4, 4);

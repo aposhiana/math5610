@@ -248,7 +248,7 @@ void squareClassicalGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
         for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
             Q.set(rowIdx, j, A(rowIdx, j));
         }
-        for (int i = 0; i < (j - 1); i++) {
+        for (int i = 0; i < j; i++) {
             // Set r_ij to dot(a_j, q_i)
             double r_ij = 0;
             for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
@@ -257,7 +257,7 @@ void squareClassicalGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
             R.set(i, j, r_ij);
             // Set q_j to q_j - r_ij * q_i
             for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
-                Q.set(rowIdx, j, Q(rowIdx, j) - r_ij * Q(rowIdx, i));
+                Q.set(rowIdx, j, Q(rowIdx, j) - (r_ij * Q(rowIdx, i)));
             }
         }
         // Set r_jj to the l2 norm of q_j
@@ -286,7 +286,7 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
         std::cout << "Matrix is not square" << std::endl;
         throw std::exception();
     }
-    R.makeIdentity(); // Make lower part of R zeros
+    R.makeZeros(); // Make lower part of R zeros
     // Don't use unsigned int for j and i because j - 1 condition
     // for i loop can be negative
     for (int j = 0; j < n; j++) {
@@ -294,7 +294,7 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
         for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
             Q.set(rowIdx, j, A(rowIdx, j));
         }
-        for (int i = 0; i < (j - 1); i++) {
+        for (int i = 0; i < j; i++) {
             // Set r_ij to dot(q_j, q_i)
             double r_ij = 0;
             for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
@@ -303,7 +303,7 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
             R.set(i, j, r_ij);
             // Set q_j to q_j - r_ij * q_i
             for (unsigned int rowIdx = 0; rowIdx < n; rowIdx++) {
-                Q.set(rowIdx, j, Q(rowIdx, j) - r_ij * Q(rowIdx, i));
+                Q.set(rowIdx, j, Q(rowIdx, j) - (r_ij * Q(rowIdx, i)));
             }
         }
         // Set r_jj to the l2 norm of q_j
