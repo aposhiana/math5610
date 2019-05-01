@@ -35,6 +35,7 @@ Output from lines above
     ```
 3. I wrote a routine called `estimate2NormConditionNumber` which computes an approximation of the condition in the 2-norm. Testing it on a Hilbert matrix of n = 4 gave a result of 14837.3. [See the software manual entry](../software_manual/estimate2NormConditionNumber.md).
 4. I tested the `estimate2NormConditionNumber` routine on Hilbert matrices of increasing sizes. Here were my results:
+
 | Hilbert Size | Estimated Kappa |
 |:------------:|:---------------:|
 | 2            | 19.2815         |
