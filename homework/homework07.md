@@ -14,20 +14,21 @@
     3. The Sparse Approximate Inverse (SPAI), as the name suggests, finds a sparse matrix that approximates the inverse of a matrix A. This is done by minimizing the Frobenius norm of $AT - I$ to find a sparse matrix $T$ with a predetermined possible sparse structure. See the section of the article on preconditioners on Wikipedia for more details [https://en.wikipedia.org/wiki/Preconditioner#SPAI](https://en.wikipedia.org/wiki/Preconditioner#SPAI).
 9. 
 10. Jacobi iteration can be used in conjunction with the normal equations to solve the least squares problem. The algorithm is as follows:
-    ```
-    1. Compute B = A'A and y = A'b
-    2. Use Jacobi iteration to solve the system Bx = y for x as follows:
-        while residual norm is less than a tolerance and k is less than maxiter:
-            for i from 0 to n:
-                sum = 0
-                for j from 0 to n:
-                    if j is not equal to i:
-                        sum += A[i][j] * x[j]
-                    end if
-                end for
-                r[i] = b[i] - sum
-                x_next[i] = r[i] / A[i][j]
+
+```
+1. Compute B = A'A and y = A'b
+2. Use Jacobi iteration to solve the system Bx = y for x as follows:
+    while residual norm is less than a tolerance and k is less than maxiter:
+        for i from 0 to n:
+            sum = 0
+            for j from 0 to n:
+                if j is not equal to i:
+                    sum += A[i][j] * x[j]
+                end if
             end for
-            x = x_next
-        end while
-    ```
+            r[i] = b[i] - sum
+            x_next[i] = r[i] / A[i][j]
+        end for
+        x = x_next
+    end while
+```
