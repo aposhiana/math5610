@@ -478,7 +478,7 @@ int main() {
     // b_iterative_large->makeRandom(-100.0, 100.0);
     // b_iterative_large->print();
 
-    // Vector<double> x_ji_large = jacobiSolve(*A_iterative_large, *b_iterative_large, 5000);
+    // Vector<double> x_ji_large = jacobiSolve(*A_iterative_large, *b_iterative_large, 0, 5000);
     // std::cout << "x_ji_large found using Jacobi: " << std::endl;
     // x_ji_large.print();
 
@@ -498,7 +498,7 @@ int main() {
     b_iterative->makeRandom(1.0, 10.0);
     b_iterative->print();
 
-    Vector<double> x_iterative_ji = jacobiSolve(*A_iterative, *b_iterative, 10000);
+    Vector<double> x_iterative_ji = jacobiSolve(*A_iterative, *b_iterative, 0, 10000);
     std::cout << "x_iterative_ji found using Jacobi: " << std::endl;
     x_iterative_ji.print();
 

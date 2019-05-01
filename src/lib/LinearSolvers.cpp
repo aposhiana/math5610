@@ -4,6 +4,7 @@
 
 #include "LinearSolvers.hpp"
 #include "ArrayUtils.hpp"
+#include "VectorNorms.hpp"
 
 Vector<double>& solveLinearDiagonalSystem(Array<double>& A, Vector<double>& b) {
     assertLinearSystem(A, b);
@@ -377,7 +378,7 @@ Vector<double>& solveNormalEquation(Array<double>& A, Vector<double>& b) {
 
 // Solve the linear system using Jacobi iteration
 Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
-                unsigned int maxiter) {
+                double tol, unsigned int maxiter) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
     double* x = new double[n];
@@ -386,8 +387,12 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x[i] = getRandDouble(-10, 10);
     }
     double* x_next = new double[n];
+    double* r = new double[n];
+    double bNorm = l2Norm(b);
 
-    for (unsigned int k = 0; k < maxiter; k++) {
+    bool stop = false;
+    unsigned int k = 0;
+    while (!stop && k < maxiter) {
         for (unsigned int i = 0; i < n; i++) {
             double sum = 0;
             for (unsigned int j = 0; j < n; j++) {
@@ -395,8 +400,19 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * x[j];
                 }
             }
-            x_next[i] = (b(i) - sum) / A(i, i);
+            r[i] = (b(i) - sum);
+            x_next[i] = r[i] / A(i, i);
         }
+        // Compute norm of residual for possible early stopping
+        double resNorm = 0.0;
+        for (unsigned int i = 0; i < n; i++) {
+            resNorm += r[i] * r[i];
+        }
+        resNorm = sqrt(resNorm);
+        if (resNorm <= tol * bNorm) {
+            stop = true;
+        }
+
         // Switch pointers. x must become x_next
         // and x_next can become anything as long as it has
         // distinct memory locations from x
@@ -404,7 +420,9 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x = x_next;
         x_next = tempPtr;
         tempPtr = nullptr;
+        k++;
     }
+    std::cout << "final k " << k << std::endl;
     double** x_array = new double*[1];
     x_array[0] = x;
     Vector<double>* xVector = new Vector<double>(x_array, n);

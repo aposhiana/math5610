@@ -22,6 +22,14 @@
     ```
     The output from the lines above is too large to be included here. [See appendix 1 for the output](./hw06_appendix1.md)
 
+    Below is the code for solving the above system using Jacobi and the corresponding output.
+    ```
+    Vector<double> x_ji_large = jacobiSolve(*A_iterative_large, *b_iterative_large, 0, 5000);
+    std::cout << "x_ji_large found using Jacobi: " << std::endl;
+    x_ji_large.print();
+    ```
+    The output from the lines above is too large to be included here. [See appendix 2 for the output](./hw06_appendix2.md).
+
 7. I implemented a routine called `gaussSeidelSolve` that utilizes Gauss-Seidel Iteration to approximately solve a linear system of equations. [See my software manual entry](../software_manual/gaussSeidelSolve.md).
 
     Below is the code for solving the system in problem 6 using Gauss-Seidel and the corresponding output.
@@ -30,7 +38,7 @@
     std::cout << "x_gs_large found using Gauss-Seidel: " << std::endl;
     x_gs_large.print();
     ```
-    The output from the lines above is too large to be included here. [See appendix 2 for the output](./hw06_appendix2.md).
+    The output from the lines above is too large to be included here. [See appendix 3 for the output](./hw06_appendix3.md).
 
 8. 
 9. * I read an article from a faculty member at the University of Illinois at [https://faculty.math.illinois.edu/~hirani/cbmg/linalg2.html](https://faculty.math.illinois.edu/~hirani/cbmg/linalg2.html). The article discusses solving the least squares problem using the normal equation and then discusses the advantages of using the QR algorithm instead. The conditioning of the linear system, as the article explains, depends on the conditioning of the matrix A as well as the angle that the b vector makes with the matrix A. The b vector cannot typically be controlled since it represents the given data, however, the matrix A (or rather the pseudo inverse of A) can be replaced by one that is better conditioned. Orthogonal matrices are very well conditioned, making the QR algorithm much more stable than using the normal equation.

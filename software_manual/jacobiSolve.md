@@ -14,6 +14,8 @@ To use this function, include the correct header file at the top of your file as
 **Input:**
 1. `A` : Array of doubles of dimensionality n x n
 2. `b` : Vector of doubles of dimensionality n x 1
+3. `tol` : double precision scalar used to stop before the maximum number of iterations if the relative norm of the residual is less than this tolerance.
+4. `maxiter` : unsigned int representing the maximum number of iterations
 
 **Output:** A vector of doubles of dimensionality n x 1 representing the solution to the linear system
 
@@ -29,7 +31,7 @@ Vector<double>* b_iterative = new Vector<double>(10);
 b_iterative->makeRandom(1.0, 10.0);
 b_iterative->print();
 
-Vector<double> x_iterative_ji = jacobiSolve(*A_iterative, *b_iterative, 10000);
+Vector<double> x_iterative_ji = jacobiSolve(*A_iterative, *b_iterative, 0,  10000);
 std::cout << "x_iterative_ji found using Jacobi: " << std::endl;
 x_iterative_ji.print();
 ```
@@ -75,7 +77,7 @@ x_iterative_ji found using Jacobi:
 See [LinearSolvers.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/LinearSolvers.cpp)
 ```
 Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
-                unsigned int maxiter) {
+                double tol, unsigned int maxiter) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
     double* x = new double[n];
@@ -84,8 +86,12 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x[i] = getRandDouble(-10, 10);
     }
     double* x_next = new double[n];
+    double* r = new double[n];
+    double bNorm = l2Norm(b);
 
-    for (unsigned int k = 0; k < maxiter; k++) {
+    bool stop = false;
+    unsigned int k = 0;
+    while (!stop && k < maxiter) {
         for (unsigned int i = 0; i < n; i++) {
             double sum = 0;
             for (unsigned int j = 0; j < n; j++) {
@@ -93,8 +99,19 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * x[j];
                 }
             }
-            x_next[i] = (b(i) - sum) / A(i, i);
+            r[i] = (b(i) - sum);
+            x_next[i] = r[i] / A(i, i);
         }
+        // Compute norm of residual for possible early stopping
+        double resNorm = 0.0;
+        for (unsigned int i = 0; i < n; i++) {
+            resNorm += r[i] * r[i];
+        }
+        resNorm = sqrt(resNorm);
+        if (resNorm <= tol * bNorm) {
+            stop = true;
+        }
+
         // Switch pointers. x must become x_next
         // and x_next can become anything as long as it has
         // distinct memory locations from x
@@ -102,7 +119,9 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x = x_next;
         x_next = tempPtr;
         tempPtr = nullptr;
+        k++;
     }
+    std::cout << "final k " << k << std::endl;
     double** x_array = new double*[1];
     x_array[0] = x;
     Vector<double>* xVector = new Vector<double>(x_array, n);

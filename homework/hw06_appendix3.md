@@ -1,5 +1,4 @@
-
-    x_ji_large found using Jacobi: 
+    x_gs_large found using Gauss-Seidel: 
     -9.18026e-05
     0.000223504
     -0.000276144
