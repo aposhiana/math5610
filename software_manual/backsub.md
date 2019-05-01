@@ -15,6 +15,7 @@ To use this function, include the correct header file at the top of your file as
 *Signature 1:*
 1. `A` : an Array of doubles of dimensionality n x n in upper triangular form
 2. `b` : an Array of doubles of dimensionality n x 1
+
 *Signature 2:*
 1. `AB` : an Array of doubles of dimensionality n x (n + 1) in row echelon form
 
