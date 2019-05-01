@@ -58,3 +58,7 @@ Output from lines above
     eigenvalue for hilbert found with Rayleigh Quotient Iteration: 1.56705
     ```
 7. 
+8. * I read an article by ALGLIB, a numerical analysis library, at [http://www.alglib.net/matrixops/rcond.php](http://www.alglib.net/matrixops/rcond.php) which discusses on a high level how they estimate the condition number. What I found interesting is that their algorithms compute an LU or Cholesky factorization of the matrix in the process of computing the condition number unless the matrix is already factorized. In fact, they note that with only the factorization their estimating techniques are less precise. This illustrates how the computing the condition number in practice is likely not useful since it likely requires the same amount of work as solving the linear system at hand.
+    * In a blog post by Cleve Moler at [https://blogs.mathworks.com/cleve/2017/07/17/what-is-the-condition-number-of-a-matrix/](https://blogs.mathworks.com/cleve/2017/07/17/what-is-the-condition-number-of-a-matrix/), he discusses the basic concepts of the condition number. He mentions how computing the condition number takes O(n^3) operations as it involves computing the inverse of the matrix.
+9. 
+10. 
