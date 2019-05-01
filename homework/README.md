@@ -6,3 +6,5 @@ Here are links to all of my homeworks.
 * [Homework 4](./homework04.md)
 * [Homework 5](./homework05.md)
 * [Homework 6](./homework06.md)
+* [Homework 7](./homework07.md)
+* [Homework 8](./homework08.md)
