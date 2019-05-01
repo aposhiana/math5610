@@ -32,6 +32,10 @@ by Andrew Aposhian
         * [l1NormAbsoluteError](l1NormAbsoluteError.md)
         * [l2NormAbsoluteError](l2NormAbsoluteError.md)
         * [infNormAbsoluteError](infNormAbsoluteError.md)
+    * MatrixNorms.hpp
+        * [matrix1Norm](./matrix1Norm.md)
+        * [matrixInfNorm](./matrixInfNorm.md)
+        * [estimate2NormConditionNumber](./estimate2NormConditionNumber.md)
 * **Solution of Linear Systems**
     * [solveLinearDiagonalSystem](solveLinearDiagonalSystem.md)
     * [backsub](backsub.md)

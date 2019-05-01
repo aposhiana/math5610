@@ -1,4 +1,4 @@
-### Eigth task set
+### Eighth task set
 
 1. I implemented a routine called `powerEigenSolve` that computes the approximate eigenvalue of the largest magnitude for a given square matrix. [See my software manual entry](../software_manual/powerEigenSolve.md). Here is an example usage of the routine on Hilbert matrices of size 5. I verified the result using [this paper](https://www.jstor.org/stable/2003247?seq=3#metadata_info_tab_contents).
     ```

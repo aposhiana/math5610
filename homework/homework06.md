@@ -1,6 +1,6 @@
 ### Sixth task set
 
-1. I implemented a routine called `qrSolve` which computes the solution of a square linear system of equations using the QR factorization. I checked my solutions on 6 x 6 linear systems (after some debugging of the Gram-Schmidt methods) and was able to achieve exactly the same (correct) results as my `luSolve` method using the LU factorization. [See my software manual entry](../software_manual/qrSolve.md).
+1. I implemented a routine called `qrSolve` which computes the solution of a square linear system of equations using the QR factorization. I checked my solutions on 6 x 6 linear systems (after some debugging of the Gram-Schmidt methods) and was able to achieve exactly the same results as my `luSolve` method using the LU factorization. [See my software manual entry](../software_manual/qrSolve.md).
 2. I implemented a routine called `squareModifiedGramSchmidt` which uses the modified Gram-Schmidt to compute the QR factorization of a matrix. Interestingly, at least on the small examples which I tested, it typically produced the same results as the classical version of Gram-Schmidt. [See my software manual entry](../software_manual/squareModifiedGramSchmidt.md).
 3. Incomplete
 4. 
