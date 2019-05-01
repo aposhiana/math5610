@@ -1,4 +1,4 @@
-**Routine Name:** solveLinearDiagonalSystem
+**Routine Name:** solveNormalEquation
 
 **Author:** Andrew Aposhian
 
