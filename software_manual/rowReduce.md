@@ -12,6 +12,7 @@ To use this function, include the correct header file at the top of your file as
 **Description/Purpose:** The purpose of this overloaded routine is to take a matrix and change it to row echelon form. There are two signatures for `rowReduce`. The first accepts a square matrix and corresponding b vector for a linear system and treats them as if they were an augmented coefficient matrix. The second signature can accept rectangular matrices. An exception will be thrown by default if the rectangular matrix is not n x n + 1 dimensional unless the `isLinearSystem` flag is set to false.
 
 **Input:**
+
 *Signature 1:*
 1. `A` : an Array of doubles of dimensionality n x n
 2. `b` : an Array of doubles of dimensionality n x 1

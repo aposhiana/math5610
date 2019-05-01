@@ -12,6 +12,7 @@ To use this function, include the correct header file at the top of your file as
 **Description/Purpose:** The purpose of this function is to solve a linear system of equations with a square, upper triangular matrix. `backsub` is overloaded with one signature allowing a separate upper triangular matrix and b vector to be passed and another signature allowing an augmented coefficient matrix in row echelon form to be passed. The results of both signatures is the solution vector.
 
 **Input:**
+
 *Signature 1:*
 1. `A` : an Array of doubles of dimensionality n x n in upper triangular form
 2. `b` : an Array of doubles of dimensionality n x 1

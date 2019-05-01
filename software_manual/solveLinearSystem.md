@@ -12,6 +12,7 @@ To use this function, include the correct header file at the top of your file as
 **Description/Purpose:** The purpose of this overloaded function is to solve a linear system of equations by performing row reduction on the coefficient matrix then performing backsubstitution. `solveLinearSystem` is an overloaded routine with one signature taking an square coefficient matrix and its corresponding b vector, and the second signature taking an augmented coefficient matrix. Both signatures output the solution to the system of equations as a vector.
 
 **Input:**
+
 *Signature 1:*
 1. `A` : an Array of doubles of dimensionality n x n
 2. `b` : an Array of doubles of dimensionality n x 1
