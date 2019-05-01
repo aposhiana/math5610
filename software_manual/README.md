@@ -40,6 +40,7 @@ by Andrew Aposhian
     * [solveLinearDiagonalSystem](solveLinearDiagonalSystem.md)
     * [backsub](backsub.md)
     * [forwardsub](forwardsub.md)
+    * [rowReduce](rowReduce.md)
     * [solveLinearSystem](solveLinearSystem.md)
     * [lu](lu.md)
     * [luSolve](luSolve.md)
@@ -49,6 +50,9 @@ by Andrew Aposhian
     * [gaussSeidelSolve](gaussSeidelSolve.md)
     * [steepestDescentSolve](steepestDescentSolve.md)
     * [cg](cg.md)
+    * [squareClassicalGramSchmidt](squareClassicalGramSchmidt.md)
+    * [squareModifiedGramSchmidt](squareModifiedGramSchmidt.md)
+    * [qrSolve](qrSolve.md)
 * **Eigenvalue Solvers**
     * [powerEigenSolve](powerEigenSolve.md)
     * [inverseEigenSolve](inverseEigenSolve.md)
