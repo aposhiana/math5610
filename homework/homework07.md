@@ -20,7 +20,7 @@
 
         while residual norm is less than a tolerance and k is less than maxiter:
             for i from 0 to n:
-                double sum = 0
+                sum = 0
                 for j from 0 to n:
                     if j is not equal to i:
                         sum += A[i][j] * x[j]
