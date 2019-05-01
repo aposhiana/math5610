@@ -17,7 +17,6 @@
     ```
     1. Compute B = A'A and y = A'b
     2. Use Jacobi iteration to solve the system Bx = y for x as follows:
-
         while residual norm is less than a tolerance and k is less than maxiter:
             for i from 0 to n:
                 sum = 0
