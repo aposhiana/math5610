@@ -431,12 +431,17 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
 
 // Solve the linear system iteratively using Gauss Seidel
 Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
-                unsigned int maxiter) {
+                double tol, unsigned int maxiter) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
+    double bNorm = l2Norm(b);
     Vector<double>* x = new Vector<double>(n);
+    Vector<double>* r = new Vector<double>(n, true);
+    r->makeZeros();
     x->makeRandom(-10.0, 10.0); // Random initial x
-    for (unsigned int k = 0; k < maxiter; k++) {
+    bool stop = false;
+    unsigned int k = 0;
+    while (!stop && k < maxiter) {
         for (unsigned int i = 0; i < n; i++) {
             double sum = 0;
             for (unsigned int j = 0; j < n; j++) {
@@ -444,9 +449,16 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * (*x)(j);
                 }
             }
-            x->set(i, (b(i) - sum) / A(i, i));
+            r->set(i, b(i) - sum);
+            x->set(i, ((*r)(i) / A(i, i)));
         }
+        double resNorm = l2Norm(*r);
+        if (resNorm <= tol * bNorm) {
+            stop = true;
+        }
+        k++;
     }
+    std::cout << "final GS k " << k << std::endl;
     return *x;
 }
 

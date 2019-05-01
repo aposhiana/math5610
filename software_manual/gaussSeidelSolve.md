@@ -14,6 +14,8 @@ To use this function, include the correct header file at the top of your file as
 **Input:**
 1. `A` : Array of doubles of dimensionality n x n
 2. `b` : Vector of doubles of dimensionality n x 1
+3. `tol` : double precision scalar used to stop before the maximum number of iterations if the relative norm of the residual is less than this tolerance.
+4. `maxiter` : unsigned int representing the maximum number of iterations
 
 **Output:** A vector of doubles of dimensionality n x 1 representing the solution to the linear system
 
@@ -29,7 +31,7 @@ Vector<double>* b_iterative = new Vector<double>(10);
 b_iterative->makeRandom(1.0, 10.0);
 b_iterative->print();
 
-Vector<double> x_iterative_gs = gaussSeidelSolve(*A_iterative, *b_iterative, 100);
+Vector<double> x_iterative_gs = gaussSeidelSolve(*A_iterative, *b_iterative, 0, 100);
 std::cout << "x_iterative_gs found using Gauss-Seidel: " << std::endl;
 x_iterative_gs.print();
 ```
@@ -75,12 +77,17 @@ x_iterative_gs found using Gauss-Seidel:
 See [LinearSolvers.cpp on GitHub](https://github.com/aposhiana/math5610/blob/master/src/lib/LinearSolvers.cpp)
 ```
 Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
-                unsigned int maxiter) {
+                double tol, unsigned int maxiter) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
+    double bNorm = l2Norm(b);
     Vector<double>* x = new Vector<double>(n);
+    Vector<double>* r = new Vector<double>(n, true);
+    r->makeZeros();
     x->makeRandom(-10.0, 10.0); // Random initial x
-    for (unsigned int k = 0; k < maxiter; k++) {
+    bool stop = false;
+    unsigned int k = 0;
+    while (!stop && k < maxiter) {
         for (unsigned int i = 0; i < n; i++) {
             double sum = 0;
             for (unsigned int j = 0; j < n; j++) {
@@ -88,8 +95,14 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * (*x)(j);
                 }
             }
-            x->set(i, (b(i) - sum) / A(i, i));
+            r->set(i, b(i) - sum);
+            x->set(i, ((*r)(i) / A(i, i)));
         }
+        double resNorm = l2Norm(*r);
+        if (resNorm <= tol * bNorm) {
+            stop = true;
+        }
+        k++;
     }
     return *x;
 }

@@ -121,7 +121,6 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         tempPtr = nullptr;
         k++;
     }
-    std::cout << "final k " << k << std::endl;
     double** x_array = new double*[1];
     x_array[0] = x;
     Vector<double>* xVector = new Vector<double>(x_array, n);

@@ -26,7 +26,7 @@ void squareModifiedGramSchmidt(DenseArray<double>& A, DenseArray<double>& Q,
 Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                 double tol, unsigned int maxiter);
 Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
-                unsigned int maxiter);
+                double tol, unsigned int maxiter);
 Array<double>* steepestDescentSolve(Array<double>& A, Vector<double>& b,
                 unsigned int maxiter);
 Vector<double>* cg(Array<double>& A, Vector<double>& b, double tol);

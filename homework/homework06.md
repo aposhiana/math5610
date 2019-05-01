@@ -34,7 +34,7 @@
 
     Below is the code for solving the system in problem 6 using Gauss-Seidel and the corresponding output.
     ```
-    Vector<double> x_gs_large = gaussSeidelSolve(*A_iterative_large, *b_iterative_large, 5000);
+    Vector<double> x_gs_large = gaussSeidelSolve(*A_iterative_large, *b_iterative_large, 0, 5000);
     std::cout << "x_gs_large found using Gauss-Seidel: " << std::endl;
     x_gs_large.print();
     ```
