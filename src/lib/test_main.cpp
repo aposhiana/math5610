@@ -635,5 +635,20 @@ int main() {
     double hil12Kappa = estimate2NormConditionNumber(*hil12, 0.000001, 10000);
     std::cout << "hil12Kappa: " << hil12Kappa << std::endl;
 
+    // Medium tests
+    // std::cout << "A_iterative_medium: " << std::endl;
+    // DenseArray<double>* A_iterative_medium = new DenseArray<double>(600);
+    // A_iterative_medium->makeRandom(-100.0, 100.0);
+
+    // std::cout << "b_iterative_medium for Iterative methods: " << std::endl;
+    // Vector<double>* b_iterative_medium = new Vector<double>(600);
+    // b_iterative_medium->makeRandom(-100.0, 100.0);
+
+    // std::cout << "Jacobi tol 10: " << std::endl;
+    // Vector<double> x_js001 = jacobiSolve(*A_iterative_medium, *b_iterative_medium, 10, 1000);
+
+    // std::cout << "Gauss-Seidel tol 20:: " << std::endl;
+    // Vector<double> x_gs001 = gaussSeidelSolve(*A_iterative_medium, *b_iterative_medium, 20, 1000);
+
     return 0;
 }
