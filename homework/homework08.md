@@ -76,7 +76,9 @@ Output from lines above
     | 200         | 0.882786          | 25.6918            |
     | 300         | 1.85088           | 315.301            |
     ```
+
     Below is the code I used to perform the tests. For the timing methods, I `#`-included `chrono` from the C++ standard library.
+
     ```
     for (unsigned int size = 100; size < 400; size += 100) {
         DenseArray<double>* A_eig_timing = new DenseArray<double>(size);
