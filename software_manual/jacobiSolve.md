@@ -9,7 +9,7 @@ To use this function, include the correct header file at the top of your file as
 #include "LinearSolvers.hpp"
 ```
 
-**Description/Purpose:** The purpose of this function is to compute and return an approximate solution to a linear system of equations using the iterative Jacobi method.
+**Description/Purpose:** The purpose of this function is to compute and return an approximate solution to a linear system of equations using the iterative Jacobi method. Early stopping is implemented using the tolerance passed. The tolerance represents the value for which the magnitude of the residual must be less than in order to stop iterating. 
 
 **Input:**
 1. `A` : Array of doubles of dimensionality n x n
@@ -86,8 +86,8 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x[i] = getRandDouble(-10, 10);
     }
     double* x_next = new double[n];
+    // Use residual to estimate error and implement early stopping
     double* r = new double[n];
-    double bNorm = l2Norm(b);
 
     bool stop = false;
     unsigned int k = 0;
@@ -99,8 +99,8 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * x[j];
                 }
             }
-            r[i] = (b(i) - sum);
-            x_next[i] = r[i] / A(i, i);
+            r[i] = (b(i) - (sum + A(i, i) * x[i]));
+            x_next[i] = (b(i) - sum) / A(i, i);
         }
         // Compute norm of residual for possible early stopping
         double resNorm = 0.0;
@@ -108,7 +108,12 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
             resNorm += r[i] * r[i];
         }
         resNorm = sqrt(resNorm);
-        if (resNorm <= tol * bNorm) {
+        // Print norm of residual at current step
+        // if (k % 1 == 0) {
+        //     std::cout << "JI resNorm " << resNorm << std::endl;
+        // }
+
+        if (resNorm <= tol) {
             stop = true;
         }
 
@@ -121,6 +126,9 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         tempPtr = nullptr;
         k++;
     }
+    // Report final k
+    // std::cout << "Final number of iterations for Jacobi: " << k << std::endl;
+
     double** x_array = new double*[1];
     x_array[0] = x;
     Vector<double>* xVector = new Vector<double>(x_array, n);

@@ -9,7 +9,7 @@ To use this function, include the correct header file at the top of your file as
 #include "LinearSolvers.hpp"
 ```
 
-**Description/Purpose:** The purpose of this function is to compute and return an approximate solution to a linear system of equations using the iterative Gauss-Seidel method.
+**Description/Purpose:** The purpose of this function is to compute and return an approximate solution to a linear system of equations using the iterative Gauss-Seidel method. Early stopping is implemented using the tolerance passed. The tolerance represents the value for which the magnitude of the residual must be less than in order to stop iterating. 
 
 **Input:**
 1. `A` : Array of doubles of dimensionality n x n
@@ -80,10 +80,10 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                 double tol, unsigned int maxiter) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
-    double bNorm = l2Norm(b);
     Vector<double>* x = new Vector<double>(n);
+    // Use residual to estimate error and implement early stopping
     Vector<double>* r = new Vector<double>(n, true);
-    r->makeZeros();
+    r->makeZeros(); // Initialize residual to something
     x->makeRandom(-10.0, 10.0); // Random initial x
     bool stop = false;
     unsigned int k = 0;
@@ -95,15 +95,24 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * (*x)(j);
                 }
             }
-            r->set(i, b(i) - sum);
-            x->set(i, ((*r)(i) / A(i, i)));
+            r->set(i, b(i) - (sum + A(i, i) * (*x)(i)));
+            x->set(i, ((b(i) - sum) / A(i, i)));
         }
+        // Compute norm of residual for possible early stopping
         double resNorm = l2Norm(*r);
-        if (resNorm <= tol * bNorm) {
+        // Print norm of residual at current step
+        // if (k % 1 == 0) {
+        //     std::cout << "GS resNorm " << resNorm << std::endl;
+        // }
+
+        if (resNorm <= tol) {
             stop = true;
         }
         k++;
     }
+    // Report final k
+    // std::cout << "Final number of iterations for Gauss Seidel: " << k << std::endl;
+
     return *x;
 }
 ```

@@ -637,35 +637,31 @@ int main() {
 
     // Medium tests
     std::cout << "A_iterative_medium: " << std::endl;
-    DenseArray<double>* A_iterative_medium = new DenseArray<double>(600);
-    A_iterative_medium->makeRandomSymmetricDD(-10.0, 10.0);
+    DenseArray<double>* A_iterative_medium = new DenseArray<double>(10000);
+    A_iterative_medium->makeRandomDD(-10.0, 10.0);
     // Array<double>* A_iterative_medium = getRandomSPDArray(6);
     // A_iterative_medium->print();
 
-    DenseArray<double>* L_itermed = new DenseArray<double>(600);
-    DenseArray<double>* U_itermed = new DenseArray<double>(600);
-    lu(*A_iterative_medium, *L_itermed, *U_itermed);
-    // std::cout << "L_itermed " << std::endl;
-    // L_4->print();
-    // std::cout << "U_itermed " << std::endl;
-    // U_4->print();
-
     std::cout << "b_iterative_medium for Iterative methods: " << std::endl;
-    Vector<double>* b_iterative_medium = new Vector<double>(600);
+    Vector<double>* b_iterative_medium = new Vector<double>(10000);
     b_iterative_medium->makeRandom(-10.0, 10.0);
     // b_iterative_medium->print();
 
-    std::cout << "x found with LU: " << std::endl;
-    Vector<double> x_itermed = luSolve(*L_itermed, *U_itermed, *b_iterative_medium);
-    x_itermed.print();
+    // DenseArray<double>* L_itermed = new DenseArray<double>(600);
+    // DenseArray<double>* U_itermed = new DenseArray<double>(600);
+    // lu(*A_iterative_medium, *L_itermed, *U_itermed);
 
-    std::cout << "Jacobi tol 0.01: " << std::endl;
-    Vector<double> x_js001 = jacobiSolve(*A_iterative_medium, *b_iterative_medium, 0.01, 1000);
-    x_js001.print();
+    // std::cout << "x found with LU: " << std::endl;
+    // Vector<double> x_itermed = luSolve(*L_itermed, *U_itermed, *b_iterative_medium);
+    // x_itermed.print();
 
-    std::cout << "Gauss-Seidel tol 0.01: " << std::endl;
-    Vector<double> x_gs001 = gaussSeidelSolve(*A_iterative_medium, *b_iterative_medium, 0.01, 1000);
-    x_gs001.print();
+    std::cout << "Jacobi" << std::endl;
+    Vector<double> x_js001 = jacobiSolve(*A_iterative_medium, *b_iterative_medium, 1e-8, 1000);
+    // x_js001.print();
+
+    std::cout << "Gauss-Seidel" << std::endl;
+    Vector<double> x_gs001 = gaussSeidelSolve(*A_iterative_medium, *b_iterative_medium, 1e-8, 1000);
+    // x_gs001.print();
 
     return 0;
 }
