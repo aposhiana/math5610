@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <chrono>
 
 #include "MachineEpsilon.hpp"
 #include "DenseArray.hpp"
@@ -636,32 +637,45 @@ int main() {
     std::cout << "hil12Kappa: " << hil12Kappa << std::endl;
 
     // Medium tests
+    unsigned int A_med_size = 200;
     std::cout << "A_iterative_medium: " << std::endl;
-    DenseArray<double>* A_iterative_medium = new DenseArray<double>(10000);
+    DenseArray<double>* A_iterative_medium = new DenseArray<double>(A_med_size);
     A_iterative_medium->makeRandomDD(-10.0, 10.0);
     // Array<double>* A_iterative_medium = getRandomSPDArray(6);
     // A_iterative_medium->print();
 
     std::cout << "b_iterative_medium for Iterative methods: " << std::endl;
-    Vector<double>* b_iterative_medium = new Vector<double>(10000);
+    Vector<double>* b_iterative_medium = new Vector<double>(A_med_size);
     b_iterative_medium->makeRandom(-10.0, 10.0);
     // b_iterative_medium->print();
 
-    // DenseArray<double>* L_itermed = new DenseArray<double>(600);
-    // DenseArray<double>* U_itermed = new DenseArray<double>(600);
-    // lu(*A_iterative_medium, *L_itermed, *U_itermed);
+    DenseArray<double>* L_itermed = new DenseArray<double>(A_med_size);
+    DenseArray<double>* U_itermed = new DenseArray<double>(A_med_size);
 
-    // std::cout << "x found with LU: " << std::endl;
-    // Vector<double> x_itermed = luSolve(*L_itermed, *U_itermed, *b_iterative_medium);
-    // x_itermed.print();
+    std::cout << "Gaussian Elimination" << std::endl;
+    auto geStart = std::chrono::high_resolution_clock::now();
+    lu(*A_iterative_medium, *L_itermed, *U_itermed);
+    Vector<double> x_ge001 = luSolve(*L_itermed, *U_itermed, *b_iterative_medium);
+    auto geEnd = std::chrono::high_resolution_clock::now();
+    // x_ge001.print();
+    std::chrono::duration<double> geTime = geEnd - geStart;
+    std::cout << "Gaussian Elimination time: " << geTime.count() << std::endl;
 
     std::cout << "Jacobi" << std::endl;
-    Vector<double> x_js001 = jacobiSolve(*A_iterative_medium, *b_iterative_medium, 1e-8, 1000);
+    auto jsStart = std::chrono::high_resolution_clock::now();
+    Vector<double> x_js001 = jacobiSolve(*A_iterative_medium, *b_iterative_medium, 1e-6, 1000);
+    auto jsEnd = std::chrono::high_resolution_clock::now();
     // x_js001.print();
+    std::chrono::duration<double> jsTime = jsEnd - jsStart;
+    std::cout << "Jacobi time: " << jsTime.count() << std::endl;
 
     std::cout << "Gauss-Seidel" << std::endl;
-    Vector<double> x_gs001 = gaussSeidelSolve(*A_iterative_medium, *b_iterative_medium, 1e-8, 1000);
+    auto gsStart = std::chrono::high_resolution_clock::now();
+    Vector<double> x_gs001 = gaussSeidelSolve(*A_iterative_medium, *b_iterative_medium, 1e-6, 1000);
+    auto gsEnd = std::chrono::high_resolution_clock::now();
     // x_gs001.print();
+    std::chrono::duration<double> gsTime = gsEnd - gsStart;
+    std::cout << "Gauss-Seidel time: " << gsTime.count() << std::endl;
 
     return 0;
 }

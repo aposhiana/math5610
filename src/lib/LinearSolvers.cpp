@@ -428,7 +428,7 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         k++;
     }
     // Report final k
-    std::cout << "Final number of iterations for Jacobi: " << k << std::endl;
+    // std::cout << "Final number of iterations for Jacobi: " << k << std::endl;
 
     double** x_array = new double*[1];
     x_array[0] = x;
@@ -472,7 +472,7 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
         k++;
     }
     // Report final k
-    std::cout << "Final number of iterations for Gauss Seidel: " << k << std::endl;
+    // std::cout << "Final number of iterations for Gauss Seidel: " << k << std::endl;
 
     return *x;
 }

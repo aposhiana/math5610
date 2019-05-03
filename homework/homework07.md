@@ -1,7 +1,58 @@
 ### Seventh task set
 
-1. 
-2. 
+1. I compared the time taken on my computer for Gaussian elimination, Jacobi iteration, and Gauss-Seidel to solve linear systems with diagonally dominant coefficient matrices of various sizes. The tolerance for the iterative methods was 1e-6. The results are tabulated below. Note that there are intersections for the Gaussian elimination curve with the Gauss-Seidel and Jacobi curves. For the matrix of size ten, Gaussian elimination outperforms both Jacobi and Gauss-Seidel. For the matrices larger than the 10 tested, both iterative methods always outperform Gaussian elimination. Note that the intersections would occur later if I used a faster implementation of Gaussian elimination. Various different strategies were taken to implement the three different algorithms; therefore, for a better comparison, the routines should be re-implemented to use similar techniques for things such as memory management and use of objects versus raw arrays.
+
+    ```
+    | Matrix size | Gaussian Elimination | Jacobi      | Gauss-Seidel |
+    |-------------|----------------------|-------------|--------------|
+    | 10          | 7.61e-05             | 0.0009113   | 0.000578     |
+    | 50          | 0.0030244            | 0.0029411   | 0.001161     |
+    | 100         | 0.0123754            | 0.010248    | 0.0048755    |
+    | 200         | 0.106681             | 0.0301007   | 0.0184433    |
+    | 500         | 1.54027              | 0.391178    | 0.259531     |
+    | 800         | 6.16774              | 0.475738    | 0.413726     |
+    | 1000        | 11.0862              | 0.795324    | 0.514353     |
+    ```
+    !['ge vs iter graph'](./itervsge.png)
+    Below is the code that I used to conduct these tests. The A_med_size variable was changed acoording to the test. For the timing methods, I `#` included `chrono` from the C++ standard library.
+    ```
+    // Medium tests
+    unsigned int A_med_size = 200;
+    std::cout << "A_iterative_medium: " << std::endl;
+    DenseArray<double>* A_iterative_medium = new DenseArray<double>(A_med_size);
+    A_iterative_medium->makeRandomDD(-10.0, 10.0);
+
+    std::cout << "b_iterative_medium for Iterative methods: " << std::endl;
+    Vector<double>* b_iterative_medium = new Vector<double>(A_med_size);
+    b_iterative_medium->makeRandom(-10.0, 10.0);
+
+    DenseArray<double>* L_itermed = new DenseArray<double>(A_med_size);
+    DenseArray<double>* U_itermed = new DenseArray<double>(A_med_size);
+
+    std::cout << "Gaussian Elimination" << std::endl;
+    auto geStart = std::chrono::high_resolution_clock::now();
+    lu(*A_iterative_medium, *L_itermed, *U_itermed);
+    Vector<double> x_ge001 = luSolve(*L_itermed, *U_itermed, *b_iterative_medium);
+    auto geEnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> geTime = geEnd - geStart;
+    std::cout << "Gaussian Elimination time: " << geTime.count() << std::endl;
+
+    std::cout << "Jacobi" << std::endl;
+    auto jsStart = std::chrono::high_resolution_clock::now();
+    Vector<double> x_js001 = jacobiSolve(*A_iterative_medium, *b_iterative_medium, 1e-6, 1000);
+    auto jsEnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> jsTime = jsEnd - jsStart;
+    std::cout << "Jacobi time: " << jsTime.count() << std::endl;
+
+    std::cout << "Gauss-Seidel" << std::endl;
+    auto gsStart = std::chrono::high_resolution_clock::now();
+    Vector<double> x_gs001 = gaussSeidelSolve(*A_iterative_medium, *b_iterative_medium, 1e-6, 1000);
+    auto gsEnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> gsTime = gsEnd - gsStart;
+    std::cout << "Gauss-Seidel time: " << gsTime.count() << std::endl;
+    ```
+
+2. See problem 1 above
 3. I implemented a routine called `steepestDescentSolve` that computes and returns an approximate solution to a linear system of equations using the method of steepest descent. [See my software manual entry](../software_manual/steepestDescentSolve.md).
 4. 
 5. I implemented a routine called `cg` that computes and returns an approximate solution to a linear system of equations using the conjugate gradient method. [See my software manual entry](../software_manual/cg.md).
