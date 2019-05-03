@@ -387,6 +387,7 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         x[i] = getRandDouble(-10, 10);
     }
     double* x_next = new double[n];
+    // Use residual to estimate error and implement early stopping
     double* r = new double[n];
 
     bool stop = false;
@@ -399,19 +400,20 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * x[j];
                 }
             }
-            r[i] = (b(i) - sum);
-            x_next[i] = r[i] / A(i, i);
+            r[i] = (b(i) - (sum + A(i, i) * x[i]));
+            x_next[i] = (b(i) - sum) / A(i, i);
         }
         // Compute norm of residual for possible early stopping
         double resNorm = 0.0;
         for (unsigned int i = 0; i < n; i++) {
-            // std::cout << "r[i]: " << r[i] << std::endl;
             resNorm += r[i] * r[i];
         }
         resNorm = sqrt(resNorm);
-        if (k % 20 == 0) {
-            std::cout << "JI resNorm " << resNorm << std::endl;
-        }
+        // Print norm of residual at current step
+        // if (k % 1 == 0) {
+        //     std::cout << "JI resNorm " << resNorm << std::endl;
+        // }
+
         if (resNorm <= tol) {
             stop = true;
         }
@@ -425,7 +427,9 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         tempPtr = nullptr;
         k++;
     }
-    std::cout << "final k " << k << std::endl;
+    // Report final k
+    std::cout << "Final number of iterations for Jacobi: " << k << std::endl;
+
     double** x_array = new double*[1];
     x_array[0] = x;
     Vector<double>* xVector = new Vector<double>(x_array, n);
@@ -438,8 +442,9 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
     Vector<double>* x = new Vector<double>(n);
+    // Use residual to estimate error and implement early stopping
     Vector<double>* r = new Vector<double>(n, true);
-    r->makeZeros();
+    r->makeZeros(); // Initialize residual to something
     x->makeRandom(-10.0, 10.0); // Random initial x
     bool stop = false;
     unsigned int k = 0;
@@ -451,22 +456,24 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * (*x)(j);
                 }
             }
-            // r->set(i, b(i) - sum);
             r->set(i, b(i) - (sum + A(i, i) * (*x)(i)));
             x->set(i, ((b(i) - sum) / A(i, i)));
         }
+        // Compute norm of residual for possible early stopping
         double resNorm = l2Norm(*r);
-        if (k % 1 == 0) {
-            // std::cout << "r " << std::endl;
-            // r->print();
-            std::cout << "GS resNorm " << resNorm << std::endl;
-        }
+        // Print norm of residual at current step
+        // if (k % 1 == 0) {
+        //     std::cout << "GS resNorm " << resNorm << std::endl;
+        // }
+
         if (resNorm <= tol) {
             stop = true;
         }
         k++;
     }
-    std::cout << "final GS k " << k << std::endl;
+    // Report final k
+    std::cout << "Final number of iterations for Gauss Seidel: " << k << std::endl;
+
     return *x;
 }
 
