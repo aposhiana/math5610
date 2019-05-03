@@ -388,7 +388,6 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
     }
     double* x_next = new double[n];
     double* r = new double[n];
-    double bNorm = l2Norm(b);
 
     bool stop = false;
     unsigned int k = 0;
@@ -406,10 +405,14 @@ Vector<double>& jacobiSolve(Array<double>& A, Vector<double>& b,
         // Compute norm of residual for possible early stopping
         double resNorm = 0.0;
         for (unsigned int i = 0; i < n; i++) {
+            // std::cout << "r[i]: " << r[i] << std::endl;
             resNorm += r[i] * r[i];
         }
         resNorm = sqrt(resNorm);
-        if (resNorm <= tol * bNorm) {
+        if (k % 20 == 0) {
+            std::cout << "JI resNorm " << resNorm << std::endl;
+        }
+        if (resNorm <= tol) {
             stop = true;
         }
 
@@ -434,7 +437,6 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                 double tol, unsigned int maxiter) {
     assertLinearSystem(A, b);
     unsigned int n = b.rowDim();
-    double bNorm = l2Norm(b);
     Vector<double>* x = new Vector<double>(n);
     Vector<double>* r = new Vector<double>(n, true);
     r->makeZeros();
@@ -449,11 +451,17 @@ Vector<double>& gaussSeidelSolve(Array<double>& A, Vector<double>& b,
                     sum += A(i, j) * (*x)(j);
                 }
             }
-            r->set(i, b(i) - sum);
-            x->set(i, ((*r)(i) / A(i, i)));
+            // r->set(i, b(i) - sum);
+            r->set(i, b(i) - (sum + A(i, i) * (*x)(i)));
+            x->set(i, ((b(i) - sum) / A(i, i)));
         }
         double resNorm = l2Norm(*r);
-        if (resNorm <= tol * bNorm) {
+        if (k % 1 == 0) {
+            // std::cout << "r " << std::endl;
+            // r->print();
+            std::cout << "GS resNorm " << resNorm << std::endl;
+        }
+        if (resNorm <= tol) {
             stop = true;
         }
         k++;
