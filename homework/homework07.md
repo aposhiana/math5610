@@ -1,6 +1,6 @@
 ### Seventh task set
 
-1. I compared the time taken on my computer for Gaussian elimination, Jacobi iteration, and Gauss-Seidel to solve linear systems with diagonally dominant coefficient matrices of various sizes. The tolerance for the iterative methods was 1e-6. The results are tabulated below. Note that there are intersections for the Gaussian elimination curve with the Gauss-Seidel and Jacobi curves. For the matrix of size ten, Gaussian elimination outperforms both Jacobi and Gauss-Seidel. For the matrices larger than the 10 tested, both iterative methods always outperform Gaussian elimination. Note that the intersections would occur later if I used a faster implementation of Gaussian elimination. Various different strategies were taken to implement the three different algorithms; therefore, for a better comparison, the routines should be re-implemented to use similar techniques for things such as memory management and use of objects versus raw arrays.
+1. I compared the time taken on my computer for Gaussian elimination, Jacobi iteration, and Gauss-Seidel to solve linear systems with diagonally dominant coefficient matrices of various sizes. The tolerance for the iterative methods was 1e-6. The results are tabulated below. The times are listed under the names of the algorithm and are in seconds. Note that there are intersections for the Gaussian elimination curve with the Gauss-Seidel and Jacobi curves. For the matrix of size ten, Gaussian elimination outperforms both Jacobi and Gauss-Seidel. For the matrices larger than the 10 tested, both iterative methods always outperform Gaussian elimination. Note that the intersections would occur later if I used a faster implementation of Gaussian elimination. Various different strategies were taken to implement the three different algorithms; therefore, for a better comparison, the routines should be re-implemented to use similar techniques for things such as memory management and use of objects versus raw arrays.
 
     ```
     | Matrix size | Gaussian Elimination | Jacobi      | Gauss-Seidel |
@@ -14,7 +14,7 @@
     | 1000        | 11.0862              | 0.795324    | 0.514353     |
     ```
     !['ge vs iter graph'](./itervsge.png)
-    Below is the code that I used to conduct these tests. The A_med_size variable was changed acoording to the test. For the timing methods, I `#` included `chrono` from the C++ standard library.
+    Below is the code that I used to conduct these tests. The A_med_size variable was changed acoording to the test. For the timing methods, I `#`-included `chrono` from the C++ standard library.
     ```
     // Medium tests
     unsigned int A_med_size = 200;

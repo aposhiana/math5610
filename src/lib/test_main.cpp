@@ -520,12 +520,16 @@ int main() {
     x_spd_cg->print();
 
     std::cout << "A_eig" << std::endl;
-    Array<double>* A_eig = getRandomSPDArray(3);
+    // Array<double>* A_eig = getRandomSPDArray(3);
+    DenseArray<double>* A_eig = new DenseArray<double>(10);
+    A_eig->makeRandomDD(-50, 50);
     A_eig->print();
     double A_eig_lambda = powerEigenSolve(*A_eig, 0.0001, 10000);
     std::cout << "A_eig_lambda found using power method: " << A_eig_lambda << std::endl;
     double A_eig_smallest = inverseEigenSolve(*A_eig, 0, 0.000001, 10000);
     std::cout << "A_eig_smallest found using inverse iteration: " << A_eig_smallest << std::endl;
+    double A_eig_smallest_jacobi = inverseEigenJacobiSolve(*A_eig, 0, 0.000001, 1000);
+    std::cout << "JACOBI VERSION OF ABOVE: " << A_eig_smallest_jacobi << std::endl;
     double A_eig_rayleigh = rayleighEigenSolve(*A_eig, 0.000001, 1000);
     std::cout << "eigenvalue found with Rayleigh Quotient Iteration: " << A_eig_rayleigh << std::endl;
 
@@ -637,7 +641,7 @@ int main() {
     std::cout << "hil12Kappa: " << hil12Kappa << std::endl;
 
     // Medium tests
-    unsigned int A_med_size = 200;
+    unsigned int A_med_size = 10;
     std::cout << "A_iterative_medium: " << std::endl;
     DenseArray<double>* A_iterative_medium = new DenseArray<double>(A_med_size);
     A_iterative_medium->makeRandomDD(-10.0, 10.0);
@@ -677,5 +681,22 @@ int main() {
     std::chrono::duration<double> gsTime = gsEnd - gsStart;
     std::cout << "Gauss-Seidel time: " << gsTime.count() << std::endl;
 
+
+    // for (unsigned int size = 100; size < 400; size += 100) {
+    //     DenseArray<double>* A_eig_timing = new DenseArray<double>(size);
+    //     A_eig_timing->makeRandom(-100, 100);
+
+    //     auto invStart = std::chrono::high_resolution_clock::now();
+    //     double eig_inv = inverseEigenSolve(*A_eig_timing, 0, 0.000001, 1000);
+    //     auto invEnd = std::chrono::high_resolution_clock::now();
+    //     std::chrono::duration<double> invTime = invEnd - invStart;
+    //     std::cout << "Inverse time for " << size << ": " << invTime.count() << std::endl;
+
+    //     auto rayStart = std::chrono::high_resolution_clock::now();
+    //     double eig_ray = rayleighEigenSolve(*A_eig_timing, 0.000001, 1000);
+    //     auto rayEnd = std::chrono::high_resolution_clock::now();
+    //     std::chrono::duration<double> rayTime = rayEnd - rayStart;
+    //     std::cout << "Rayleigh time for " << size << ": " << rayTime.count() << std::endl;
+    // }
     return 0;
 }

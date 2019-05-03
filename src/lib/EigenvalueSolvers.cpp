@@ -160,3 +160,56 @@ double rayleighEigenSolve(Array<double>& A, double tol, unsigned int maxiter) {
     delete[] y;
     return lambda;
 }
+
+double inverseEigenJacobiSolve(Array<double>& A, double alpha, double tol,
+                unsigned int maxiter) {
+    unsigned int n = A.rowDim();
+    double** A_raw_member = A.getRawArray();
+
+    // Get B = A - alpha * I
+    double** B_raw_member = new double*[n];
+    for (unsigned int i = 0; i < n; i++) {
+        B_raw_member[i] = new double[n];
+        for (unsigned int j = 0; j < n; j++) {
+            B_raw_member[i][j] = A_raw_member[i][j];
+            if (j == i) {
+                B_raw_member[i][j] -= alpha;
+            }
+        }
+    }
+    DenseArray<double>* B = new DenseArray<double>(B_raw_member, n);
+
+    // Initializations
+    Vector<double>* v = new Vector<double>(n);
+    v->makeRandom();
+    double* v_raw_member = v->getRawArray()[0];
+    double error = 10 * tol;
+    double lambda = 0.0;
+    double* y = nullptr;
+
+    unsigned int k = 0;
+    while (error > tol && k < maxiter) {
+        Vector<double> v_tilda = jacobiSolve(*B, *v, 1e-6, 1000);
+        double v_tilda_norm = l2Norm(v_tilda);
+
+        // Update v
+        for (unsigned int i = 0; i < n; i++) {
+            v->set(i, v_tilda(i) / v_tilda_norm);
+        }
+
+        // Get next lambda
+        if (y != nullptr) {
+            delete[] y;
+        }
+        y = rawMatVecProduct(A_raw_member, v_raw_member, n, n);
+        double lambda_next = rawDot(v_raw_member, y, n);
+
+        // Update error, lambda, and k
+        error = std::fabs(lambda_next - lambda);
+        lambda = lambda_next;
+        k++;
+    }
+    delete v;
+    delete[] y;
+    return lambda;
+}
