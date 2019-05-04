@@ -20,12 +20,10 @@
     | 1300        | 23.4234                    | 24.0034                |
     | 1400        | 28.9636                    | 29.5553                |
     | 1500        | 36.7691                    | 38.355                 |
+    | 10k         | 10296.4                    | 10090.4                |
     ```
-    
-    TODO: Add results for 10k test.
 
-    The code that I used to test the systems is given below. For the timing methods, I `#`-included `chrono` from the C++ standard library.
-    <!-- The code was slightly modified to change the size to 10k for the final test. -->
+    The code that I used to test the systems is given below. The code was slightly modified to change the size to 10k for the final test. For the timing methods, I `#`-included `chrono` from the C++ standard library.
     ```
         for (unsigned int size = 100; size < 1600; size += 100) {
             DenseArray<double>* A_7 = new DenseArray<double>(size);
