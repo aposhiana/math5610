@@ -118,6 +118,39 @@ Vector<double>& solveLinearSystem(DenseArray<double>& AB) {
     return backsub(AB);
 }
 
+Vector<double>& solveLinearSystemInline(DenseArray<double>& A, Vector<double>& b) {
+    // TODO: Add scaled partial pivoting
+    assertLinearSystem(A, b);
+    unsigned int n = A.rowDim();
+    for (unsigned int pivotIdx = 0; pivotIdx < n; pivotIdx++) {
+        double pivot = A(pivotIdx, pivotIdx);
+        for (unsigned int i = pivotIdx + 1; i < n; i++) {
+            double l = A(i, pivotIdx) / pivot;
+            A.set(i, pivotIdx, 0.0);
+            for (unsigned int j = pivotIdx + 1; j < n; j++) {
+                double oldVal = A(i, j);
+                A.set(i, j, oldVal - l * A(pivotIdx, j));
+            }
+            double oldBVal = b(i);
+            b.set(i, oldBVal - l * b(pivotIdx));
+        }
+    }
+    Vector<double>* x = new Vector<double>(n, true);
+    unsigned int lastIndex = n - 1;
+    double x_n = b(lastIndex, 0) / A(lastIndex, lastIndex);
+    x->set(lastIndex, x_n);
+    // Note that the loop ends when i is negative
+    for (int i = lastIndex - 1; i >= 0; i--) {
+        double sum = 0.0;
+        for (unsigned int j = i + 1; j < n; j++) {
+            sum += A(i, j) * (*x)(j);
+        }
+        double x_i = (b(i, 0) - sum) / A(i, i);
+        x->set(i, x_i);
+    }
+    return *x;
+}
+
 // Get the LU factorization for A. L and U passed must simply have correct
 // dimensionality
 void lu(DenseArray<double>& A, DenseArray<double>& L, DenseArray<double>& U) {

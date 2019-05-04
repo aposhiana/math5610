@@ -42,6 +42,7 @@ by Andrew Aposhian
     * [forwardsub](forwardsub.md)
     * [rowReduce](rowReduce.md)
     * [solveLinearSystem](solveLinearSystem.md)
+    * [solveLinearSystemInline](solveLinearSystemInline.md)
     * [lu](lu.md)
     * [luSolve](luSolve.md)
     * [cholesky](cholesky.md)
@@ -56,4 +57,5 @@ by Andrew Aposhian
 * **Eigenvalue Solvers**
     * [powerEigenSolve](powerEigenSolve.md)
     * [inverseEigenSolve](inverseEigenSolve.md)
+    * [inverseEigenJacobiSolve](inverseEigenJacobiSolve.md)
     * [rayleighEigenSolve](rayleighEigenSolve.md)

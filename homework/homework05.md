@@ -1,6 +1,54 @@
 ### Fifth task set
 
-1. 
+1. I implemented a routine called `solveLinearSystemInline`, which does the same thing as `solveLinearSystem` but in an inline fashion without calling `rowReduce` and `backsub`. [See my software manual entry for solveLinearSystemInline](../software_manual/solveLinearSystemInline.md). I then used timing methods to test the performance of the inline solver versus the non-inline one I previously made on diagonally dominant systems. The results for the test are shown in the table below. I did not see any major differences in performance between the two routines. Note that small differences are likely primarily due to the fact that for each matrix size, I run each method on a different randomly generated matrix, which is a weakness in my testing method. Still, my careful memory management helps mitigate performance hits in the non-inline version because matrices and vectors are passed by reference. This likely explains why there is no notable difference.
+
+    ```
+    | Matrix size | Non-inline time (secondes) | Inline time (secondes) |
+    |-------------|----------------------------|------------------------|
+    | 100         | 0.0158875                  | 0.0123084              |
+    | 200         | 0.0952901                  | 0.09255                |
+    | 300         | 0.284401                   | 0.292229               |
+    | 400         | 0.652581                   | 0.650894               |
+    | 500         | 1.275                      | 1.24139                |
+    | 600         | 2.20617                    | 2.14891                |
+    | 700         | 3.39894                    | 3.40654                |
+    | 800         | 5.18551                    | 5.47892                |
+    | 900         | 8.38311                    | 8.01148                |
+    | 1000        | 10.5383                    | 10.5108                |
+    | 1100        | 13.6662                    | 14.0219                |
+    | 1200        | 18.1564                    | 18.5245                |
+    | 1300        | 23.4234                    | 24.0034                |
+    | 1400        | 28.9636                    | 29.5553                |
+    | 1500        | 36.7691                    | 38.355                 |
+    ```
+    
+    TODO: Add results for 10k test.
+
+    The code that I used to test the systems is given below. For the timing methods, I `#`-included `chrono` from the C++ standard library.
+    <!-- The code was slightly modified to change the size to 10k for the final test. -->
+    ```
+        for (unsigned int size = 100; size < 1600; size += 100) {
+            DenseArray<double>* A_7 = new DenseArray<double>(size);
+            A_7->makeRandomDD(-100.0, 100.0);
+            Vector<double>* b_7 = new Vector<double>(size);
+            b_7->makeRandom(-100.0, 100.0);
+            auto normalStart = std::chrono::high_resolution_clock::now();
+            Vector<double> x_a7 = solveLinearSystem(*A_7, *b_7);
+            auto normalEnd = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> normalTime = normalEnd - normalStart;
+            std::cout << "Normal time for " << size << ": " << normalTime.count() << std::endl;
+
+            DenseArray<double>* A_8 = new DenseArray<double>(size);
+            A_8->makeRandomDD(-100.0, 100.0);
+            Vector<double>* b_8 = new Vector<double>(size);
+            b_8->makeRandom(-100.0, 100.0);
+            auto inlineStart = std::chrono::high_resolution_clock::now();
+            Vector<double> x_a8 = solveLinearSystemInline(*A_8, *b_8);
+            auto inlineEnd = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> inlineTime = inlineEnd - inlineStart;
+            std::cout << "Inline time for " << size << ": " << inlineTime.count() << std::endl;
+        }
+    ```
 2. I implemented a routine called `lu` that gives the LU-factorization of a square matrix. I used scaled partial pivoting to improve the robustness of the method. [See my software manual entry](../software_manual/lu.md)
 3. I created routine called `luSolve` that takes the L and U matrices which can be found using the `lu` method as well as a left-hand b vector, then computes and returns the solution of the system of equations using the `backsub` and `forwardsub` methods. I did not do the LU factorization inside the routine so that the LU factorization can be performed once and reused for many calls of `luSolve` (for example I use it like this in my inverse iteration routine used for finding eigenvalues). [See my software manual entry](../software_manual/luSolve.md)
 4. I implemented a routine that generates and returns a symmetric, positive definite matrix of the dimensionality of a given integer. [See my software manual entry](../software_manual/getRandomSPDArray.md). Here is an example usage making a 110x110 matrix:

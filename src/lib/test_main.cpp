@@ -698,5 +698,29 @@ int main() {
     //     std::chrono::duration<double> rayTime = rayEnd - rayStart;
     //     std::cout << "Rayleigh time for " << size << ": " << rayTime.count() << std::endl;
     // }
+
+
+    for (unsigned int size = 10000; size < 10100; size += 100) {
+        DenseArray<double>* A_7 = new DenseArray<double>(size);
+        A_7->makeRandomDD(-100.0, 100.0);
+        Vector<double>* b_7 = new Vector<double>(size);
+        b_7->makeRandom(-100.0, 100.0);
+        auto normalStart = std::chrono::high_resolution_clock::now();
+        Vector<double> x_a7 = solveLinearSystem(*A_7, *b_7);
+        auto normalEnd = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> normalTime = normalEnd - normalStart;
+        std::cout << "Normal time for " << size << ": " << normalTime.count() << std::endl;
+
+        DenseArray<double>* A_8 = new DenseArray<double>(size);
+        A_8->makeRandomDD(-100.0, 100.0);
+        Vector<double>* b_8 = new Vector<double>(size);
+        b_8->makeRandom(-100.0, 100.0);
+        auto inlineStart = std::chrono::high_resolution_clock::now();
+        Vector<double> x_a8 = solveLinearSystemInline(*A_8, *b_8);
+        auto inlineEnd = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> inlineTime = inlineEnd - inlineStart;
+        std::cout << "Inline time for " << size << ": " << inlineTime.count() << std::endl;
+    }
+
     return 0;
 }
